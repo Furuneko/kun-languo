@@ -1,5 +1,13 @@
 from os import environ
 
+some_defaults = dict(
+    performance_fee=1,
+    bonus_fee=10,
+    worker_share=0.3,
+    manager_share=0.1,
+    pgg_coef=2,
+    pgg_endowment=20,
+)
 SESSION_CONFIGS = [
     dict(
         name='qualifier',
@@ -8,6 +16,7 @@ SESSION_CONFIGS = [
         app_sequence=['qualifier'],
         task='Decoding',
         task_params={'dict_length': 10, 'task_len': 5},
+        **some_defaults
     ),
     dict(
         name='full',
@@ -16,6 +25,7 @@ SESSION_CONFIGS = [
         app_sequence=['qualifier', 'main'],
         task='Decoding',
         task_params={'dict_length': 10, 'task_len': 5},
+        **some_defaults
     ),
 ]
 
@@ -25,7 +35,10 @@ SESSION_CONFIGS = [
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=1.00, participation_fee=0.00, doc=""
+    real_world_currency_per_point=.10,
+    participation_fee=10.00,
+    doc="",
+    use_browser_bots=False
 )
 
 # ISO-639 code
@@ -33,7 +46,7 @@ SESSION_CONFIG_DEFAULTS = dict(
 LANGUAGE_CODE = 'en'
 
 # e.g. EUR, GBP, CNY, JPY
-REAL_WORLD_CURRENCY_CODE = 'USD'
+REAL_WORLD_CURRENCY_CODE = 'CDN'
 USE_POINTS = True
 
 ADMIN_USERNAME = 'admin'

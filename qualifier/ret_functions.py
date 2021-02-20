@@ -33,9 +33,10 @@ class TaskGenerator:
 
     def __init__(self, **kwargs):
         self.body = self.get_body(**kwargs)
+
         self.correct_answer = self.get_correct_answer()
         self.html_body = self.get_html_body()
-        logger.info(f'Correct answer: {self.correct_answer}')
+        # logger.info(f'Correct answer: {self.correct_answer}')
 
     def get_context_for_body(self):
         return {}
@@ -50,17 +51,19 @@ class TaskGenerator:
         pass
 
 
-
 class Decoding(TaskGenerator):
     path_to_render = 'qualifier/includes/decoding.html'
     name = 'Deconding tasks (numbers to letters)'
+
     def get_correct_answer(self):
         correct_answer = ''.join([self.task_dict[i] for i in self.question])
         return correct_answer
 
     def get_body(self, **kwargs):
+        seed = kwargs.get('seed')
         dict_length = kwargs.get('dict_length', 5)
         task_len = kwargs.get('task_len', 5)
+        random.seed(seed)
         digs = random.sample(list(digits), k=dict_length)
         random.shuffle(digs)
         lts = random.sample(ascii_lowercase, k=dict_length)

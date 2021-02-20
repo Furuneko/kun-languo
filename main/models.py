@@ -162,7 +162,7 @@ class Player(RETPlayer):
     inner_role = models.StringField()
     worker_subtype = models.StringField()
     shock = models.IntegerField(default=0)
-    raw_payoff = models.CurrencyField()
+    raw_payoff = models.CurrencyField(default=0)
     payable_round = models.IntegerField(min=1, max=Constants.num_rounds)
     realized_output = models.IntegerField()
     allocation = models.CurrencyField()

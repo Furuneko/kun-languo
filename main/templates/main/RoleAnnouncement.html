@@ -1,0 +1,16 @@
+
+
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Role
+{% endblock %}
+
+{% block content %}
+    <div class="alert alert-primary lead text-center">
+        Your role is: <strong>{{ player.role }}</strong>
+    </div>
+    {% next_button %}
+
+{% endblock %}

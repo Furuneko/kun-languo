@@ -108,7 +108,7 @@ class Subsession(BaseSubsession):
         for i in allothers:
             i.inner_role = i.in_round(1).inner_role
             i.worker_subtype = i.in_round(1).worker_subtype
-        Player.objects.bulk_update(allothers, ['worker_subtype', 'inner_role'])
+        Player.objects.bulk_update(allothers, ['worker_subtype', 'inner_role'], batch_size=100)
         Player.objects.filter(session=self.session, inner_role=Role.worker).update(
             pgg_endowment=self.session.config.get('pgg_endowment', 0))
 
@@ -127,7 +127,7 @@ class Group(BaseGroup):
         return self.player_set.filter(inner_role=Role.worker)
 
     def set_bonus_pool(self):
-        total_output = sum([i.realized_output for i in self.get_players()])
+        total_output = sum([i.realized_output for i in self.get_workers()])
         bonus_fee = self.session.config.get('bonus_fee')
         worker_share = self.session.config.get('worker_share')
         self.total_bonus = int(worker_share * total_output * bonus_fee)

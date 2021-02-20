@@ -8,6 +8,8 @@ import numpy as np
 
 class PlayerBot(Bot):
     def play_round(self):
+        if self.round_number==1:
+            yield RoleAnnouncement
         for i in range(random.randint(3, 5)):
             self.call_method(RET)
         yield Submission(WorkingRET, check_html=False)

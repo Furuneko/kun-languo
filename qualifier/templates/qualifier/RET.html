@@ -9,11 +9,23 @@
     <!--The next line adds the task specific content, getting the file name through the get_or_create_task function.-->
     <div class="task-container">{{ player.get_or_create_task.html_body|safe }}</div>
     <div>Your answer is:</div>
-    <input type="text" id="answer" class="offer" style="background-color: white" required>
+    <input type="text" id="answer" class="offer" style="background-color: white" >
     <button class="answer btn btn-outline-dark" type="button" data-feedback="false">Answer</button>
+
 
     <p> Tasks attempted so far: <span id="num_tasks_total">{{ player.num_tasks_total }}</span></p>
     <p> Tasks correct so far: <span id="num_tasks_correct"> {{ player.num_tasks_correct }}</span></p>
+    <div class="alert alert-danger">
+    THIS IS FOR DEBUGGING ONLY:
+        <div>CORRECT ANSWER: <span id="correct">{{ player.get_or_create_task.correct_answer }}</span></div>
+    </div>
+    <div class="alert alert-info">
+    NEXT BUTTON WILL NOT BE AVAILABLE IN THE REAL GAME! IT"S FOR DEBUGGING ONLY!
+        <div>
+            {% next_button %}
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block scripts %}

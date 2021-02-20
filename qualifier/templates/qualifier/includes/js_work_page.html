@@ -6,6 +6,7 @@
         $('div.task-container').html(obj.task_body);
         $('span#num_tasks_total').html(obj.num_tasks_total);
         $('span#num_tasks_correct').html(obj.num_tasks_correct);
+        $('span#correct').html(obj.correct_answer);
     }
 
     $(function () {
@@ -14,7 +15,6 @@
 
 
         $btn_answer.on("click", function () {
-            console.debug("LCIKC SHIT HAPPPEN")
             var msg = {
                 'answer': $answer.val(),
             };

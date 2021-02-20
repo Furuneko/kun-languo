@@ -11,7 +11,9 @@ class FirstWP(WaitPage):
     wait_for_all_groups = True
     after_all_players_arrive = 'after_everyone_arrived'
 
-
+class RoleAnnouncement(Page):
+    def is_displayed(self):
+        return self.round_number==1
 class WorkingRET(RET):
     template_name = 'qualifier/RET.html'
 
@@ -52,6 +54,7 @@ class AfterAllocationWP(WaitPage):
 
 page_sequence = [
     FirstWP,
+    RoleAnnouncement,
     WorkingRET,
     BeforeBonusDistributionWP,
     BonusDistribution,

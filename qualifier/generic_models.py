@@ -31,6 +31,7 @@ class RETPlayer(BasePlayer):
             resp = {'task_body': new_task.html_body,
                     'num_tasks_correct': self.num_tasks_correct,
                     'num_tasks_total': self.num_tasks_total,
+                    'correct_answer':new_task.correct_answer
                     }
             return {self.id_in_group: resp}
 

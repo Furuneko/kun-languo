@@ -7,25 +7,53 @@ some_defaults = dict(
     manager_share=0.1,
     pgg_coef=2,
     pgg_endowment=20,
+
 )
 SESSION_CONFIGS = [
+
     dict(
-        name='qualifier',
-        display_name="qualifier",
-        num_demo_participants=1,
-        app_sequence=['qualifier'],
-        task='Decoding',
-        task_params={'dict_length': 10, 'task_len': 5},
-        **some_defaults
-    ),
-    dict(
-        name='full',
-        display_name="full",
+        name='baseline',
+        display_name="Baseline (transparent+homogeneous",
         num_demo_participants=4,
         app_sequence=['qualifier', 'main'],
         task='Decoding',
         task_params={'dict_length': 10, 'task_len': 5},
-        **some_defaults
+        **some_defaults,
+        secret=False,
+        heterogenous=False,
+    ),
+    dict(
+        name='secret_homo',
+        display_name="Secret + homogeneous",
+        num_demo_participants=4,
+        app_sequence=['qualifier', 'main'],
+        task='Decoding',
+        task_params={'dict_length': 10, 'task_len': 5},
+        **some_defaults,
+        secret=True,
+        heterogenous=False,
+    ),
+    dict(
+        name='transp_hetero',
+        display_name="Transparent + heterogeneous",
+        num_demo_participants=4,
+        app_sequence=['qualifier', 'main'],
+        task='Decoding',
+        task_params={'dict_length': 10, 'task_len': 5},
+        **some_defaults,
+        secret=False,
+        heterogenous=True,
+    ),
+    dict(
+        name='secret_hetero',
+        display_name="Transparent + heterogeneous",
+        num_demo_participants=4,
+        app_sequence=['qualifier', 'main'],
+        task='Decoding',
+        task_params={'dict_length': 10, 'task_len': 5},
+        **some_defaults,
+        secret=True,
+        heterogenous=True,
     ),
 ]
 

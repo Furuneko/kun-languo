@@ -26,6 +26,7 @@ class Constants(BaseConstants):
     num_rounds = 1
 
 
+
 class Subsession(BaseSubsession):
     def creating_session(self):
         self.session.vars['task_fun'] = getattr(ret_functions, self.session.config['task'])

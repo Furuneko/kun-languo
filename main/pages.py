@@ -11,9 +11,12 @@ class FirstWP(WaitPage):
     wait_for_all_groups = True
     after_all_players_arrive = 'after_everyone_arrived'
 
+
 class RoleAnnouncement(Page):
     def is_displayed(self):
-        return self.round_number==1
+        return self.round_number == 1
+
+
 class WorkingRET(RET):
     template_name = 'qualifier/RET.html'
 
@@ -34,6 +37,11 @@ class BonusDistribution(Page):
 
     def get_form_fields(self):
         return [f'bonus_{i}' for i in Constants.subtypes]
+
+    def error_message(self, values):
+        tot = sum([v for v in values.values()])
+        if tot != self.group.total_bonus:
+            return 'You should distribute the entire bonus among the workers'
 
 
 class AfterBonusDistributionWP(WaitPage):

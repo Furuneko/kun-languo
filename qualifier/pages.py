@@ -3,6 +3,20 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 
 
+class Practice(Page):
+    live_method = 'live_ret'
+    practice = True
+    template_name = 'qualifier/RET.html'
+
+    def vars_for_template(self):
+        self.player.get_or_create_task()
+        return dict()
+
+    def get_timeout_seconds(self):
+        # todo - adjust based on practice or real task page
+        return 100
+
+
 class RET(Page):
     live_method = 'live_ret'
 
@@ -20,4 +34,5 @@ class RET(Page):
         self.player.set_payoff()
 
 
-page_sequence = [RET]
+page_sequence = [Practice,
+                 RET]

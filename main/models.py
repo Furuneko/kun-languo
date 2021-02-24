@@ -47,13 +47,20 @@ class Constants(BaseConstants):
     players_per_group = None
     with open("data/shock.csv") as csvfile:
         shocks = list(DictReader(csvfile))
+
     num_rounds = len(shocks)
     subtypes = ('A', 'B', 'C')
 
 
 class Subsession(BaseSubsession):
-    def creating_session(self):
+    shock_size = models.IntegerField()
+    shock_worker_subtype = models.StringField(choices=Constants.subtypes)
 
+    def creating_session(self):
+        candidate = Constants.shocks[self.round_number - 1]
+        shock, _ = Shock.objects.get_or_create(round_number=self.round_number, defaults=candidate)
+        self.shock_size = int(shock.size)
+        self.shock_worker_subtype = shock.worker_subtype
         if self.round_number == 1:
             for p in self.get_players():
                 p.payable_round = random.randint(1, Constants.num_rounds)
@@ -75,7 +82,7 @@ class Subsession(BaseSubsession):
         """
         self.get_group_matrix()
         subtypes = cycle(Constants.subtypes)
-        for p in Player.objects.all():
+        for p in self.player_set.all():
             p._is_frozen = False
 
         q = Player.objects.filter(session=self.session, subsession=self).annotate(
@@ -102,7 +109,8 @@ class Subsession(BaseSubsession):
 
         semi_groups = [[i] + j for i, j in
                        zip(managers, chunked_workers)]
-
+        for p in self.player_set.all():
+            p._is_frozen = True
         self.set_group_matrix(semi_groups)
         allothers = Player.objects.filter(session=self.session).exclude(subsession=self)
         for i in allothers:
@@ -111,8 +119,8 @@ class Subsession(BaseSubsession):
         Player.objects.bulk_update(allothers, ['worker_subtype', 'inner_role'], batch_size=100)
         Player.objects.filter(session=self.session, inner_role=Role.worker).update(
             pgg_endowment=self.session.config.get('pgg_endowment', 0))
-
-
+        for subsession in self.in_rounds(2, Constants.num_rounds):
+            subsession.group_like_round(1)
 
 
 class Group(BaseGroup):
@@ -170,9 +178,8 @@ class Player(RETPlayer):
     pgg_payoff = models.CurrencyField(initial=0)
 
     def set_shock_and_realized_output(self):
-        current_shock = Constants.shocks[self.round_number - 1]
-        if current_shock.get('worker') == self.worker_subtype:
-            self.shock = int(current_shock.get('shock'))
+        if self.subsession.shock_worker_subtype == self.worker_subtype:
+            self.shock = self.subsession.shock_size
         self.realized_output = max(self.num_tasks_correct + self.shock, 0)
 
     def role(self):
@@ -181,3 +188,12 @@ class Player(RETPlayer):
 
 class Task(GeneralTask):
     player = djmodels.ForeignKey(to=Player, related_name='tasks', on_delete=djmodels.CASCADE)
+
+
+class Shock(djmodels.Model):
+    round_number = models.IntegerField()
+    worker_subtype = models.StringField(choices=Constants.subtypes)
+    size = models.IntegerField()
+
+    def __str__(self):
+        return f'Shock at {self.worker_subtype} of a size {self.size} in round {self.round_number}'

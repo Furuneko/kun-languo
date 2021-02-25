@@ -65,15 +65,15 @@
   correct: 2
 - label: Which of the following about the distribution of employee bonus is true?
   choices:
-    - Employees will find out the bonus allocated to EACH of the three employees. [True for pay transparent condition, False for pay secret condition]
-    - Employees will only know their own bonus amount, but not other employees’ bonus amounts. [True for pay secret condition, False for pay transparent condition]
+    - Employees will find out the bonus allocated to EACH of the three employees.
+    - Employees will only know their own bonus amount, but not other employees’ bonus amounts.
   correct: 0
   treatment:
     - secret: False
 - label: Which of the following about the distribution of employee bonus is true?
   choices:
-    - Employees will find out the bonus allocated to EACH of the three employees. [True for pay transparent condition, False for pay secret condition]
-    - Employees will only know their own bonus amount, but not other employees’ bonus amounts. [True for pay secret condition, False for pay transparent condition]
+    - Employees will find out the bonus allocated to EACH of the three employees.
+    - Employees will only know their own bonus amount, but not other employees’ bonus amounts.
   correct: 1
   treatment:
     - secret: True

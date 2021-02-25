@@ -2,6 +2,7 @@ from otree.api import Currency as c, currency_range
 from ._builtin import Page, WaitPage
 from .models import Constants, Role
 from qualifier.pages import RET
+from django.db.models import Sum
 
 
 class FirstWP(WaitPage):
@@ -16,9 +17,13 @@ class RoleAnnouncement(Page):
     def is_displayed(self):
         return self.round_number == 1
 
+
 class Quiz(Page):
     def is_displayed(self):
         return self.round_number == 1
+
+    def before_next_page(self):
+        self.player.cq_err_counter = self.player.cqs.filter(answer__isnull=False).aggregate(s=Sum('counter'))['s']
 
 
 class Allocation(Page):

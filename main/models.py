@@ -204,7 +204,7 @@ class Player(RETPlayer):
     allocation = models.CurrencyField()
     pgg_endowment = models.CurrencyField(initial=0)
     pgg_payoff = models.CurrencyField(initial=0)
-
+    cq_err_counter = models.IntegerField(initial=0)
     def set_shock_and_realized_output(self):
         if self.subsession.shock_worker_subtype == self.worker_subtype:
             self.shock = self.subsession.shock_size

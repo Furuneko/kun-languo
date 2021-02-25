@@ -24,7 +24,8 @@ class QForm(forms.ModelForm):
     def clean_answer(self):
         data = self.cleaned_data['answer']
         if data != self.instance.correct:
-            self.instance.counter+=1
+            print('CLEANINED FAILED!!!!', self.instance.counter, data)
+            self.instance.counter += 1
             self.instance.save()
             raise ValidationError(self.instance.owner.session.config.get('err_msg', Constants.CQ_ERR_DEFAULT_MSG))
         return data
@@ -33,23 +34,26 @@ class QForm(forms.ModelForm):
 logger = logging.getLogger(__name__)
 
 
-class NoMoreCqs(TemplateView):
+class GeneralJsonCQMixin:
+    extra_params = {}
+
+    def render_to_response(self, context, **response_kwargs):
+        html_form = render_to_string(self.template_name,
+                                     context,
+                                     request=self.request,
+                                     )
+
+        return JsonResponse(dict(form_data=html_form, **self.extra_params))
+
+
+class NoMoreCqs(GeneralJsonCQMixin, TemplateView):
     url_name = 'no_more_cqs'
     url_pattern = 'quiz/<participant_code>/no_more'
     template_name = 'main/includes/no_more.html'
-
-    def get(self, request, *args, **kwargs):
-        super().get(request, *args, **kwargs)
-        context = self.get_context_data(**kwargs)
-        html_form = render_to_string(self.template_name,
-                                     context,
-                                     request=request,
-                                     )
-
-        return JsonResponse(dict(form_data=html_form, no_more_cq=True))
+    extra_params = dict(no_more_cq=True)
 
 
-class QuizQuestionView(UpdateView):
+class QuizQuestionView(GeneralJsonCQMixin, UpdateView):
     """
     Single quiz question
     """
@@ -60,47 +64,19 @@ class QuizQuestionView(UpdateView):
     model = CQ
     form_class = QForm
 
-    def get(self, request, *args, **kwargs):
-        super().get(request, *args, **kwargs)
-        context = self.get_context_data()
-        html_form = render_to_string(self.template_name,
-                                     context,
-                                     request=self.request,
-                                     )
-
-        return JsonResponse(dict(form_data=html_form))
-
     def get_success_url(self):
         return self.get_object().owner.get_quiz_url()
 
-    def get_context_data(self, **kwargs):
-        c = super().get_context_data(**kwargs)
-        return c
-
     def form_valid(self, form):
         form.save()
-        available_q = self.get_object().owner.cqs.filter(answer__isnull=True).first()
-
-        if not available_q:
-            return JsonResponse(dict(form_is_valid=True, next_q=self.get_success_url(), no_more_cq=True))
-        context = self.get_context_data()
-        html_form = render_to_string(self.template_name,
-                                     context,
-                                     request=self.request,
-                                     )
         return JsonResponse(dict(form_is_valid=True,
                                  next_q=self.get_success_url(),
-                                 form_data=html_form),
+                                 ),
                             )
 
     def form_invalid(self, form):
-        context = self.get_context_data()
-        html_form = render_to_string(self.template_name,
-                                     context,
-                                     request=self.request,
-                                     )
 
-        return JsonResponse(dict(form_is_valid=False,
-                                 next_q=self.get_success_url(),
-                                 form_data=html_form),
-                            )
+        context = self.get_context_data(form=form)
+        context['form_is_valid'] = False
+
+        return self.render_to_response(context)

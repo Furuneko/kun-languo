@@ -16,6 +16,9 @@ from itertools import cycle
 import random
 from qualifier.generic_models import RETPlayer, GeneralTask
 from csv import DictReader
+import yaml
+from django.urls import reverse_lazy, reverse
+import json
 
 author = 'Philipp Chapkovski, HSE-Moscow'
 
@@ -47,9 +50,11 @@ class Constants(BaseConstants):
     players_per_group = None
     with open("data/shock.csv") as csvfile:
         shocks = list(DictReader(csvfile))
-
+    CQ_ERR_DEFAULT_MSG = "That answer was incorrect, please try again!"
     num_rounds = len(shocks)
     subtypes = ('A', 'B', 'C')
+    with open(r'./data/quiz.yaml') as file:
+        cqs = yaml.load(file, Loader=yaml.FullLoader)
 
 
 class Subsession(BaseSubsession):
@@ -62,6 +67,29 @@ class Subsession(BaseSubsession):
         self.shock_size = int(shock.size)
         self.shock_worker_subtype = shock.worker_subtype
         if self.round_number == 1:
+            qs = []
+
+            for p in self.get_players():
+                for q in Constants.cqs:
+                    treatment = q.get('treatment')
+                    # we kinda assume here that the condition is stable within a session. so this can be sped up a bit
+                    addable = True
+                    if treatment:
+                        for i in treatment:
+                            for k, v in i.items():
+                                if self.session.config.get(k) != v:
+                                    addable = False
+                    if addable:
+                        qs.append(CQ(label=q.get('label'),
+                                     choices=json.dumps(q.get('choices')),
+                                     correct=q.get('correct'),
+                                     hint=q.get('hint'),
+                                     owner=p
+                                     )
+                                  )
+            CQ.objects.bulk_create(qs)
+            for i in CQ.objects.filter(owner__subsession=self):
+                print(i.get_absolute_url())
             for p in self.get_players():
                 p.payable_round = random.randint(1, Constants.num_rounds)
         else:
@@ -185,6 +213,13 @@ class Player(RETPlayer):
     def role(self):
         return self.inner_role
 
+    def get_quiz_url(self):
+        available_q = self.cqs.filter(answer__isnull=True).first()
+
+        if not available_q:
+            return reverse('no_more_cqs', kwargs=dict(participant_code=self.participant.code))
+        return available_q.get_absolute_url()
+
 
 class Task(GeneralTask):
     player = djmodels.ForeignKey(to=Player, related_name='tasks', on_delete=djmodels.CASCADE)
@@ -197,3 +232,20 @@ class Shock(djmodels.Model):
 
     def __str__(self):
         return f'Shock at {self.worker_subtype} of a size {self.size} in round {self.round_number}'
+
+
+class CQ(djmodels.Model):
+    class Meta:
+        ordering = ['pk']
+
+    """Actual cq for specific player. stores the number of wrong answers."""
+    owner = djmodels.ForeignKey(to=Player, on_delete=djmodels.CASCADE, related_name="cqs")
+    counter = models.IntegerField(initial=0)
+    answer = models.IntegerField()
+    label = models.StringField()
+    choices = models.StringField()
+    correct = models.IntegerField()
+    hint = models.StringField()
+
+    def get_absolute_url(self):
+        return reverse('single_quiz_question', args=[str(self.id)])

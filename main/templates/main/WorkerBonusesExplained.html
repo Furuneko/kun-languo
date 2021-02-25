@@ -1,0 +1,50 @@
+
+
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Role
+{% endblock %}
+
+{% block content %}
+Screen 13A: Employee Output and Bonuses [All roles but differ between conditions]
+
+Employee Bonuses (Pay Transparent Condition)
+
+Bonuses are related to the combined realized output of the three employees.
+
+At the end of each period, an employee bonus pool is calculated using the following formula:
+
+Employee Bonus Pool = 30% * Total Realized Output * 10 Liras per decode
+
+For example, suppose Employee A, B, and C each had a realized output of 20 decodes (after accounting for potential uncontrollable events), the total employee bonus pool will be:
+30% * 60 decodes * 10 Liras per decode = 180 Liras.
+
+The manager then determines how to allocate the employee bonus pool and cannot keep any for herself.
+
+Please click ‘Next’ when you are ready to proceed to the next screen.
+
+
+
+
+
+Screen 13B: Employee Output and Bonuses [All roles but differ between conditions]
+
+Employee Bonuses (Pay Secret Condition)
+
+Bonuses are related to the combined realized output of the three employees.
+
+The greater the total realized output (after accounting for potential uncontrollable events) from the three employees, the greater the employee bonus pool.
+
+The manager then determines how to allocate the employee bonus pool and cannot keep any of the employee bonus for herself.
+
+Please click ‘Next’ when you are ready to proceed to the next screen.
+
+
+
+
+
+    {% next_button %}
+
+{% endblock %}

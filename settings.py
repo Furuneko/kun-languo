@@ -1,5 +1,5 @@
 from os import environ
-
+EXTENSION_APPS=['main']
 some_defaults = dict(
     performance_fee=1,
     bonus_fee=10,
@@ -7,15 +7,21 @@ some_defaults = dict(
     manager_share=0.1,
     pgg_coef=2,
     pgg_endowment=20,
+    err_msg="That answer was incorrect, please try again!"
 
 )
+app_sequence =[
+    # 'intro',
+    # 'qualifier',
+    'main'
+]
 SESSION_CONFIGS = [
 
     dict(
         name='baseline',
         display_name="Baseline (transparent+homogeneous",
         num_demo_participants=4,
-        app_sequence=['qualifier', 'main'],
+        app_sequence=app_sequence,
         task='Decoding',
         task_params={'dict_length': 10, 'task_len': 5},
         **some_defaults,
@@ -26,7 +32,7 @@ SESSION_CONFIGS = [
         name='secret_homo',
         display_name="Secret + homogeneous",
         num_demo_participants=4,
-        app_sequence=['qualifier', 'main'],
+        app_sequence=app_sequence,
         task='Decoding',
         task_params={'dict_length': 10, 'task_len': 5},
         **some_defaults,
@@ -37,7 +43,7 @@ SESSION_CONFIGS = [
         name='transp_hetero',
         display_name="Transparent + heterogeneous",
         num_demo_participants=4,
-        app_sequence=['qualifier', 'main'],
+        app_sequence=app_sequence,
         task='Decoding',
         task_params={'dict_length': 10, 'task_len': 5},
         **some_defaults,
@@ -48,7 +54,7 @@ SESSION_CONFIGS = [
         name='secret_hetero',
         display_name="Transparent + heterogeneous",
         num_demo_participants=4,
-        app_sequence=['qualifier', 'main'],
+        app_sequence=app_sequence,
         task='Decoding',
         task_params={'dict_length': 10, 'task_len': 5},
         **some_defaults,
@@ -86,4 +92,4 @@ DEMO_PAGE_INTRO_HTML = """ """
 SECRET_KEY = 'qq694yy)3)w-=_83_lul-1ts14f_)q+6sdbhn#r4%p-i#_fout'
 
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
-INSTALLED_APPS = ['otree']
+INSTALLED_APPS = ['otree', 'qualifier']

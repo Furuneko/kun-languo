@@ -1,0 +1,58 @@
+
+
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Quiz
+{% endblock %}
+
+{% block content %}
+
+    <div class="result"></div>
+    <script>
+        let first_url = "{{ player.get_quiz_url }}"
+        let allow_to_proceed = false;
+        const get_next_q = function (url_to_get) {
+            $.get(url_to_get, function (data) {
+                const {form_data, no_more_cq} = data;
+                allow_to_proceed = no_more_cq
+
+                form_data && $(".result").html(data.form_data);
+
+            });
+        }
+        get_next_q(first_url)
+
+        $(function () {
+
+            $(document).on("submit", "#form", function () {
+                if (allow_to_proceed) {
+                    return true
+                }
+                var form = $(this);
+                $.ajax({
+                    url: first_url,
+                    data: form.serialize(),
+                    type: form.attr("method"),
+                    dataType: 'json',
+                    success: function (data) {
+                        console.debug('DADA', data)
+                        const {no_more_cq, form_data, next_q, form_is_valid} = data;
+                        if (no_more_cq) {
+                            allow_to_proceed = true;
+                            return
+                        }
+                        if (form_is_valid) {
+                            first_url = next_q
+                            get_next_q(next_q)
+                        } else {
+                            $(".result").html(form_data);
+                        }
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+{% endblock %}

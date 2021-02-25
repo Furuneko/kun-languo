@@ -8,9 +8,27 @@
 {% endblock %}
 
 {% block content %}
-    <div class="alert alert-primary lead text-center">
-        Your role is: <strong>{{ player.role }}</strong>
-    </div>
+    <Screen 9: Ranking and Role Assignment [Same in all conditions]
+
+Role Assignment
+
+We ranked all the participants in the session based on the performance on the decode task from the Performance Period. Based on your ranking, you will be a [Manager / Employee] in Stage Two of the Study.
+
+The computer has grouped participants to form firms. Each firm consists of a Manager, an Employee A, an Employee B, and an Employee C. The firm you are assigned to is Firm [#].
+
+[Employees only] To properly distinguish you from the other employees, you have been randomly assigned a letter [A, B, or C].
+
+[Rank all participants based on [PerformanceDecodes]. Assign the top 25% of participants into Group 1, and have the remaining 75% of participants into Group 2.]
+
+[Assign Group 1 performers as the Manager role. For Group 2, put participants into groups of three employees such that the top 3 ranked are put together into Firm 1, the participants ranked 4th, 5th and 6th are put together into Firm 2, the participants ranked 7th, 8th and 9th are put together into Firm 3, and so on, until all participants are allocated to a firm.]
+
+[Use a random number generator to break any ties. Within each firm, randomly assign the employees to A, B, or C role. And then randomly assign a Manager to each firm and there will be in total of N/4 firms (N being the number of participants in any given session). The roles and firm composition remain unchanged throughout Stage 2]
+
+Please click ‘Next’ when you are ready to proceed to the next screen.
+
+
+
+
     {% next_button %}
 
 {% endblock %}

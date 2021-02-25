@@ -1,0 +1,27 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    : Introduction to the DecodeSlider Task [Same for all participants in all conditions]
+{% endblock %}
+
+{% block content %}
+Screen 8: Decode Task - Performance Period Feedback [Same for all participants in all conditions]
+
+Stage One – Decode Task
+
+In the Performance Period, your performance was [PerformanceDecodes] decodes.
+
+Please click ‘Next’ when you are ready to proceed to the next screen.
+
+
+
+
+[Participants have to click ‘Next’ in order to move on, and everyone must do so before the screen can advance].
+
+Please wait until all participants have reviewed their performance before moving on.
+
+
+    {% next_button %}
+
+{% endblock %}

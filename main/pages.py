@@ -16,9 +16,20 @@ class RoleAnnouncement(Page):
     def is_displayed(self):
         return self.round_number == 1
 
+class Quiz(Page):
+    def is_displayed(self):
+        return self.round_number == 1
+
+
+class Allocation(Page):
+    pass
+
 
 class WorkingRET(RET):
     template_name = 'qualifier/RET.html'
+
+    def __init__(self):
+        return self.player.role() == Role.worker or self.round_number == 1
 
     def before_next_page(self):
         super().before_next_page()
@@ -61,13 +72,14 @@ class AfterAllocationWP(WaitPage):
 
 
 page_sequence = [
-    FirstWP,
-    RoleAnnouncement,
-    WorkingRET,
-    BeforeBonusDistributionWP,
-    BonusDistribution,
-    AfterBonusDistributionWP,
-    Allocation,
-    AfterAllocationWP,
+    # FirstWP,
+    # RoleAnnouncement,
+    Quiz,
+    # WorkingRET,
+    # BeforeBonusDistributionWP,
+    # BonusDistribution,
+    # AfterBonusDistributionWP,
+    # Allocation,
+    # AfterAllocationWP,
 
 ]

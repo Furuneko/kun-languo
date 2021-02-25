@@ -1,0 +1,20 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Page title
+{% endblock %}
+
+{% block content %}
+Screen 2: Role Explanation [Same for all participants in all conditions]
+
+In Stage Two of the study, some participants will play the role of the Manager in a firm and the remaining participants will play the role of the Employee. Your role is determined by your performance on the decode task in Stage One.
+
+Specifically, the top 25% of performers on the decode task will be promoted to Manager, and the remaining will be employees. The Manager and the employees have different responsibilities in Stage Two, as well as different compensation schemes.
+
+Please click ‘Next’ to learn about the decode task.
+
+
+    {% next_button %}
+
+{% endblock %}

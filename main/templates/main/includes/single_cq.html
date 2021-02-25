@@ -1,0 +1,17 @@
+{% load otree %}
+<form method="post" id="inner_form">
+
+    {% csrf_token %}
+
+
+
+    <h5>    {{ object.label }}</h5>
+    {% if  object.hint %}
+
+        <div class="alert alert-info my-3">{{ object.hint }}</div>
+    {% endif %}
+    {%   formfield form.answer label='' %}
+    <button class="btn btn-lg" id="js-button" type="submit">Send</button>
+
+
+</form>

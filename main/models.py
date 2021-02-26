@@ -88,8 +88,7 @@ class Subsession(BaseSubsession):
                                      )
                                   )
             CQ.objects.bulk_create(qs)
-            for i in CQ.objects.filter(owner__subsession=self):
-                print(i.get_absolute_url())
+
             for p in self.get_players():
                 p.payable_round = random.randint(1, Constants.num_rounds)
         else:

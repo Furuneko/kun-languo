@@ -24,7 +24,7 @@ class QForm(forms.ModelForm):
     def clean_answer(self):
         data = self.cleaned_data['answer']
         if data != self.instance.correct:
-            print('CLEANINED FAILED!!!!', self.instance.counter, data)
+
             self.instance.counter += 1
             self.instance.save()
             raise ValidationError(self.instance.owner.session.config.get('err_msg', Constants.CQ_ERR_DEFAULT_MSG))

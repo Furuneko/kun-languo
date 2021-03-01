@@ -8,8 +8,8 @@
 
 {% block content %}
     {% if view.practice|default_if_none:False %}
-        <div class="alert alert-info">
-            THIS IS THE PRACTICE ROUND!
+        <div class="alert alert-info text-center">
+            THIS IS THE PRACTICE PERIOD!
         </div>
     {% endif %}
     <div class="task-container">{{ player.get_or_create_task.html_body|safe }}</div>

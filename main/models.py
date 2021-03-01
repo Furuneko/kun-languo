@@ -53,7 +53,7 @@ class Constants(BaseConstants):
     # some fallbacks here JIC
     CQ_ERR_DEFAULT_MSG = "That answer was incorrect, please try again!"
     DEFAULT_PGG_ENDOWMENT = 20
-    num_rounds = 1#len(shocks)
+    num_rounds = 2 # TODO RESTORE len(shocks)
     subtypes = ('A', 'B', 'C')
     with open(r'./data/quiz.yaml') as file:
         cqs = yaml.load(file, Loader=yaml.FullLoader)
@@ -164,24 +164,15 @@ class Group(BaseGroup):
     pgg_individual_share = models.CurrencyField()
 
     def get_workers(self):
-        # todo: remove
-        if self.session.config.get('debug'):
-            return [i for i in self.get_players() if i.role() == Role.worker]
         return self.player_set.filter(inner_role=Role.worker)
 
     def set_bonus_pool(self):
-        # todo: remove
-        if self.session.config.get('debug'):
-            subtypes = cycle(Constants.subtypes)
-            for j in self.get_workers():
-                j.worker_subtype = j.worker_subtype or next(subtypes)
-                j.pgg_endowment = j.pgg_endowment or self.session.config.get('pgg_endowment',
-                                                                             Constants.DEFAULT_PGG_ENDOWMENT)
+
 
         self.total_output = sum([i.realized_output or 0 for i in self.get_workers()])
         stage2_fee = self.session.config.get('stage2_fee')
         worker_share = self.session.config.get('worker_share')
-        self.total_bonus = int(worker_share * self.total_output * stage2_fee)
+        self.total_bonus = int(round(worker_share * self.total_output * stage2_fee))
 
         manager_share = self.session.config.get('manager_share')
         manager = self.get_player_by_role(Role.manager)

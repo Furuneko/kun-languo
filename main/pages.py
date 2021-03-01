@@ -11,6 +11,7 @@ class FirstPage(Page):
 
 
 class FirstWP(WaitPage):
+    body_text = 'Please wait until all participants have reviewed their performance before moving on.'
     def is_displayed(self):
         return self.round_number == 1
 
@@ -198,27 +199,25 @@ class LastManagerExplanation(Page):
 
 page_sequence = [
     FirstWP,
-    # WorkerAnnounceNextPeriod,
-    # RoleAnnouncement,
-    # BackgroundStage2,
-    # WorkerAbilityExplained,
-    # ShockExplained,
-    # RealizedOutputExplained,
-    # WorkerBonusesExplained,
-    # ManagerBonusesExplained,
-    # BonusDistributionExplained,
-    # PaymentExplained,
-    # Quiz,
+    WorkerAnnounceNextPeriod,
+    RoleAnnouncement,
+    BackgroundStage2,
+    WorkerAbilityExplained,
+    ShockExplained,
+    RealizedOutputExplained,
+    WorkerBonusesExplained,
+    ManagerBonusesExplained,
+    BonusDistributionExplained,
+    PaymentExplained,
+    Quiz,
     BeforeWorkingRETWP,
-    # BeforeRETAnnouncement,
-
+    BeforeRETAnnouncement,
     WorkingRET,
-    # ManagerExplanation,
+    ManagerExplanation,
     AfterWorkingRETWP,
-    # RETResults,
+    RETResults,
     ShockAnnouncement,
     BonusDistribution,
-
     AfterBonusDistributionWP,
     BonusInfo,
     Allocation,

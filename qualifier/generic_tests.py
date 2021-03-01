@@ -8,7 +8,6 @@ from string import ascii_lowercase
 def method_capturer(method, **kwargs):
     p = kwargs.get('player')
     page = kwargs.get('page_class').__name__
-    # todo: add page to task to distinguish between practice and real tasks
     cur_task = p.get_or_create_task()
     # TODO randomize the strategy
     cor_answer = cur_task.correct_answer

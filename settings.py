@@ -14,11 +14,11 @@ some_defaults = dict(
     debug=True,
 )
 app_sequence = [
-    # 'intro',
-    # 'qualifier',
-    # 'main',
+    'intro',
+    'qualifier',
+    'main',
     'peq',
-    # 'exitapp'
+    'exitapp'
 ]
 SESSION_CONFIGS = [
 

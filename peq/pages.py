@@ -26,8 +26,7 @@ class MPage(GenPage):
 
 class WPage(GenPage):
     def is_displayed(self):
-        # TODO REMOVE DEFAULTS!
-        return self.participant.vars.get('is_worker', True)
+        return self.participant.vars.get('is_worker')
 
 
 class W1(WPage):

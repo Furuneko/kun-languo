@@ -1,0 +1,44 @@
+{% extends "main/BaseInstructions.html" %}
+{% load otree %}
+
+{% block title %}
+    Employee Output and Bonuses
+{% endblock %}
+
+{% block instruction_body %}
+
+
+    {% if player.is_worker %}
+        <li class="list-group-item">
+            You will now complete Period {{ view.round_number }}, where you will spend 2 minutes (120 seconds) completing the decode task.
+        </li>
+
+        <li class="list-group-item">
+            When you are ready to begin Period  {{ view.round_number }}, please click “Start.’
+        </li>
+
+    {% else %}
+        <li class="list-group-item">
+            Because you are the Manager of the firm, you need to wait for the three employees to complete the decode
+            task and then you will make your bonus allocation decisions. Each period lasts 2 minutes (120 seconds).
+        </li>
+
+        <li class="list-group-item">
+            While waiting for them to complete Period  {{ view.round_number }}, please work on the decode task. This is to help you better
+            understand your employees’ work situation. You will not be asked to work on the decode task in future
+            periods. Your performance on the decode task will NOT affect your remuneration in any way.
+        </li>
+
+
+        <li class="list-group-item">
+            When you are ready to begin the task, please click “Start.’
+        </li>
+
+    {% endif %}
+
+
+{% endblock %}
+{% block button %}
+  <button class="  btn btn-primary">Start </button>
+
+{% endblock %}

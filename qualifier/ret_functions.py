@@ -60,7 +60,7 @@ class Decoding(TaskGenerator):
         return correct_answer
 
     def get_body(self, **kwargs):
-        seed = kwargs.get('seed')
+        seed =  kwargs.get('seed')
         dict_length = kwargs.get('dict_length', 5)
         task_len = kwargs.get('task_len', 5)
         random.seed(seed)

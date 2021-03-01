@@ -1,0 +1,71 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Thank you very much for your participation today!
+{% endblock %}
+
+{% block content %}
+    <div class="card my-3">
+        <div class="card-body">
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item text-center">
+                    Your total compensation is based on the following:
+
+                </li>
+                <li class="list-group-item text-center">
+                    <table class="table-hover table table-striped">
+                        <tr>
+                            <td>
+                                Participation Fee:
+                            </td>
+                            <td>
+                                $10.00
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Stage One Performance Period:
+                            </td>
+                            <td>
+                                {{ participant.vars.stage1payoff }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Stage Two Bonus for Period {{ participant.vars.payable_round }}:
+                            </td>
+                            <td>
+                                {{ participant.vars.stage2_work_bonus }}
+                            </td>
+                        </tr>
+                        {% if participant.vars.is_worker %}
+
+                            <tr>
+                                <td>
+                                    Allocation Game Earnings for Period {{ participant.vars.payable_round }}:
+                                </td>
+                                <td>
+                                    {{ participant.vars.stage2_allocation_bonus }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        <tr>
+                            <td>
+                                Total Compensation:
+                            </td>
+                            <td>
+                                {{ participant.payoff_plus_participation_fee }}
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    {% next_button %}
+
+{% endblock %}

@@ -32,8 +32,8 @@ class RETPlayer(BasePlayer):
             old_task.save()
             new_task = self.get_or_create_task()
             resp = {'task_body': new_task.html_body,
-                    'num_tasks_correct': self.num_tasks_correct,
-                    'num_tasks_total': self.num_tasks_total,
+                    'num_tasks_correct': self.num_tasks_correct(),
+                    'num_tasks_total': self.num_tasks_total(),
                     'correct_answer': new_task.correct_answer
                     }
 
@@ -43,15 +43,21 @@ class RETPlayer(BasePlayer):
         lookup = get_page_lookup(self.participant._session_code, self.participant._index_in_pages)
         return lookup.page_class.__name__
 
-    @property
-    def num_tasks_correct(self):
-        """returns total number of tasks to which a player provided a correct answer"""
-        return self.tasks.filter(correct_answer=F('answer'), page_name=self.get_current_page_name()).count()
+    def get_tasks_by_page(self, page_name=None):
+        page_name = page_name or self.get_current_page_name()
+        return self.tasks.filter(page_name=page_name)
 
-    @property
-    def num_tasks_total(self):
+
+    def num_tasks_correct(self, page_name=None):
+        """returns total number of tasks to which a player provided a correct answer"""
+        page_name = page_name or self.get_current_page_name()
+        return self.get_tasks_by_page(page_name=page_name).filter(correct_answer=F('answer')).count()
+
+
+    def num_tasks_total(self, page_name=None):
         """returns total number of tasks to which a player provided an answer"""
-        return self.tasks.filter(answer__isnull=False, page_name=self.get_current_page_name()).count()
+        page_name = page_name or self.get_current_page_name()
+        return self.get_tasks_by_page(page_name=page_name).filter(answer__isnull=False, ).count()
 
     def get_or_create_task(self):
         """
@@ -71,6 +77,7 @@ class RETPlayer(BasePlayer):
         try:
             task = self.tasks.get(answer__isnull=True, page_name=page_name)
         except ObjectDoesNotExist:
+
             params = self.session.vars['task_params']
             params['seed'] = app_name + page_name + str(nlast)
             fun = self.session.vars['task_fun']
@@ -92,7 +99,6 @@ class RETPlayer(BasePlayer):
 
 
 class GeneralTask(djmodels.Model):
-    # todo: add page to task to distinguish between practice and real tasks
     class Meta:
         ordering = ['-created_at']
         get_latest_by = 'in_player_counter'

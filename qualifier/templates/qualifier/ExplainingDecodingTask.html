@@ -2,24 +2,47 @@
 {% load otree static %}
 
 {% block title %}
-    : Introduction to the DecodeSlider Task [Same for all participants in all conditions]
+    Introduction to the Decode Task
 {% endblock %}
 
 {% block content %}
-Stage One – Decode Task
 
-On the next screen, you will see a random sequence of 10 letters with a key indicating which letter represents each number. For the task you will translate a sequence of 5 numbers into a series of 5 letters using the key provided. Your goal is to decode as many number sequences into letters as possible.
+    <div class="card my-3">
+        <div class="card-body">
 
-In the example below, the correct answer for the number sequence of 86601 is: uqqwo. You will type in your answer into the textbox and submit your answer.
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    On the next screen, you will see a random sequence of 10 letters with a key indicating which letter
+                    represents each number. For the task you will translate a sequence of 5 numbers into a series of 5
+                    letters using the key provided. Your goal is to decode as many number sequences into letters as
+                    possible.
+                </li>
+
+                <li class="list-group-item">
+                    In the example below, the correct answer for the number sequence of <strong>54960</strong> is:
+                    <strong>tmvwd</strong>. You will type
+                    in your answer into the textbox and submit your answer.
+                </li>
+                <li class="list-group-item">
+                    <img src="{% static 'img/decode_example.png' %}" alt="">
+                </li>
+
+                <li class="list-group-item">
+                    You will not earn any remuneration for the Practice Period. However, the Practice Period will allow
+                    you to become familiar with the decode task, which will affect your remuneration in the remainder of
+                    the study.
+                </li>
+
+                <li class="list-group-item">
+                    Click ‘Start Practice Period’ to start the Practice Period. The Practice Period
+                    is {{ session.config.practice_time_sec }} seconds of
+                    length.
+                </li>
+            </ul>
+        </div>
+    </div>
 
 
-
-[Show example decode here]
-
-You will not earn any remuneration for the Practice Period. However, the Practice Period will allow you to become familiar with the decode task, which will affect your remuneration in the remainder of the study.
-
-Click ‘Start Practice Period’ to start the Practice Period. The Practice Period is 60 seconds of length.
-
-    {% next_button %}
+    <button class="  btn btn-primary">Start practice period</button>
 
 {% endblock %}

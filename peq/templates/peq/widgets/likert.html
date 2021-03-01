@@ -1,0 +1,22 @@
+<div class="wrap">
+    <ul class='likert' id="id_{{ widget.name }}">
+        {% for k,v in zipper %}
+            <li>
+                <input type="radio" value="{{ k }}" required name="{{ widget.name }}" id="id_{{ widget.name }}_{{ forloop.counter }}">
+                <label for="id_{{ widget.name }}_{{ forloop.counter }}">{% if show_values|default:True  %}
+                    <span {% if v %}class="font-weight-bold"{% endif %}>{{ k }}</span>{% endif %} <br>{{ v }}
+                </label>
+            </li>
+        {% endfor %}
+
+
+    </ul>
+</div>
+<style>
+    #id_{{ widget.name }}.likert li {
+        display: inline-block;
+        width: {{optimal_width}}%;
+        text-align: center;
+        vertical-align: top;
+    }
+</style>

@@ -1,0 +1,56 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Uncontrollable Event for Period  {{ view.round_number }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="card my-3">
+        <div class="card-body">
+
+            <ul class="list-group list-group-flush">
+
+                <li class="list-group-item">
+                    An uncontrollable event occurred that has positively affected only
+                    Employee {{ subsession.shock_worker_subtype }} for Period
+                    {{ view.round_number }}.
+                </li>
+
+                {% if player.is_shocked %}
+
+                    <li class="list-group-item">
+                        You have experienced a positive uncontrollable event of {{ player.shock }}, such that your
+                        realized
+                        output for Period {{ view.round_number }} is now:
+                    </li>
+
+                    <li class="list-group-item lead font-weight-bold text-center">
+                        {{ player.realized_output }}
+                    </li>
+
+
+                {% else %}
+
+
+                    <li class="list-group-item">
+                        Note that only the affected employee(s) know the size of the uncontrollable event. The Manager
+                        and
+                        the other employees only know whom is affected and whether the effect is positive or negative;
+                        they
+                        do NOT know the exact size of the effect.
+                    </li>
+                {% endif %}
+                <li class="list-group-item">
+                    Please click ‘Next’ when you are ready to proceed to the next screen.
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+    {% next_button %}
+{% endblock %}
+
+

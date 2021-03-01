@@ -50,11 +50,15 @@ class Constants(BaseConstants):
     players_per_group = None
     with open("data/shock.csv") as csvfile:
         shocks = list(DictReader(csvfile))
+    # some fallbacks here JIC
     CQ_ERR_DEFAULT_MSG = "That answer was incorrect, please try again!"
-    num_rounds = len(shocks)
+    DEFAULT_PGG_ENDOWMENT = 20
+    num_rounds = 1#len(shocks)
     subtypes = ('A', 'B', 'C')
     with open(r'./data/quiz.yaml') as file:
         cqs = yaml.load(file, Loader=yaml.FullLoader)
+
+    type_correspondence = {Role.manager: 'Manager', Role.worker: 'Employee'}
 
 
 class Subsession(BaseSubsession):
@@ -145,7 +149,7 @@ class Subsession(BaseSubsession):
             i.worker_subtype = i.in_round(1).worker_subtype
         Player.objects.bulk_update(allothers, ['worker_subtype', 'inner_role'], batch_size=100)
         Player.objects.filter(session=self.session, inner_role=Role.worker).update(
-            pgg_endowment=self.session.config.get('pgg_endowment', 0))
+            pgg_endowment=self.session.config.get('pgg_endowment', Constants.DEFAULT_PGG_ENDOWMENT))
         for subsession in self.in_rounds(2, Constants.num_rounds):
             subsession.group_like_round(1)
 
@@ -155,25 +159,38 @@ class Group(BaseGroup):
     bonus_B = models.IntegerField()
     bonus_C = models.IntegerField()
     total_bonus = models.IntegerField()
+    total_output = models.IntegerField()
     pgg_total_contribution = models.CurrencyField()
     pgg_individual_share = models.CurrencyField()
 
     def get_workers(self):
+        # todo: remove
+        if self.session.config.get('debug'):
+            return [i for i in self.get_players() if i.role() == Role.worker]
         return self.player_set.filter(inner_role=Role.worker)
 
     def set_bonus_pool(self):
-        total_output = sum([i.realized_output for i in self.get_workers()])
-        bonus_fee = self.session.config.get('bonus_fee')
-        worker_share = self.session.config.get('worker_share')
-        self.total_bonus = int(worker_share * total_output * bonus_fee)
+        # todo: remove
+        if self.session.config.get('debug'):
+            subtypes = cycle(Constants.subtypes)
+            for j in self.get_workers():
+                j.worker_subtype = j.worker_subtype or next(subtypes)
+                j.pgg_endowment = j.pgg_endowment or self.session.config.get('pgg_endowment',
+                                                                             Constants.DEFAULT_PGG_ENDOWMENT)
 
-    def set_payoffs(self):
+        self.total_output = sum([i.realized_output or 0 for i in self.get_workers()])
+        stage2_fee = self.session.config.get('stage2_fee')
+        worker_share = self.session.config.get('worker_share')
+        self.total_bonus = int(worker_share * self.total_output * stage2_fee)
+
         manager_share = self.session.config.get('manager_share')
         manager = self.get_player_by_role(Role.manager)
-        workers = self.player_set.filter(inner_role=Role.worker)
-        manager.raw_payoff = manager_share * self.total_bonus
+        manager.raw_payoff = int(manager_share * self.total_bonus)
         manager.save()
-        for i in workers:
+
+    def set_payoffs(self):
+
+        for i in self.get_workers():
             i.raw_payoff = getattr(self, f'bonus_{i.worker_subtype}')
             i.save()
         self.set_pgg_payoffs()
@@ -184,32 +201,75 @@ class Group(BaseGroup):
         for p in self.get_players():
             payable = p.in_round(p.payable_round)
             p.payoff = payable.raw_payoff + payable.pgg_payoff
+            stage1_payoff = p.participant.vars.get('stage1payoff', 0)
+            total_payoff = c(stage1_payoff + p.payoff).to_real_world_currency(self.session)
+            r = dict(
+                payable_round=p.payable_round,
+                stage2_work_bonus=c(payable.raw_payoff),
+                stage2_allocation_bonus=c(payable.pgg_payoff),
+                total_payoff=total_payoff,
+                is_worker=p.is_worker,
+            )
+            p.participant.vars.update(**r)
 
     def set_pgg_payoffs(self):
-        self.pgg_total_contribution = sum([i.allocation for i in self.get_workers()])
+
+        self.pgg_total_contribution = sum([i.public_allocation for i in self.get_workers()])
         coef = self.session.config.get('pgg_coef', 0)
         self.pgg_individual_share = self.pgg_total_contribution * coef / 3
         for p in self.get_workers():
-            p.pgg_payoff = p.pgg_endowment - p.allocation + self.pgg_individual_share
+            p.pgg_payoff = p.pgg_endowment - p.public_allocation + self.pgg_individual_share
 
 
 class Player(RETPlayer):
+    non_equal_splitting = models.BooleanField()
+    allocation_explanation = models.LongStringField()
+    last_non_equal_splitting = models.BooleanField()
+    last_allocation_explanation = models.LongStringField()
     inner_role = models.StringField()
     worker_subtype = models.StringField()
     shock = models.IntegerField(default=0)
-    raw_payoff = models.CurrencyField(default=0)
+    raw_payoff = models.IntegerField(default=0)
     payable_round = models.IntegerField(min=1, max=Constants.num_rounds)
     realized_output = models.IntegerField()
-    allocation = models.CurrencyField()
+    self_allocation = models.IntegerField(min=0)
+    public_allocation = models.IntegerField(min=0)
+
+    def self_allocation_max(self):
+        return self.pgg_endowment
+
+    def public_allocation_max(self):
+        return self.pgg_endowment
+
     pgg_endowment = models.CurrencyField(initial=0)
     pgg_payoff = models.CurrencyField(initial=0)
     cq_err_counter = models.IntegerField(initial=0)
+    bonus = models.IntegerField()
+
+    @property
+    def is_worker(self):
+
+        return self.role() == Role.worker
+
+    @property
+    def is_shocked(self):
+        return self.shock != 0
+
+    def role_desc(self):
+        # TODO: later on move to session.config
+        return Constants.type_correspondence[self.role()]
+
     def set_shock_and_realized_output(self):
         if self.subsession.shock_worker_subtype == self.worker_subtype:
             self.shock = self.subsession.shock_size
-        self.realized_output = max(self.num_tasks_correct + self.shock, 0)
+        self.realized_output = max(self.num_tasks_correct(page_name='WorkingRET') + self.shock, 0)
 
     def role(self):
+        if self.session.config.get('debug'):
+            if self.id_in_group == 1:
+                return Role.manager
+            return Role.worker
+
         return self.inner_role
 
     def get_quiz_url(self):

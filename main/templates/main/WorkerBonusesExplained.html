@@ -1,50 +1,51 @@
-
-
-{% extends "global/Page.html" %}
-{% load otree static %}
+{% extends "main/BaseInstructions.html" %}
+{% load otree %}
 
 {% block title %}
-    Role
+    Employee Output and Bonuses
 {% endblock %}
 
-{% block content %}
-Screen 13A: Employee Output and Bonuses [All roles but differ between conditions]
+{% block instruction_body %}
 
-Employee Bonuses (Pay Transparent Condition)
+    <li class="list-group-item">
+        Bonuses are related to the combined realized output of the three employees.
+    </li>
+    {% if not session.config.secret %}
+        <li class="list-group-item">
+            At the end of each period, an employee bonus pool is calculated using the following formula:
+        </li>
 
-Bonuses are related to the combined realized output of the three employees.
+        <li class="list-group-item lead text-center font-weight-bold">
+            Employee Bonus Pool = 30% * Total Realized Output * 10 Liras per decode
+        </li>
 
-At the end of each period, an employee bonus pool is calculated using the following formula:
+        <li class="list-group-item">
+            For example, suppose Employee A, B, and C each had a realized output of 20 decodes (after
+            accounting
+            for potential uncontrollable events), the total employee bonus pool will be:
+        </li>
+        <li class="list-group-item lead text-center">
+            30% * 60 decodes * 10 Liras per decode = 180 Liras.
+        </li>
 
-Employee Bonus Pool = 30% * Total Realized Output * 10 Liras per decode
+        <li class="list-group-item">
+            The manager then determines how to allocate the employee bonus pool and cannot keep any for
+            herself.
+        </li>
+    {% else %}
+        <li class="list-group-item">
+            The greater the total realized output (after accounting for potential uncontrollable events)
+            from
+            the three employees, the greater the employee bonus pool.
+        </li>
 
-For example, suppose Employee A, B, and C each had a realized output of 20 decodes (after accounting for potential uncontrollable events), the total employee bonus pool will be:
-30% * 60 decodes * 10 Liras per decode = 180 Liras.
-
-The manager then determines how to allocate the employee bonus pool and cannot keep any for herself.
-
-Please click ‘Next’ when you are ready to proceed to the next screen.
-
-
-
-
-
-Screen 13B: Employee Output and Bonuses [All roles but differ between conditions]
-
-Employee Bonuses (Pay Secret Condition)
-
-Bonuses are related to the combined realized output of the three employees.
-
-The greater the total realized output (after accounting for potential uncontrollable events) from the three employees, the greater the employee bonus pool.
-
-The manager then determines how to allocate the employee bonus pool and cannot keep any of the employee bonus for herself.
-
-Please click ‘Next’ when you are ready to proceed to the next screen.
-
-
-
-
-
-    {% next_button %}
+        <li class="list-group-item">
+            The manager then determines how to allocate the employee bonus pool and cannot keep any of the
+            employee bonus for herself.
+        </li>
+    {% endif %}
+    <li class="list-group-item">
+        Please click ‘Next’ when you are ready to proceed to the next screen.
+    </li>
 
 {% endblock %}

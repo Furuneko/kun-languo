@@ -1,19 +1,24 @@
 from os import environ
-EXTENSION_APPS=['main']
+
+EXTENSION_APPS = ['main']
 some_defaults = dict(
-    performance_fee=1,
-    bonus_fee=10,
+    stage1_fee=1,
+    stage2_fee=10,
     worker_share=0.3,
     manager_share=0.1,
     pgg_coef=2,
     pgg_endowment=20,
-    err_msg="That answer was incorrect, please try again!"
-
+    err_msg="That answer was incorrect, please try again!",
+    practice_time_sec=60,
+    working_time_sec=120,
+    debug=True,
 )
-app_sequence =[
+app_sequence = [
     # 'intro',
     # 'qualifier',
-    'main'
+    # 'main',
+    'peq',
+    # 'exitapp'
 ]
 SESSION_CONFIGS = [
 
@@ -27,6 +32,7 @@ SESSION_CONFIGS = [
         **some_defaults,
         secret=False,
         heterogenous=False,
+
     ),
     dict(
         name='secret_homo',
@@ -82,6 +88,7 @@ LANGUAGE_CODE = 'en'
 # e.g. EUR, GBP, CNY, JPY
 REAL_WORLD_CURRENCY_CODE = 'CDN'
 USE_POINTS = True
+POINTS_CUSTOM_NAME='Liras'
 
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable

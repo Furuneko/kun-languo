@@ -6,7 +6,103 @@
 {% endblock %}
 
 {% block content %}
-    {% formfields %}
-    {% next_button %}
+    <div class="card">
+        <div class="card-body">
+            <table class="table">
+                <tr>
+                    <td> As the Manager, you have earned a bonus of:</td>
+                    <th> {{ player.raw_payoff }} </th>
+                </tr>
+                <tr>
+                    <td> The total employee bonus to be allocated among the three employees is:</td>
+                    <th> {{ group.total_bonus }} </th>
+                </tr>
+            </table>
 
+            <div>
+                Note that the employees do not know about each other’s output nor the total output of the firm. The
+                employees do
+                not know the Manager’s bonus either.
+            </div>
+            <div>
+                {% if session.config.secret %}
+
+                    The employees will NOT find out about each other’s allocated bonus. Also, they do not know the size
+                    of the
+                    employee bonus pool.
+
+                {% else %}
+                    The employees will find out about each other’s allocated bonus.
+                {% endif %}
+            </div>
+            <div>
+                The total bonus allocated must add up to the total bonus amount of {{ group.total_bonus }} Lira (i.e.,
+                the total
+                bonus unallocated must equal 0). When you are done allocating the Bonus amount, please click ‘Submit.’
+            </div>
+        </div>
+    </div>
+    <table class="table table-hover table-striped">
+        <thead>
+        <th>Employee</th>
+        <th>Realized output</th>
+        <th>Bonus</th>
+        </thead>
+        <tbody>
+        {% for w,f in form_data %}
+            <tr>
+                <td>{{ w.role_desc }} {{ w.worker_subtype }}</td>
+                <td>{{ w.realized_output }}</td>
+                <td>{% formfield f label='' %}</td>
+            </tr>
+
+        {% endfor %}
+        <tr>
+            <td>Total Output for Period {{ view.round_number }}:</td>
+            <td>{{ group.total_output }}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Total Bonus Available for Allocation:</td>
+            <td></td>
+            <td><span id="total">{{ group.total_bonus }}</span></td>
+        </tr>
+        <tr>
+
+            <td>Total Bonus Allocated</td>
+            <td></td>
+            <td><span id="allocated"></span></td>
+        </tr>
+        <tr>
+            <td>Bonus Unallocated</td>
+            <td></td>
+            <td><span id="unallocated"></span></td>
+        </tr>
+
+
+        </tbody>
+    </table>
+
+    <button class="next-btn  btn btn-primary">Submit</button>
+    <script>
+        const totBonus = {{ group.total_bonus|json }}
+            $('input').keyup(function () {
+                let totalPoints = 0;
+                $('input').each(function () {
+                    console.debug('JOPA', (parseInt($(this).val()) || 0))
+                    totalPoints += (parseInt($(this).val()) || 0);
+
+                })
+                const allocated = totalPoints <= totBonus ? totalPoints : ''
+                const unallocated = totalPoints <= totBonus ? totBonus - totalPoints : ''
+                $('#allocated').html(allocated)
+                $('#unallocated').html(unallocated)
+                const $next = $('.next-btn');
+                if (totalPoints != totBonus) {
+                    $next.addClass('disabled')
+                } else {
+                    $next.removeClass('disabled')
+                }
+            })
+    </script>
 {% endblock %}

@@ -3,6 +3,10 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 
 
+class ExplainingDecodingTask(Page):
+    pass
+
+
 class Practice(Page):
     live_method = 'live_ret'
     practice = True
@@ -13,8 +17,25 @@ class Practice(Page):
         return dict()
 
     def get_timeout_seconds(self):
-        # todo - adjust based on practice or real task page
-        return 100
+        return self.session.config.get('practice_time_sec', Constants.PRACTICE_TIME_SEC)
+
+
+class PracticeRETFeedback(Page):
+    def vars_for_template(self):
+        return dict(
+            correct_practice_tasks=self.player.num_tasks_correct(page_name='Practice')
+        )
+
+
+class BeforeRET_WP(WaitPage):
+    body_text = 'Please wait until all participants have reviewed their performance before moving on.'
+
+
+class RETIntro(Page):
+    pass
+
+
+
 
 
 class RET(Page):
@@ -25,14 +46,24 @@ class RET(Page):
         return dict()
 
     def get_timeout_seconds(self):
-        # todo - adjust based on practice or real task page
-        return 100
+        return self.session.config.get('working_time_sec', Constants.WORKING_TIME_SEC)
 
     def before_next_page(self):
-        self.player._num_tasks_correct = self.player.num_tasks_correct
-        self.player._num_tasks_total = self.player.num_tasks_total
+        self.player._num_tasks_correct = self.player.num_tasks_correct(page_name='RET')
+        self.player._num_tasks_total = self.player.num_tasks_total(page_name='RET')
         self.player.set_payoff()
+class PerformanceRETFeedback(Page):
+    def vars_for_template(self):
+        return dict(
+            correct_ret_tasks=self.player.num_tasks_correct(page_name='RET')
+        )
 
-
-page_sequence = [Practice,
-                 RET]
+page_sequence = [
+    # ExplainingDecodingTask,
+    # Practice,
+    # PracticeRETFeedback,
+    # BeforeRET_WP,
+    # RETIntro,
+    RET,
+    # PerformanceRETFeedback,
+]

@@ -1,24 +1,21 @@
-
-
-{% extends "global/Page.html" %}
-{% load otree static %}
+{% extends "main/BaseInstructions.html" %}
+{% load otree  %}
 
 {% block title %}
-    Role
+    Manager Bonus
 {% endblock %}
 
-{% block content %}
-Screen 14: Manager Bonus [All roles and all conditions]
+{% block instruction_body %}
 
-Manager Bonus
+    <li class="list-group-item">
+        The Manager’s bonus is also tied to the combined realized output of the three employees. The higher
+        the combined realized output (after accounting for potential uncontrollable events), the bigger the
+        Manager’s bonus.
+    </li>
 
-The Manager’s bonus is also tied to the combined realized output of the three employees. The higher the combined realized output (after accounting for potential uncontrollable events), the bigger the Manager’s bonus.
+    <li class="list-group-item">
+        Please click ‘Next’ when you are ready to proceed to the next screen.
+    </li>
 
-Please click ‘Next’ when you are ready to proceed to the next screen.
-
-
-
-
-    {% next_button %}
 
 {% endblock %}

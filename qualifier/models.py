@@ -24,7 +24,8 @@ class Constants(BaseConstants):
     name_in_url = 'qualifier'
     players_per_group = None
     num_rounds = 1
-
+    PRACTICE_TIME_SEC = 60
+    WORKING_TIME_SEC = 120
 
 
 class Subsession(BaseSubsession):
@@ -40,7 +41,8 @@ class Group(BaseGroup):
 class Player(RETPlayer):
 
     def set_payoff(self):
-        self.payoff = self.num_tasks_correct * self.session.config.get('performance_fee')
+        self.payoff = self.num_tasks_correct(page_name='RET') * self.session.config.get('stage1_fee', 0)
+        self.participant.vars['stage1payoff'] = self.payoff
 
 
 class Task(GeneralTask):

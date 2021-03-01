@@ -1,0 +1,38 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Performance on Period {{ view.round_number }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="card my-3">
+        <div class="card-body">
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    For Period {{ view.round_number }}, you completed a total of {{ correct_ret_tasks }} decode{{ correct_ret_tasks|pluralize }}.
+                </li>
+
+
+
+
+                <li class="list-group-item">
+                    Remember, the other employees will not know what your performance is on the decode task. The Manager
+                    will only
+                    know what your realized output is, after accounting for the effect of the uncontrollable event, if
+                    any.
+                </li>
+
+                <li class="list-group-item">
+                    Please click ‘Next’ when you are ready to proceed to the next screen.
+                </li>
+            </ul>
+
+        </div>
+    </div>
+    {% next_button %}
+{% endblock %}
+
+

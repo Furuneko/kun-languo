@@ -2,7 +2,7 @@
 {% load otree static %}
 
 {% block title %}
-    Decode Task - Practice Period Feedback
+    Begin Period {{ view.round_number }}
 {% endblock %}
 
 {% block content %}
@@ -11,17 +11,20 @@
 
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                    In the Practice Period, your performance was {{ correct_practice_tasks }} decode{{ correct_practice_tasks|pluralize }}.
+                    You will now complete Period {{ view.round_number }}, where you will spend 2 minutes (120 seconds)
+                    completing as many
+                    decode tasks as you can.
                 </li>
 
                 <li class="list-group-item">
-                    Please click ‘Next’ when you are ready to proceed to the Performance Period.
+                    When you are ready to begin Period {{ view.round_number }}, please click “Start.’
                 </li>
-
             </ul>
+
         </div>
     </div>
 
-    {% next_button %}
+
+    <button class="  btn btn-primary">Start</button>
 
 {% endblock %}

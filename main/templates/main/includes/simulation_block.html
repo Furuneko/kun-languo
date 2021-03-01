@@ -1,0 +1,139 @@
+{% load otree  %}
+<li class="list-group-item">
+    Simulation: To understand how the allocation game works, in the table below, please insert
+    amounts,
+    between 0 and {{ player.pgg_endowment }}, that EACH employee allocates to their “self” account.
+    The program will then
+    calculate the amount of earnings EACH employee will receive from the allocation game. Please
+    change
+    the numbers a few times to fully understand the game.
+
+
+    <div id="app" v-cloak>
+        <table class="table">
+            <thead>
+            <tr>
+                <th></th>
+
+                <th v-for="worker in workers" :key="worker.name">
+                    [[worker.name]]
+                </th>
+
+                <th>Total</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    a. Fund Allocated to “Self”
+                </td>
+                <th v-for="worker in workers" :key="worker.name">
+                    <input type="number" @keyup='setPublic(worker.name)' class="example-self form-control" min="0"
+                           :max="endowment" v-model='worker.selfalloc'>
+                </th>
+
+                <td>[[totForSelf]]</td>
+            </tr>
+            <tr class="publicinfo">
+                <td>
+                    b. Fund Allocated to “Public”
+                </td>
+                <td v-for="worker in workers" :key="worker.name">
+                    [[worker.publicalloc]]
+                </td>
+                <td>
+                    [[totPublic]]
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    c. Share from “Public”
+                </td>
+
+                <td v-for="worker in workers" :key="worker.name">
+                    [[individualShare]]
+                </td>
+
+                <td>[[totMultiplied]]</td>
+            </tr>
+            <tr>
+                <td>
+                    Total Earnings
+                    (= a+c)
+
+                </td>
+
+                <td v-for="worker in workers" :key="worker.name">
+                    [[parseInt(worker.selfalloc) + individualShare || '']]
+                </td>
+
+                <td>[[totEarnings]]</td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+</li>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+<script>
+
+    new Vue({
+        el: "#app",
+        delimiters: ["[[", "]]"],
+        data() {
+            return {
+                endowment: {{session.config.pgg_endowment|json}},
+                coef: {{session.config.pgg_coef|json}},
+                workers: {{ workers|json }}
+            };
+        },
+        computed: {
+            totForSelf() {
+                let profit = _.sumBy(this.workers, function (worker) {
+                    return parseInt(worker.selfalloc) || 0;
+                });
+                return profit;
+            },
+            totPublic() {
+                let profit = _.sumBy(this.workers, function (worker) {
+                    return parseInt(worker.publicalloc) || 0;
+                });
+                return profit;
+            },
+            totPublic() {
+                let profit = _.sumBy(this.workers, function (worker) {
+                    return parseInt(worker.publicalloc) || 0;
+                });
+                return profit;
+            },
+            totMultiplied() {
+                return this.totPublic * this.coef;
+            },
+            individualShare() {
+                return Math.round(this.totMultiplied / this.workers.length);
+            },
+            totEarnings() {
+                const that = this;
+                let _tot = _.sumBy(this.workers, function (worker) {
+                    return parseInt(worker.selfalloc) + that.individualShare || 0;
+                });
+                return _tot;
+            }
+        },
+
+        methods: {
+            setPublic(workerName) {
+                const worker = _.find(this.workers, {name: workerName});
+                worker.selfalloc < 0 && (worker.selfalloc = 0);
+                worker.selfalloc > this.endowment && (worker.selfalloc = this.endowment);
+                worker.publicalloc = this.endowment - worker.selfalloc;
+            }
+        },
+        mounted() {
+        }
+    });
+
+</script>

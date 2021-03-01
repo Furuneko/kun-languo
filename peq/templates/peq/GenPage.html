@@ -1,0 +1,36 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    {% if title|default_if_none:false %}
+        {{ title }}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+{{ form.media }}
+    {% if comment|default_if_none:False %}
+        <div class="alert alert-info">
+            {{ comment }}
+        </div>
+    {% endif %}
+    {% if q_lead|default_if_none:False %}
+        <h5>
+
+            {{ q_lead }}
+        </h5>
+
+    {% endif %}
+    {% formfields %}
+    {% block next_announcement %}
+        <div class="next-announcement">
+            Please click ‘Next’ to proceed.
+        </div>
+
+    {% endblock %}
+    <div class="my-3">
+
+        {% next_button %}
+    </div>
+
+{% endblock %}

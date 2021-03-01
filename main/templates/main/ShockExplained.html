@@ -1,32 +1,36 @@
-
-
-{% extends "global/Page.html" %}
-{% load otree static %}
+{% extends "main/BaseInstructions.html" %}
+{% load otree %}
 
 {% block title %}
-    Role
+    Uncontrollable Event to Output
 {% endblock %}
 
-{% block content %}
-Screen 12: Uncontrollable Events [All roles and all conditions]
+{% block instruction_body %}
 
-Uncontrollable Event to Output
+    <li class="list-group-item">
+        Much like in the real world, sometimes employees’ output could be affected by an “uncontrollable
+        event.” An
+        example would be car salespeople’s performance would be affected by extreme weather conditions or
+        the unexpected
+        opening of a competing dealership.
+    </li>
 
-Much like in the real world, sometimes employees’ output could be affected by an “uncontrollable event.” An example would be car salespeople’s performance would be affected by extreme weather conditions or the unexpected opening of a competing dealership.
+    <li class="list-group-item">
+        In this study, uncontrollable events may affect employees by increasing or decreasing their
+        production of
+        completed decodes. The event’s effect can go both directions and ranges between -5 and +5 decodes.
+    </li>
 
-In this study, uncontrollable events may affect employees by increasing or decreasing their production of completed decodes. The event’s effect can go both directions and ranges between -5 and +5 decodes.
+    <li class="list-group-item">
+        For example, if an employee completed 25 decodes and was affected by a positive uncontrollable event
+        of +5, she
+        would have a realized output of 30 decodes. If she was affected by a negative uncontrollable event
+        of -3, then
+        her realized output would be 22 decodes.
+    </li>
 
-For example, if an employee completed 25 decodes and was affected by a positive uncontrollable event of +5, she would have a realized output of 30 decodes. If she was affected by a negative uncontrollable event of -3, then her realized output would be 22 decodes.
-
-[In case the realized production is less than zero, the program will adjust it to zero.]
-
-Please click ‘Next’ when you are ready to proceed to the next screen.
-
-
-
-
-
-
-    {% next_button %}
+    <li class="list-group-item">
+        Please click ‘Next’ when you are ready to proceed to the next screen.
+    </li>
 
 {% endblock %}

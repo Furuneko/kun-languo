@@ -3,16 +3,15 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 
 
-class MyPage(Page):
+class FirstIntro(Page):
     pass
 
 
-class ResultsWaitPage(WaitPage):
+class RoleExplanation(Page):
     pass
 
 
-class Results(Page):
-    pass
-
-
-page_sequence = [MyPage, ResultsWaitPage, Results]
+page_sequence = [
+    FirstIntro,
+    RoleExplanation
+]

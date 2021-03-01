@@ -1,32 +1,42 @@
 
-
-{% extends "global/Page.html" %}
+{% extends "main/BaseInstructions.html" %}
 {% load otree static %}
 
 {% block title %}
-    Role
+    Employees’ Actual Performance & Realized
 {% endblock %}
 
-{% block content %}
-Screen 12.5 Employee Output [all roles and all condition]
+{% block instruction_body %}
 
-Employees’ Actual Performance & Realized Output
+                <li class="list-group-item">
+                    Nobody, but the employees themselves, will know their actual performance on the decode task.
+                </li>
 
-Nobody, but the employees themselves, will know their actual performance on the decode task.
+                <li class="list-group-item">
+                    The employees themselves and the Manager will know their realized output, after adjusting for the
+                    effect of the
+                    uncontrollable event (if any). But the employees will NOT know each other’s realized output.
+                </li>
 
-The employees themselves and the Manager will know their realized output, after adjusting for the effect of the uncontrollable event (if any). But the employees will NOT know each other’s realized output.
+                <li class="list-group-item">
+                    The Manager and all three employees will learn whether an uncontrollable event has occurred, who is
+                    affected,
+                    and whether the impact was positive or negative. However, only the employee who was directly
+                    impacted will learn
+                    the amount of the effect.
+                </li>
 
-The Manager and all three employees will learn whether an uncontrollable event has occurred, who is affected, and whether the impact was positive or negative. However, only the employee who was directly impacted will learn the amount of the effect.
+                <li class="list-group-item">
+                    For example, if Employee A was negatively affected by an uncontrollable event of -5, the Manager,
+                    Employee B and
+                    Employee C will learn that a negative event has affected Employee A, but they will not know by how
+                    much.
+                </li>
 
-For example, if Employee A was negatively affected by an uncontrollable event of -5, the Manager, Employee B and Employee C will learn that a negative event has affected Employee A, but they will not know by how much.
-
-Please click ‘Next’ when you are ready to proceed to the next screen.
-
-
+                <li class="list-group-item">
+                    Please click ‘Next’ when you are ready to proceed to the next screen.
+                </li>
 
 
-
-
-    {% next_button %}
 
 {% endblock %}

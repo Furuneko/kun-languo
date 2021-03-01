@@ -2,26 +2,25 @@
 {% load otree static %}
 
 {% block title %}
-    : Introduction to the DecodeSlider Task [Same for all participants in all conditions]
+   Decode Task - Performance Period Feedback
 {% endblock %}
 
 {% block content %}
-Screen 8: Decode Task - Performance Period Feedback [Same for all participants in all conditions]
+  <div class="card my-3">
+        <div class="card-body">
 
-Stage One – Decode Task
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    In the Practice Period, your performance was {{ correct_ret_tasks }} decode{{ correct_ret_tasks|pluralize }}.
+                </li>
 
-In the Performance Period, your performance was [PerformanceDecodes] decodes.
+                <li class="list-group-item">
+                    Please click ‘Next’ when you are ready to proceed to the Performance Period.
+                </li>
 
-Please click ‘Next’ when you are ready to proceed to the next screen.
-
-
-
-
-[Participants have to click ‘Next’ in order to move on, and everyone must do so before the screen can advance].
-
-Please wait until all participants have reviewed their performance before moving on.
-
-
+            </ul>
+        </div>
+    </div>
     {% next_button %}
 
 {% endblock %}

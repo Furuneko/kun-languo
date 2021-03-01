@@ -1,4 +1,3 @@
-
 {% extends "global/Page.html" %}
 {% load otree static %}
 
@@ -7,7 +6,101 @@
 {% endblock %}
 
 {% block content %}
-    {% formfields %}
-    {% next_button %}
+
+
+    <div class="card my-3">
+        <div class="card-body">
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    Before starting Period {{ next_round }}, the three employees will now play an allocation game.
+                </li>
+
+                <li class="list-group-item">
+                    Each employee (A, B and C) will be given {{ player.pgg_endowment }} to split between themselves and
+                    a public account.
+                    The amount allocated to the “self” account will be converted to cash and paid to the employee. The
+                    amount allocated to the “public” account will be multiplied by {{ session.config.pgg_coef }} and
+                    split equally among the three
+                    employees.
+                </li>
+                {% if view.round_number == 1 %}
+
+                {% include 'main/includes/simulation_block.html' %}
+
+
+                {% endif %}
+
+
+
+                <li class="list-group-item">
+                    Each employee’s allocation decisions will be kept confidential, i.e., nobody other than yourself
+                    will know how you have allocated the {{ player.pgg_endowment }}.
+                </li>
+
+                <li class="list-group-item font-italic">
+                    Note: Recall that one Period will be randomly chosen at the end of the study to determine your
+                    bonus. Consistent with the way your bonus is determined, the same Period will determine your
+                    remuneration from the allocation game.
+                </li>
+
+                <li class="list-group-item">
+                    Please allocate the {{ player.pgg_endowment }} between the “self” account and “public” account:
+                </li>
+
+                <li class="list-group-item">
+
+                    <table class="table table-hover table-striped">
+                        <tr>
+                            <td>Allocated to “Self” Account (in Liras):</td>
+                            <td class="decision">{% formfield player.self_allocation label='' %}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Allocated to “Public” Account (in Liras):</td>
+                            <td class="decision">{% formfield player.public_allocation label='' %}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Total Amount (in Liras):</td>
+                            <td><span id="totallocated"></span></td>
+                        </tr>
+
+                    </table>
+
+                </li>
+
+
+                <li class="list-group-item">
+                    Please click ‘Submit’ when you have finalized your allocation decisions.
+                </li>
+
+
+            </ul>
+
+        </div>
+    </div>
+
+    <button class="next-btn  btn btn-primary">Submit</button>
+    <script>
+        const totForAllocation = {{ player.pgg_endowment|json }}
+            $('td.decision input').keyup(function () {
+                let totalPoints = 0;
+                $('td.decision input').each(function () {
+
+                    totalPoints += (parseInt($(this).val()) || 0);
+
+                })
+                ''
+                $('#totallocated').html(totalPoints)
+
+                const $next = $('.next-btn');
+                if (totalPoints != totForAllocation) {
+                    $next.addClass('disabled')
+                } else {
+                    $next.removeClass('disabled')
+                }
+            })
+    </script>
 
 {% endblock %}

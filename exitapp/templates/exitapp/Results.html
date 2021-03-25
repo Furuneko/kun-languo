@@ -10,6 +10,14 @@
         <div class="card-body">
 
             <ul class="list-group list-group-flush">
+                <li class="list-group-item   text-center list-group-item-primary ">
+                    The following Period has been randomly selected as the period that you will be compensated for Stage
+                    2:
+                    <span class="lead"><span
+                            class=" badge badge-danger">{{ participant.vars.payable_round|default_if_none:'' }}</span>
+                        </span>
+
+                </li>
                 <li class="list-group-item text-center">
                     Your total compensation is based on the following:
 
@@ -29,25 +37,26 @@
                                 Stage One Performance Period:
                             </td>
                             <td>
-                                {{ participant.vars.stage1payoff }}
+                                {{ participant.vars.stage1payoff|default_if_none:'' }}
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                Stage Two Bonus for Period {{ participant.vars.payable_round }}:
+                                Stage Two Bonus for Period {{ participant.vars.payable_round|default_if_none:'' }}:
                             </td>
                             <td>
-                                {{ participant.vars.stage2_work_bonus }}
+                                {{ participant.vars.stage2_work_bonus|default_if_none:'' }}
                             </td>
                         </tr>
-                        {% if participant.vars.is_worker %}
+                        {% if participant.vars.is_worker|default_if_none:False %}
 
                             <tr>
                                 <td>
-                                    Allocation Game Earnings for Period {{ participant.vars.payable_round }}:
+                                    Allocation Task Earnings for
+                                    Period {{ participant.vars.payable_round|default_if_none:'' }}:
                                 </td>
                                 <td>
-                                    {{ participant.vars.stage2_allocation_bonus }}
+                                    {{ participant.vars.stage2_allocation_bonus|default_if_none:'' }}
                                 </td>
                             </tr>
                         {% endif %}
@@ -56,7 +65,7 @@
                                 Total Compensation:
                             </td>
                             <td>
-                                {{ participant.payoff_plus_participation_fee }}
+                                {{ participant.payoff_plus_participation_fee|default_if_none:'' }}
                             </td>
                         </tr>
                     </table>

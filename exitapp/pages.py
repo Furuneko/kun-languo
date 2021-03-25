@@ -16,6 +16,10 @@ class PaySlip(Page):
         email2 = values.get('email_confirm')
         if email != email2:
             return 'Email addressess are different. Please check your answer'
+class Final(Page):
+    pass
 
-
-page_sequence = [Results, PaySlip]
+page_sequence = [
+    Results,
+    PaySlip,
+Final]

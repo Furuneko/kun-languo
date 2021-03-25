@@ -1,0 +1,22 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="text-center lead">
+                You have completed the Study. Thank you very much! You may now exit the study by closing Zoom and your
+                browser.
+            </div>
+
+        </div>
+    </div>
+    <div class="d-none">
+        {% next_button %}
+    </div>
+{% endblock %}

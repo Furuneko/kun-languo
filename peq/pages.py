@@ -22,7 +22,12 @@ class GenPage(Page):
 class MPage(GenPage):
     def is_displayed(self):
         return not self.participant.vars.get('is_worker')
-
+    def vars_for_template(self):
+        return dict(
+            comment="""Irrespectively to how you actually allocated in the experiment, please indicate the degree 
+            to which you agree with the following statements.""",
+            q_lead=''
+        )
 
 class WPage(GenPage):
     def is_displayed(self):

@@ -53,11 +53,11 @@ class Player(BasePlayer):
         **AgreeParams
     )
     w2_3 = LikertField(
-        label='5. In my opinion, the Manager should make adjustment for employees who are positively affected by the uncontrollable events.',
+        label='5. In my opinion, the Manager should make adjustment for employees who are <i>positively</i> affected by the uncontrollable events.',
         **AgreeParams
     )
     w2_4 = LikertField(
-        label='6. In my opinion, the Manager should make an adjustment for employees who are negatively affected by the uncontrollable events',
+        label='6. In my opinion, the Manager should make an adjustment for employees who are <i>negatively</i> affected by the uncontrollable events',
         **AgreeParams
     )
     w2_5 = models.LongStringField(label="""
@@ -97,10 +97,10 @@ class Player(BasePlayer):
         label="""5.	In my opinion, the Manager should allocate the employee bonus pool mainly based on the employees’ realized output.""",
         **AgreeParams)
     m3_3 = LikertField(label="""
-       6.	In my opinion, the Manager should make adjustment for employees who are positively affected by the uncontrollable events?""",
+       6.	In my opinion, the Manager should make adjustment for employees who are <i>positively</i> affected by the uncontrollable events?""",
                        **AgreeParams)
     m3_4 = LikertField(
-        label='7.	In my opinion, the Manager should make adjustment for employees who are negatively affected by the uncontrollable events?',
+        label='7.	In my opinion, the Manager should make adjustment for employees who are <i>negatively</i> affected by the uncontrollable events?',
         **AgreeParams)
     m3_5 = models.LongStringField(label="""
        Please briefly explain your reasoning behind your response to Q6 and Q7. Specifically, if and how do you think a 

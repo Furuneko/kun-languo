@@ -16,8 +16,8 @@ some_defaults = dict(
 app_sequence = [
     # 'intro',
     # 'qualifier',
-    'main',
-    'peq',
+    # 'main',
+    # 'peq',
     'exitapp'
 ]
 SESSION_CONFIGS = [

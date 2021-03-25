@@ -25,16 +25,16 @@
                 </li>
 
                 <li class="list-group-item">
-                    1. Did you allocate the bonus amount differently from what was originally suggested to you (i.e.,
-                    equally splitting the bonus to the three employees)?
+                    1. Did you decide to <i>equally</i> distribute the employee bonus to the three employees for
+                    Period {{ prev_period }}?
                     {% formfield player.non_equal_splitting label='' %}
                 </li>
 
 
                 <li class="list-group-item">
-                    2. If you answered Yes to Question 1, how did you decide how much to allocate to each employee? If
-                    you answered No to Question 1, why did you want to evenly split the bonus among the employees?
-                    Please explain your thought process in detail in the box below.
+                    If you answered Yes to Question 1, why did you want to evenly split the bonus among the employees?
+                    If you answered No to Question 1, how did you decide how much to allocate to each employee? Please
+                    explain your thought process in detail in the box below.
                     {% formfield player.allocation_explanation label='' %}
                 </li>
 

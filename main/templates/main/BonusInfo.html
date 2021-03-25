@@ -62,24 +62,26 @@
                         </tr>
 
                     {% endfor %}
-                <tr>
-                            <td>
-                                Total Employee Bonus Allocated:
-                            </td>
-                            <td>
-                                {{ group.total_bonus }}
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>
+                            Total Employee Bonus Allocated:
+                        </td>
+                        <td>
+                            {{ group.total_bonus }}
+                        </td>
+                    </tr>
                 </table>
-                <div>
-                    {% if session.config.secret %}
+
+                {% if session.config.secret %}
+                    <div class="alert alert-info my-3 font-weight-bold">
                         The three employees only know their own bonus, but not the bonus amount of the other employees.
-
-                    {% else %}
+                    </div>
+                {% else %}
+                    <div>
                         The three employees also received the above information.
+                    </div>
+                {% endif %}
 
-                    {% endif %}
-                </div>
             {% endif %}
             <div>
                 Please click ‘Next’ when you are ready to proceed to the next screen.

@@ -2,7 +2,7 @@
 {% load otree static %}
 
 {% block title %}
-    Allocation
+    Allocation Task for Period {{ view.round_number }}
 {% endblock %}
 
 {% block content %}
@@ -13,11 +13,11 @@
 
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                    Before starting Period {{ next_round }}, the three employees will now play an allocation game.
+                    Before starting Period {{ next_round }}, the three employees will now work on an allocation task.
                 </li>
 
                 <li class="list-group-item">
-                    Each employee (A, B and C) will be given {{ player.pgg_endowment }} to split between themselves and
+                    Each employee (A, B, and C) will be given {{ player.pgg_endowment }} to split between themselves and
                     a public account.
                     The amount allocated to the “self” account will be converted to cash and paid to the employee. The
                     amount allocated to the “public” account will be multiplied by {{ session.config.pgg_coef }} and
@@ -41,7 +41,7 @@
                 <li class="list-group-item font-italic">
                     Note: Recall that one Period will be randomly chosen at the end of the study to determine your
                     bonus. Consistent with the way your bonus is determined, the same Period will determine your
-                    remuneration from the allocation game.
+                    remuneration from the allocation task.
                 </li>
 
                 <li class="list-group-item">
@@ -64,6 +64,10 @@
                         <tr>
                             <td>Total Amount (in Liras):</td>
                             <td><span id="totallocated"></span></td>
+                        </tr>
+                        <tr>
+                            <td> </td>
+                            <td><i>(Must be {{ player.pgg_endowment }})</i></td>
                         </tr>
 
                     </table>

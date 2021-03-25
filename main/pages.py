@@ -199,7 +199,7 @@ class LastManagerExplanation(Page):
 
 page_sequence = [
     # FirstWP,
-    # WorkerAnnounceNextPeriod,
+    WorkerAnnounceNextPeriod,
     # RoleAnnouncement,
     # BackgroundStage2,
     # WorkerAbilityExplained,

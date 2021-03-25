@@ -90,18 +90,21 @@
     <script>
         const totBonus = {{ group.total_bonus|json }}
             $('input').keyup(function () {
+
                 let totalPoints = 0;
                 $('input').each(function () {
-                    console.debug('JOPA', (parseInt($(this).val()) || 0))
                     totalPoints += (parseInt($(this).val()) || 0);
-
                 })
+                if (totalPoints > totBonus) {
+                    $(this).val('')
+                }
                 const allocated = totalPoints <= totBonus ? totalPoints : ''
                 const unallocated = totalPoints <= totBonus ? totBonus - totalPoints : ''
                 $('#allocated').html(allocated)
                 $('#unallocated').html(unallocated)
                 const $next = $('.next-btn');
                 if (totalPoints != totBonus) {
+
                     $next.addClass('disabled')
                 } else {
                     $next.removeClass('disabled')

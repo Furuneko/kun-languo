@@ -11,6 +11,7 @@ class Practice(Page):
     live_method = 'live_ret'
     practice = True
     template_name = 'qualifier/RET.html'
+    title = 'Practice Period'
 
     def vars_for_template(self):
         self.player.get_or_create_task()
@@ -35,11 +36,9 @@ class RETIntro(Page):
     pass
 
 
-
-
-
 class RET(Page):
     live_method = 'live_ret'
+    title = 'Performance Period'
 
     def vars_for_template(self):
         self.player.get_or_create_task()
@@ -52,11 +51,14 @@ class RET(Page):
         self.player._num_tasks_correct = self.player.num_tasks_correct(page_name='RET')
         self.player._num_tasks_total = self.player.num_tasks_total(page_name='RET')
         self.player.set_payoff()
+
+
 class PerformanceRETFeedback(Page):
     def vars_for_template(self):
         return dict(
             correct_ret_tasks=self.player.num_tasks_correct(page_name='RET')
         )
+
 
 page_sequence = [
     ExplainingDecodingTask,

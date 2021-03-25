@@ -2,7 +2,7 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-    Counting task - round {{ view.round_number }}
+    {{ view.title|default_if_none:'' }}
 {% endblock %}
 
 

@@ -69,7 +69,7 @@ class Decoding(TaskGenerator):
         lts = random.sample(ascii_lowercase, k=dict_length)
         self.task_dict = dict(zip(digs, lts))
         self.question = random.sample(digs, k=task_len)
-
+        random.seed()
         return {
             'question': self.question,
             'task_dict': self.task_dict,

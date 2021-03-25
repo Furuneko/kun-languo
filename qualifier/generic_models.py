@@ -24,7 +24,6 @@ class RETPlayer(BasePlayer):
     _num_tasks_total = models.IntegerField(default=0)
 
     def live_ret(self, data):
-
         answer = data.get('answer')
         if answer:
             old_task = self.get_or_create_task()

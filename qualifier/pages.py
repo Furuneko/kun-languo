@@ -18,6 +18,7 @@ class Practice(Page):
         return dict()
 
     def get_timeout_seconds(self):
+        return 10000
         return self.session.config.get('practice_time_sec', Constants.PRACTICE_TIME_SEC)
 
 
@@ -61,11 +62,11 @@ class PerformanceRETFeedback(Page):
 
 
 page_sequence = [
-    ExplainingDecodingTask,
+    # ExplainingDecodingTask,
     Practice,
-    PracticeRETFeedback,
-    BeforeRET_WP,
-    RETIntro,
+    # PracticeRETFeedback,
+    # BeforeRET_WP,
+    # RETIntro,
     RET,
-    PerformanceRETFeedback,
+    # PerformanceRETFeedback,
 ]

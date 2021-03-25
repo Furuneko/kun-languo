@@ -15,10 +15,10 @@ some_defaults = dict(
 )
 app_sequence = [
     # 'intro',
-    # 'qualifier',
+    'qualifier',
     # 'main',
     # 'peq',
-    'exitapp'
+    # 'exitapp'
 ]
 SESSION_CONFIGS = [
 

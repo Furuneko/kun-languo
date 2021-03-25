@@ -9,26 +9,24 @@
         $('span#correct').html(obj.correct_answer);
     }
 
-    $(function () {
-        const $answer = $('input#answer');
-        const $btn_answer = $("button.answer");
+    const $answer = $('input#answer');
+    const $btn_answer = $("button.answer");
 
+    $btn_answer.on("click", function () {
+        var msg = {
+            'answer': $answer.val(),
+        };
+        liveSend(msg)
 
-        $btn_answer.on("click", function () {
-            var msg = {
-                'answer': $answer.val(),
-            };
-            liveSend(msg)
-
-            $answer.val('').focus();
-        });
-        $answer.keydown(function (event) {
-            if (event.keyCode === 13) {
-                event.preventDefault();
-                $btn_answer.click();
-                return false;
-            }
-        });
-
+        $answer.val('').focus();
     });
+    $answer.keydown(function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            $btn_answer.click();
+            return false;
+        }
+    });
+
+
 </script>

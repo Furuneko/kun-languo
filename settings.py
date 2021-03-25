@@ -14,8 +14,8 @@ some_defaults = dict(
     debug=True,
 )
 app_sequence = [
-    'intro',
-    'qualifier',
+    # 'intro',
+    # 'qualifier',
     'main',
     'peq',
     'exitapp'
@@ -75,7 +75,7 @@ SESSION_CONFIGS = [
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=.05,
+    real_world_currency_per_point=.2,
     participation_fee=10.00,
     doc="",
     use_browser_bots=False

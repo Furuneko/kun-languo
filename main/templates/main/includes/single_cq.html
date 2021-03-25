@@ -1,7 +1,8 @@
 {% load otree %}
 <form method="post" id="inner_form">
     {% csrf_token %}
-    {% if  object.hint %}
+
+    {% if  object.hint and form.errors %}
         <div class="alert alert-info my-3 text-center">{{ object.hint }}</div>
     {% endif %}
 

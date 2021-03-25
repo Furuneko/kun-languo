@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="card my-3">
+    <div class="card my-3 cq-header">
         <div class="card-body">
             Before moving to the task of Stage Two, we would like to ensure that you understand the rules. Please select
             the most appropriate answer to the following questions.
@@ -17,13 +17,14 @@
 
     <div class="result"></div>
     <script>
+        const $cqheader = $('.cq-header');
         let first_url = "{{ player.get_quiz_url }}"
         let allow_to_proceed = false;
         const get_next_q = function (url_to_get) {
             $.get(url_to_get, function (data) {
                 const {form_data, no_more_cq} = data;
                 allow_to_proceed = no_more_cq
-
+                if (allow_to_proceed) {$cqheader.hide()}
                 form_data && $(".result").html(data.form_data);
 
             });
@@ -43,10 +44,11 @@
                     type: form.attr("method"),
                     dataType: 'json',
                     success: function (data) {
-                        console.debug('DADA', data)
+
                         const {no_more_cq, form_data, next_q, form_is_valid} = data;
                         if (no_more_cq) {
                             allow_to_proceed = true;
+                            $cqheader.hide()
                             return
                         }
                         if (form_is_valid) {

@@ -42,12 +42,12 @@
 - label: If the three employees’ combined realized output is 100 decodes in one period, the total employee bonus pool will be
   choices:
     - 100 Liras
-    - 1000 Liras
     - 300 Liras
+    - 1000 Liras
     - Not enough information to determine the bonus pool
   treatment:
     - secret: False
-  correct: 2
+  correct: 1
   hint: "30% * 100 decodes * 10 Liras per decode = 300 Liras"
 - label: The higher the three employees’ combined realized output, the bigger the employee bonus pool will be
   choices:
@@ -80,7 +80,7 @@
 
 - label: How will your payment in Liras be converted to cash, to be e-transferred to you, after today’s study?
   choices:
+    - 2 Liras = $1 CAD
     - 5 Liras = $1 CAD
     - 10 Liras = $1 CAD
-    - 100 Liras = $1 CAD
   correct: 1

@@ -18,7 +18,6 @@ class Practice(Page):
         return dict()
 
     def get_timeout_seconds(self):
-        return 10000
         return self.session.config.get('practice_time_sec', Constants.PRACTICE_TIME_SEC)
 
 

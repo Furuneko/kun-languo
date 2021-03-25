@@ -62,11 +62,11 @@ class PerformanceRETFeedback(Page):
 
 
 page_sequence = [
-    # ExplainingDecodingTask,
+    ExplainingDecodingTask,
     Practice,
-    # PracticeRETFeedback,
-    # BeforeRET_WP,
-    # RETIntro,
+    PracticeRETFeedback,
+    BeforeRET_WP,
+    RETIntro,
     RET,
-    # PerformanceRETFeedback,
+    PerformanceRETFeedback,
 ]

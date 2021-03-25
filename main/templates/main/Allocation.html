@@ -87,6 +87,7 @@
 
     <button class="next-btn  btn btn-primary">Submit</button>
     <script>
+    const $totalloc=$('#totallocated')
         const totForAllocation = {{ player.pgg_endowment|json }}
             $('td.decision input').keyup(function () {
                 let totalPoints = 0;
@@ -96,13 +97,15 @@
 
                 })
                 ''
-                $('#totallocated').html(totalPoints)
+                $totalloc.html(totalPoints)
 
                 const $next = $('.next-btn');
                 if (totalPoints != totForAllocation) {
-                    $next.addClass('disabled')
+                    $next.addClass('disabled btn-secondary');
+                    $totalloc.addClass(' text-danger');
                 } else {
-                    $next.removeClass('disabled')
+                    $next.removeClass('disabled btn-secondary')
+                    $totalloc.removeClass(' text-danger');
                 }
             })
     </script>

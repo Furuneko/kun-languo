@@ -12,7 +12,7 @@ from django.db import models as djmodels
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import F
 from otree.lookup import get_page_lookup
-
+from qualifier import ret_functions
 practice_pages = ['Practice']
 
 
@@ -77,10 +77,13 @@ class RETPlayer(BasePlayer):
         try:
             task = self.tasks.get(answer__isnull=True, page_name=page_name)
         except ObjectDoesNotExist:
+            # fallback for deconding only
 
-            params = self.session.vars['task_params']
+            fallback_fun = getattr(ret_functions, self.session.config['task'])
+            fallback_params = {'dict_length': 10, 'task_len': 5}
+            params = self.session.vars.get('task_params', fallback_params)
             params['seed'] = app_name + page_name + str(nlast)
-            fun = self.session.vars['task_fun']
+            fun = self.session.vars.get('task_fun', fallback_fun)
             proto_task = fun(**params)
 
             task = self.tasks.create(player=self,

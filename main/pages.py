@@ -12,6 +12,7 @@ class FirstPage(Page):
 
 class FirstWP(WaitPage):
     body_text = 'Please wait until all participants have reviewed their performance before moving on.'
+
     def is_displayed(self):
         return self.round_number == 1
 
@@ -82,6 +83,9 @@ class Allocation(Page):
 
 class WorkingRET(RET):
     template_name = 'qualifier/RET.html'
+
+    def title(self):
+        return f'Decode Task – Period {self.round_number}'
 
     def is_displayed(self):
         return self.player.role() == Role.worker or self.round_number == 1
@@ -198,8 +202,8 @@ class LastManagerExplanation(Page):
 
 
 page_sequence = [
-    # FirstWP,
-    WorkerAnnounceNextPeriod,
+    FirstWP,
+    # WorkerAnnounceNextPeriod,
     # RoleAnnouncement,
     # BackgroundStage2,
     # WorkerAbilityExplained,
@@ -209,9 +213,9 @@ page_sequence = [
     # ManagerBonusesExplained,
     # BonusDistributionExplained,
     # PaymentExplained,
-    Quiz,
-    BeforeWorkingRETWP,
-    BeforeRETAnnouncement,
+    # Quiz,
+    # BeforeWorkingRETWP,
+    # BeforeRETAnnouncement,
     WorkingRET,
     ManagerExplanation,
     AfterWorkingRETWP,

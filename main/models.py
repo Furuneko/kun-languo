@@ -164,7 +164,7 @@ class Group(BaseGroup):
     pgg_individual_share = models.CurrencyField()
 
     def get_workers(self):
-        return self.player_set.filter(inner_role=Role.worker)
+        return self.player_set.filter(inner_role=Role.worker).order_by('worker_subtype')
 
     def set_bonus_pool(self):
 
@@ -176,7 +176,7 @@ class Group(BaseGroup):
 
         manager_share = self.session.config.get('manager_share')
         manager = self.get_player_by_role(Role.manager)
-        manager.raw_payoff = int(manager_share * self.total_bonus)
+        manager.raw_payoff = int(manager_share * self.total_output*stage2_fee)
         manager.save()
 
     def set_payoffs(self):
@@ -241,7 +241,11 @@ class Player(RETPlayer):
     def is_worker(self):
 
         return self.role() == Role.worker
-
+    def get_shock_msg(self):
+        if not self.is_shocked:
+            return ''
+        direction  = 'positively' if self.shock >0 else 'negatively'
+        return f'({direction} affected by uncontrollable event)'
     @property
     def is_shocked(self):
         return self.shock != 0

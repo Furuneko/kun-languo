@@ -12,17 +12,25 @@
 
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                    For Period {{ view.round_number }}, you completed a total of {{ correct_ret_tasks }} decode{{ correct_ret_tasks|pluralize }}.
+                    For Period {{ view.round_number }}, you completed a total of {{ correct_ret_tasks }}
+                    decode{{ correct_ret_tasks|pluralize }}.
                 </li>
 
 
-
-
                 <li class="list-group-item">
-                    Remember, the other employees will not know what your performance is on the decode task. The Manager
-                    will only
-                    know what your realized output is, after accounting for the effect of the uncontrollable event, if
-                    any.
+                    {% if player.is_worker %}
+                        Remember, the other employees will not know what your performance is on the decode task. The
+                        Manager
+                        will only
+                        know what your realized output is, after accounting for the effect of the uncontrollable event,
+                        if
+                        any.
+                    {% else %}
+                        Remember, as the Manager of the firm, your performance on the decode task will NOT affect your
+                        remuneration. Working in Period 1 (but not all other periods) is only for you to understand your
+                        employees’ work situation.
+                    {% endif %}
+
                 </li>
 
                 <li class="list-group-item">

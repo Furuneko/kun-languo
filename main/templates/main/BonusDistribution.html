@@ -51,7 +51,10 @@
         <tbody>
         {% for w,f in form_data %}
             <tr>
-                <td>{{ w.role_desc }} {{ w.worker_subtype }}</td>
+                <td>{{ w.role_desc }} {{ w.worker_subtype }} 
+
+                    {{ w.get_shock_msg }}
+                 </td>
                 <td>{{ w.realized_output }}</td>
                 <td>{% formfield f label='' %}</td>
             </tr>

@@ -53,7 +53,7 @@ class Constants(BaseConstants):
     # some fallbacks here JIC
     CQ_ERR_DEFAULT_MSG = "That answer was incorrect, please try again!"
     DEFAULT_PGG_ENDOWMENT = 20
-    num_rounds = 2 # TODO RESTORE len(shocks)
+    num_rounds =  len(shocks)
     subtypes = ('A', 'B', 'C')
     with open(r'./data/quiz.yaml') as file:
         cqs = yaml.load(file, Loader=yaml.FullLoader)

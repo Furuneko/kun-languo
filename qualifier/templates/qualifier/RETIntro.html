@@ -2,7 +2,7 @@
 {% load otree static %}
 
 {% block title %}
-    Preparation Screen for the Performance Period
+    Preparation Screen for the Performance Period - Stage 1
 {% endblock %}
 
 {% block content %}
@@ -14,7 +14,7 @@
                 <li class="list-group-item">
                     Now that you are familiar with the decode task, you will work on the Performance Period of the
                     decode task for
-                    60 seconds. Your performance relative to other participants during the Performance Period will
+                    {{ subsession.get_secs_performance }}. Your performance relative to other participants during the Performance Period will
                     determine your
                     role in Stage Two.
                 </li>
@@ -24,7 +24,7 @@
                     is the
                     currency we use in this study. At the end of today’s session, earned Liras will be converted into
                     cash at the
-                    rate of 5 cents (CAD) per Lira.
+                    rate of 5 Liras = $1 (CAD).
                 </li>
 
                 <li class="list-group-item">

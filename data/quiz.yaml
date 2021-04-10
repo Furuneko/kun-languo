@@ -24,7 +24,7 @@
     What would be the employee’s realized output for that period?
   choices:
     - 15 decodes
-    - 30 decodes
+    - 20 decodes
     - 25 decodes
     - None of the above.
   correct: 2
@@ -32,7 +32,7 @@
   choices:
     - The Manager AND ALL employees are informed of the size of the effect.
     - Only the Manager is informed of the size of the effect.
-    - Only the affected employees themselves are informed of the size of the effect
+    - Only the affected employees themselves are informed of the size of the effect.
   correct: 2
 - label: The Manager will receive a higher bonus when the firm’s realized output (from all three employees) is 100 decodes than when it is 50 decodes.
   choices:

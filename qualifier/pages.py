@@ -38,7 +38,7 @@ class RETIntro(Page):
 
 class RET(Page):
     live_method = 'live_ret'
-    title = 'Performance Period'
+    title = 'Performance Period - Stage 1'
 
     def vars_for_template(self):
         self.player.get_or_create_task()

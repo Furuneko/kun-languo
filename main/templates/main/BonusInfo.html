@@ -8,6 +8,7 @@
 {% block content %}
     <div class="card">
         <div class="card-body">
+
             {% if  player.is_worker %}
                 {% if session.config.secret %}
                     <div> Based on the Manager’s bonus allocation decision, your bonus for
@@ -28,14 +29,25 @@
                         {% endwith %}
                     </table>
                 {% else %}
+
                     <div>
                         Based on the Manager’s bonus allocation decision, the bonus amounts for
                         Period {{ view.round_number }} are:
                     </div>
                     <table class="table">
                         {% for w in group.get_workers %}
-                            <tr>
-                                <td>{{ w.role_desc }} {{ w.worker_subtype }}</td>
+
+                            <tr
+                                    class="
+{% if w.id_in_group == player.id_in_group %}
+                    font-weight-bold
+                            {% endif %}"
+                            >
+                                <td>{{ w.role_desc }} {{ w.worker_subtype }}
+                                {% if w.id_in_group == player.id_in_group %}
+                    (You)
+                            {% endif %}
+                                </td>
 
                                 <td>{{ w.bonus }}</td>
                             </tr>

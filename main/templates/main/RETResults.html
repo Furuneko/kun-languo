@@ -12,7 +12,7 @@
 
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                    For Period {{ view.round_number }}, you completed a total of {{ correct_ret_tasks }}
+                    For Period {{ view.round_number }}, you (<b>{{ player.role_desc }} {{ player.worker_subtype|default_if_none:'' }}</b>) completed a total of {{ correct_ret_tasks }}
                     decode{{ correct_ret_tasks|pluralize }}.
                 </li>
 

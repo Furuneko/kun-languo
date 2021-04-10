@@ -29,6 +29,12 @@ class Constants(BaseConstants):
 
 
 class Subsession(BaseSubsession):
+    def get_secs_performance(self):
+        secs = self.session.config.get('working_time_sec', Constants.WORKING_TIME_SEC)
+        mins = int(secs / 60)
+        plur = 's' if mins > 1 else ''
+        return f'{secs} seconds (or {mins} minute{plur})'
+
     def creating_session(self):
         self.session.vars['task_fun'] = getattr(ret_functions, self.session.config['task'])
         self.session.vars['task_params'] = self.session.config.get('task_params', {})

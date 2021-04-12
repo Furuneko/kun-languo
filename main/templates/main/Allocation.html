@@ -13,7 +13,13 @@
 
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                    Before starting Period {{ next_round }}, the three employees will now work on an allocation task.
+                    {% if  view.round_number == Constants.num_rounds %}
+                        The three employees will now work on an allocation task.
+                    {% else %}
+                        Before starting Period {{ next_round }}, the three employees will now work on an allocation
+                        task.
+                    {% endif %}
+
                 </li>
 
                 <li class="list-group-item">
@@ -26,7 +32,7 @@
                 </li>
                 {% if view.round_number == 1 %}
 
-                {% include 'main/includes/simulation_block.html' %}
+                    {% include 'main/includes/simulation_block.html' %}
 
 
                 {% endif %}
@@ -66,7 +72,7 @@
                             <td><span id="totallocated"></span></td>
                         </tr>
                         <tr>
-                            <td> </td>
+                            <td></td>
                             <td><i>(Must be {{ player.pgg_endowment }})</i></td>
                         </tr>
 
@@ -87,7 +93,7 @@
 
     <button class="next-btn  btn btn-primary">Submit</button>
     <script>
-    const $totalloc=$('#totallocated')
+        const $totalloc = $('#totallocated')
         const totForAllocation = {{ player.pgg_endowment|json }}
             $('td.decision input').keyup(function () {
                 let totalPoints = 0;

@@ -106,17 +106,17 @@ class Player(BasePlayer):
        Please briefly explain your reasoning behind your response to Q6 and Q7. Specifically, if and how do you think a 
        Manager should make bonus adjustments considering the effect of uncontrollable events?""")
     m4_1 = LikertField(
-        label=""" a. Assign the bonus pool to best reflect the employees’ realized output? """, **FairParams)
+        label=""" a. Assign the bonus pool to best reflect the employees’ realized output?""", **FairParams)
     m4_2 = LikertField(
-        label=""" b. Assign the bonus pool to best reflect the employees’ effort? """, **FairParams)
+        label=""" b. Assign the bonus pool to best reflect the employees’ effort?""", **FairParams)
     m4_3 = LikertField(label="""
-       c. Assign the bonus pool to best reflect the employees’ ability? """, **FairParams)
+       c. Assign the bonus pool to best reflect the employees’ ability?""", **FairParams)
     m4_4 = LikertField(
-        label=' d. Assign the bonus pool in a way that I felt I was able to justify to my employees? ', **FairParams)
+        label=' d. Assign the bonus pool in a way that I felt I was able to justify to my employees?', **FairParams)
     m4_5 = LikertField(label="""
-       e. Assign the bonus pool in a way that best motivated employees in later periods? """, **FairParams)
+       e. Assign the bonus pool in a way that best motivated employees in later periods?""", **FairParams)
     m4_6 = LikertField(label="""
-       f. Assign the bonus pool to avoid creating conflicts among the employees? """, **FairParams)
+       f. Assign the bonus pool to avoid creating conflicts among the employees?""", **FairParams)
     gender = models.StringField(widget=widgets.RadioSelect, label='1.	What gender do you identify most with?',
                                 choices=['a.	Male',
                                          'b.	Female',
@@ -126,12 +126,13 @@ class Player(BasePlayer):
     age = models.IntegerField(label='2.	What is your age today (in years):',
                               )
     school_year = models.StringField(widget=widgets.RadioSelect, label='3.	Current academic status:',
-                                     choices=['a.	1st year    ',
-                                              'b.	2nd year  ',
-                                              'c.	3rd year    ',
-                                              'd.	4th year   ',
-                                              'e.	5th year  Graduate  ',
-                                              'f.	Other',
+                                     choices=['a.	1st year',
+                                              'b.	2nd year',
+                                              'c.	3rd year',
+                                              'd.	4th year',
+                                              'e.	5th year',
+                                              'f.   Graduate',
+                                              'g.	Other',
                                               ]
                                      )
     school_year_other = models.StringField(blank=True, label='If you chose "Other", please specify')

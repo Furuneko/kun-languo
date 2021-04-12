@@ -81,7 +81,7 @@ class RETPlayer(BasePlayer):
             fallback_fun = getattr(ret_functions, self.session.config['task'])
             fallback_params = {'dict_length': 10, 'task_len': 5}
             params = self.session.vars.get('task_params', fallback_params)
-            params['seed'] = app_name + page_name + str(nlast)
+            params['seed'] = app_name + page_name + str(self.round_number) +str(nlast)
             fun = self.session.vars.get('task_fun', fallback_fun)
             proto_task = fun(**params)
 

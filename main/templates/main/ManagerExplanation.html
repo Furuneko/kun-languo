@@ -2,7 +2,7 @@
 {% load otree static %}
 
 {% block title %}
-
+Reflection on Bonus Allocation for Period {{ prev_period }}
 {% endblock %}
 
 {% block content %}
@@ -15,7 +15,7 @@
                 <li class="list-group-item">
                     As the Manager of the firm, please answer a couple of questions while your three employees
                     complete
-                    the decode task for Period 2. The period lasts 2 minutes (120 seconds).
+                    the decode task for Period {{ prev_period }}. The period lasts 2 minutes (120 seconds).
 
                 </li>
                 <li class="list-group-item">
@@ -32,7 +32,7 @@
 
 
                 <li class="list-group-item">
-                    If you answered Yes to Question 1, why did you want to evenly split the bonus among the employees?
+                    2. If you answered Yes to Question 1, why did you want to evenly split the bonus among the employees?
                     If you answered No to Question 1, how did you decide how much to allocate to each employee? Please
                     explain your thought process in detail in the box below.
                     {% formfield player.allocation_explanation label='' %}

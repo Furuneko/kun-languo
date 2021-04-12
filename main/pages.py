@@ -116,7 +116,13 @@ class BonusDistribution(Page):
     def vars_for_template(self):
         form = self.get_form()
         workers = self.group.get_workers()
-        return dict(form_data=zip(workers, form))
+        inputs = [dict(label=f'{w.role_desc()} {w.worker_subtype}  {w.get_shock_msg()}',
+                       work_result=w.realized_output,
+                       name=f'bonus_{w.worker_subtype}') for w in workers
+                  ]
+
+
+        return dict(form_data=zip(workers, form), inputs=inputs)
 
     def is_displayed(self):
         return self.player.role() == Role.manager

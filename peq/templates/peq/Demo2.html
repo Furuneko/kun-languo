@@ -1,0 +1,24 @@
+{% extends "peq/GenPage.html" %}
+{% load otree static %}
+
+
+
+{% block content %}
+    {% block comment_and_lead %}
+{{ block.super }}
+    {% endblock %}
+<label class="col-form-label" for="id_experience">
+    5.	How many months of full-time work experience do you have? Please convert part-time work experience to
+     full-time work experience based on the time you worked:</label>
+
+    <div class="input-group mb-3">
+
+        <input type="number" name="experience"  id="id_experience" required class="form-control" aria-label="Amount (to the nearest dollar)">
+        <div class="input-group-append">
+            <span class="input-group-text">months</span>
+        </div>
+    </div>
+
+    {% next_button %}
+
+{% endblock %}

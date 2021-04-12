@@ -10,7 +10,7 @@
         <div class="card-body">
             <table class="table">
                 <tr>
-                    <td> As the Manager, you have earned a bonus of:</td>
+                    <td> As the Manager, you have earned a bonus of (equals total output from 3 employees):</td>
                     <th> {{ player.raw_payoff }} </th>
                 </tr>
                 <tr>
@@ -36,79 +36,117 @@
                 {% endif %}
             </div>
             <div>
-                The total bonus allocated must add up to the total bonus amount of {{ group.total_bonus }} Lira (i.e.,
+                The total bonus allocated must add up to the total bonus amount of {{ group.total_bonus }}
+                Lira{{ group.total_bonus|pluralize }} (i.e.,
                 the total
                 bonus unallocated must equal 0). When you are done allocating the Bonus amount, please click ‘Submit.’
             </div>
         </div>
     </div>
-    <table class="table table-hover table-striped">
-        <thead>
-        <th>Employee</th>
-        <th>Realized output</th>
-        <th>Bonus</th>
-        </thead>
-        <tbody>
-        {% for w,f in form_data %}
-            <tr>
-                <td>{{ w.role_desc }} {{ w.worker_subtype }} 
 
-                    {{ w.get_shock_msg }}
-                 </td>
-                <td>{{ w.realized_output }}</td>
-                <td>{% formfield f label='' %}</td>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans&amp;display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <div id="app">
+
+        <table class="table table-hover table-striped">
+            <thead>
+            <th>Employee</th>
+            <th>Realized output</th>
+            <th>Bonus</th>
+            </thead>
+            <tbody>
+            <tr v-for='i in inputs' :key='i.field_name'>
+                <td>[[i.label]]
+                </td>
+                <td>[[i.work_result]]</td>
+                <td>
+
+                    <div class="form-group required">
+                        <div class="controls ">
+                            <input type="number" :name="i.name" required class="form-control"
+                                   step="1"
+                                   min="0"
+                                   v-model.number='i.value'
+                                   @input="filterInput"
+                                   @keydown="filterKey"
+                            />
+                        </div>
+                    </div>
+                </td>
+
             </tr>
 
-        {% endfor %}
-        <tr>
-            <td>Total Output for Period {{ view.round_number }}:</td>
-            <td>{{ group.total_output }}</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Total Bonus Available for Allocation:</td>
-            <td></td>
-            <td><span id="total">{{ group.total_bonus }}</span></td>
-        </tr>
-        <tr>
-
-            <td>Total Bonus Allocated</td>
-            <td></td>
-            <td><span id="allocated"></span></td>
-        </tr>
-        <tr>
-            <td>Bonus Unallocated</td>
-            <td></td>
-            <td><span id="unallocated"></span></td>
-        </tr>
 
 
-        </tbody>
-    </table>
+            <tr>
+                <td>Total Output for Period 1:</td>
+                <td>{{ group.total_output }}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Total Bonus Available for Allocation:</td>
+                <td></td>
+                <td><span id="total">{{ group.total_bonus }}</span></td>
+            </tr>
+            <tr>
 
-    <button class="next-btn  btn btn-primary">Submit</button>
+                <td>Total Bonus Allocated</td>
+                <td></td>
+                <td><span id="allocated">[[totAllocated]]</span></td>
+            </tr>
+            <tr :class="isFullyAllocated?'table-success':'table-danger'" >
+                <td>Bonus Unallocated</td>
+                <td></td>
+                <td><span id="unallocated">[[totUnallocated]]</span></td>
+            </tr>
+
+            </tbody>
+        </table>
+
+        <button class="next-btn  btn btn-primary" :disabled="!isFullyAllocated">Submit</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
     <script>
-        const totBonus = {{ group.total_bonus|json }}
-            $('input').keyup(function () {
-
-                let totalPoints = 0;
-                $('input').each(function () {
-                    totalPoints += (parseInt($(this).val()) || 0);
-                })
-                if (totalPoints > totBonus) {
-                    $(this).val('')
+        new Vue({
+            el: "#app",
+            delimiters: ["[[", "]]"],
+            data: {
+                results: false,
+                inputs: {{ inputs|json }},
+                totBonus:{{ group.total_bonus|json }}
+            },
+            computed: {
+                totAllocated() {
+                    return _.sumBy(this.inputs, 'value')
+                },
+                totUnallocated(){
+                    if (this.totAllocated === undefined) {return this.totBonus}
+                    return (this.totBonus-this.totAllocated)
+                },
+                isFullyAllocated (){
+                    return this.totUnallocated===0
                 }
-                const allocated = totalPoints <= totBonus ? totalPoints : ''
-                const unallocated = totalPoints <= totBonus ? totBonus - totalPoints : ''
-                $('#allocated').html(allocated)
-                $('#unallocated').html(unallocated)
-                const $next = $('.next-btn');
-                if (totalPoints != totBonus) {
 
-                    $next.addClass('disabled')
-                } else {
-                    $next.removeClass('disabled')
+            },
+            methods: {
+                filterInput(e) {
+                    e.target.value = e.target.value.replace(/[^0-9]+/g, '');
+
+                    if (parseInt(e.target.value) < 0) {
+                        e.target.value = '0'
+                    }
+                },
+                filterKey(e) {
+                    const key = e.key;
+                    if (key === '-')
+                        return e.preventDefault();
                 }
-            })
+
+            }
+        });
+
     </script>
 {% endblock %}

@@ -64,6 +64,8 @@ class Constants(BaseConstants):
 class Subsession(BaseSubsession):
     shock_size = models.IntegerField()
     shock_worker_subtype = models.StringField(choices=Constants.subtypes)
+    def shock_direction(self):
+        return 'positive' if self.shock_size>0 else 'negative'
 
     def creating_session(self):
         candidate = Constants.shocks[self.round_number - 1]
@@ -155,9 +157,9 @@ class Subsession(BaseSubsession):
 
 
 class Group(BaseGroup):
-    bonus_A = models.IntegerField()
-    bonus_B = models.IntegerField()
-    bonus_C = models.IntegerField()
+    bonus_A = models.IntegerField(min=0)
+    bonus_B = models.IntegerField(min=0)
+    bonus_C = models.IntegerField(min=0)
     total_bonus = models.IntegerField()
     total_output = models.IntegerField()
     pgg_total_contribution = models.CurrencyField()

@@ -13,7 +13,7 @@
             <ul class="list-group list-group-flush">
 
                 <li class="list-group-item">
-                    An uncontrollable event occurred that has positively affected only
+                    An uncontrollable event occurred that has {{ subsession.shock_direction }}ly affected only
                     Employee {{ subsession.shock_worker_subtype }} for Period
                     {{ view.round_number }}.
                 </li>
@@ -21,7 +21,7 @@
                 {% if player.is_shocked %}
 
                     <li class="list-group-item">
-                        You have experienced a positive uncontrollable event of {{ player.shock }}, such that your
+                        You have experienced a {{ subsession.shock_direction }} uncontrollable event of {{ player.shock }}, such that your
                         realized
                         output for Period {{ view.round_number }} is now:
                     </li>

@@ -2,25 +2,29 @@
 {% load otree static %}
 
 {% block title %}
-    {% if title|default_if_none:false %}
-        {{ title }}
+    {% if view.title|default_if_none:False %}
+        {{ view.title }}
     {% endif %}
 {% endblock %}
 
 {% block content %}
-{{ form.media }}
-    {% if comment|default_if_none:False %}
-        <div class="alert alert-info">
-            {{ comment }}
-        </div>
-    {% endif %}
-    {% if q_lead|default_if_none:False %}
-        <h5>
+    {% block comment_and_lead %}
 
-            {{ q_lead }}
-        </h5>
 
-    {% endif %}
+        {{ form.media }}
+        {% if comment|default_if_none:False %}
+            <div class="alert alert-info">
+                {{ comment }}
+            </div>
+        {% endif %}
+        {% if q_lead|default_if_none:False %}
+            <h5>
+
+                {{ q_lead }}
+            </h5>
+
+        {% endif %}
+    {% endblock %}
     {% formfields %}
     {% block next_announcement %}
         <div class="next-announcement">

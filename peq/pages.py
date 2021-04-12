@@ -4,6 +4,7 @@ from .models import Constants
 
 
 class GenPage(Page):
+    title = 'Post Experimental Questionnaire'
     template_name = 'peq/GenPage.html'
     form_model = 'player'
 
@@ -22,12 +23,14 @@ class GenPage(Page):
 class MPage(GenPage):
     def is_displayed(self):
         return not self.participant.vars.get('is_worker')
+
     def vars_for_template(self):
         return dict(
             comment="""Irrespectively to how you actually allocated in the experiment, please indicate the degree 
             to which you agree with the following statements.""",
             q_lead=''
         )
+
 
 class WPage(GenPage):
     def is_displayed(self):
@@ -75,10 +78,15 @@ class M4(MPage):
         c = super().vars_for_template()
         c[
             'q_lead'] = '9. When you were allocating the employee bonus pool, to what extend did you try to do the following?'
+        c[
+            'comment'] = 'When you were allocating the employee bonus pool, to what extend did you try to do the following?'
+
         return c
 
 
 class Demo1(GenPage):
+    title = 'Demographics'
+
     def vars_for_template(self):
         return dict(comment='Please provide some information about yourself:', q_lead='')
 
@@ -87,6 +95,9 @@ class Demo1(GenPage):
 
 
 class Demo2(GenPage):
+    template_name = 'peq/Demo2.html'
+    title = 'Demographics'
+
     def vars_for_template(self):
         return dict(comment='Please provide some information about yourself:', q_lead='')
 

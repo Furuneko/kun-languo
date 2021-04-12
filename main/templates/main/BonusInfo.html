@@ -59,10 +59,10 @@
 
             {% else %}
 
-                <div>
-                    In Period {{ view.round_number }}, your received a bonus of {{ player.raw_payoff }} Lira.
+                <div >
+                    In Period {{ view.round_number }}, you received a bonus of {{ player.raw_payoff }} Lira.
                 </div>
-                <div>
+                <div class="my-3">
                     Based on your bonus allocation decision, employee bonuses for Period {{ view.round_number }} are:
                 </div>
                 <table class="table">
@@ -90,7 +90,7 @@
                     </div>
                 {% else %}
                     <div>
-                        The three employees also received the above information.
+                        The three employees also received the above information about the employee bonus allocation.
                     </div>
                 {% endif %}
 

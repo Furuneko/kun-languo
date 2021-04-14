@@ -6,17 +6,17 @@
 {% endblock %}
 
 {% block instruction_body %}
-
+    <li class="list-group-item">
+        The established roles (Manager, Employee A, Employee B, and Employee C) do not change throughout
+        Stage Two.
+    </li>
     <li class="list-group-item">
         Stage Two consists of multiple periods. One Manager and three employees in each firm will be
         interacting with one another across these periods.
     </li>
 
-    <li class="list-group-item">
-        The established roles (Manager, Employee A, Employee B, and Employee C) do not change throughout
-        Stage Two.
-    </li>
-    <li class="list-group-item lead">
+
+    <li class="list-group-item ">
         You have been assigned the role of <b>{{ player.role_desc }} {{ player.worker_subtype|default_if_none:'' }}</b>
     </li>
 

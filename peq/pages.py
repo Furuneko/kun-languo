@@ -62,7 +62,12 @@ class W4(WPage):
 
 
 class M1(MPage):
-    pass
+    def vars_for_template(self):
+        c = super().vars_for_template()
+        c['comment'] = """To help us better understand your decisions in Stage Two, 
+            please respond to the following questions. Recall that your identity will remain 
+            anonymous and your responses will be kept confidential."""
+        return c
 
 
 class M2(MPage):
@@ -76,10 +81,9 @@ class M3(MPage):
 class M4(MPage):
     def vars_for_template(self):
         c = super().vars_for_template()
-        c[
-            'q_lead'] = '9. When you were allocating the employee bonus pool, to what extend did you try to do the following?'
-        c[
-            'comment'] = 'When you were allocating the employee bonus pool, to what extend did you try to do the following?'
+        c['q_lead'] = ''
+        c['comment'] = """When you were allocating the employee bonus pool, to what extend did you 
+        try to do the following?"""
 
         return c
 

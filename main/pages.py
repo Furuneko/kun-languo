@@ -96,6 +96,9 @@ class WorkingRET(RET):
 
 
 class RETResults(Page):
+    def is_displayed(self):
+        return self.player.role() == Role.worker or self.round_number == 1
+
     def vars_for_template(self):
         return dict(
             correct_ret_tasks=self.player.num_tasks_correct(page_name='WorkingRET')
@@ -120,7 +123,6 @@ class BonusDistribution(Page):
                        work_result=w.realized_output,
                        name=f'bonus_{w.worker_subtype}') for w in workers
                   ]
-
 
         return dict(form_data=zip(workers, form), inputs=inputs)
 

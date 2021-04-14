@@ -2,7 +2,7 @@
 {% load otree static %}
 
 {% block title %}
-    Bonus distribution
+    Bonus distribution for Period {{ view.round_number }}
 {% endblock %}
 
 {% block content %}
@@ -80,7 +80,7 @@
 
 
             <tr>
-                <td>Total Output for Period 1:</td>
+                <td>Total Output for Period {{ view.round_number }}:</td>
                 <td>{{ group.total_output }}</td>
                 <td></td>
             </tr>

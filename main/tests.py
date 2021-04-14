@@ -29,7 +29,9 @@ class PlayerBot(Bot):
             self.call_method(RET)
         if self.player.role() == Role.worker or self.round_number == 1:
             yield Submission(WorkingRET, check_html=False)
-        yield RETResults,
+
+        if self.player.role() == Role.worker or self.round_number == 1:
+            yield RETResults,
         yield ShockAnnouncement,
 
         n = 3

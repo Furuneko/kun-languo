@@ -84,7 +84,7 @@ class WorkingRET(RET):
         return f'Decode Task – Period {self.round_number}'
 
     def vars_for_template(self):
-        return dict(show_worker_subtype=True)
+        return dict(show_worker_subtype=True if self.player.role() == Role.worker else False)
 
     def is_displayed(self):
         return self.player.role() == Role.worker or self.round_number == 1

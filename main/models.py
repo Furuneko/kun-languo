@@ -18,7 +18,9 @@ from qualifier.generic_models import RETPlayer, GeneralTask
 from csv import DictReader
 import yaml
 from django.urls import reverse_lazy, reverse
+from django.utils.html import mark_safe
 import json
+import time
 
 author = 'Philipp Chapkovski, HSE-Moscow'
 
@@ -52,8 +54,11 @@ class Constants(BaseConstants):
         shocks = list(DictReader(csvfile))
     # some fallbacks here JIC
     CQ_ERR_DEFAULT_MSG = "That answer was incorrect, please try again!"
+    CQ_CORR_DEFAULT_MSG = "Well done! The correct answer is:"
     DEFAULT_PGG_ENDOWMENT = 20
-    num_rounds =  len(shocks)
+    num_rounds = len(shocks)
+    max_minutes_manager_explanation = 2
+    confirm_understanding_label = mark_safe("<b>I confirm that I understand the allocation game.</b>")
     subtypes = ('A', 'B', 'C')
     with open(r'./data/quiz.yaml') as file:
         cqs = yaml.load(file, Loader=yaml.FullLoader)
@@ -170,7 +175,6 @@ class Group(BaseGroup):
 
     def set_bonus_pool(self):
 
-
         self.total_output = sum([i.realized_output or 0 for i in self.get_workers()])
         stage2_fee = self.session.config.get('stage2_fee')
         worker_share = self.session.config.get('worker_share')
@@ -225,6 +229,7 @@ class Player(RETPlayer):
     raw_payoff = models.IntegerField(default=0)
     payable_round = models.IntegerField(min=1, max=Constants.num_rounds)
     realized_output = models.IntegerField()
+    confirm_understanding = models.BooleanField(widget=widgets.CheckboxInput)
     self_allocation = models.IntegerField(min=0)
     public_allocation = models.IntegerField(min=0)
 
@@ -241,13 +246,14 @@ class Player(RETPlayer):
 
     @property
     def is_worker(self):
-
         return self.role() == Role.worker
+
     def get_shock_msg(self):
         if not self.is_shocked:
             return ''
         direction  = 'positively' if self.shock >0 else 'negatively'
         return f'({direction} affected by uncontrollable event)'
+
     @property
     def is_shocked(self):
         return self.shock != 0
@@ -276,6 +282,10 @@ class Player(RETPlayer):
             return reverse('no_more_cqs', kwargs=dict(participant_code=self.participant.code))
         return available_q.get_absolute_url()
 
+    def get_time_left(self, page_name, timer):
+        time_start = self.participant.vars.setdefault(f'time_left_{page_name}_{self.round_number}', time.time())
+        return timer - (time.time() - time_start)
+
 
 class Task(GeneralTask):
     player = djmodels.ForeignKey(to=Player, related_name='tasks', on_delete=djmodels.CASCADE)
@@ -301,6 +311,7 @@ class CQ(djmodels.Model):
     label = models.StringField()
     choices = models.StringField()
     correct = models.IntegerField()
+    explained = models.BooleanField(initial=False)
     hint = models.StringField()
 
     def get_absolute_url(self):

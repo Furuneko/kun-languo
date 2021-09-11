@@ -15,7 +15,7 @@ class Practice(Page):
 
     def vars_for_template(self):
         self.player.get_or_create_task()
-        return dict()
+        return dict(show_worker_subtype=False)
 
     def get_timeout_seconds(self):
         return self.session.config.get('practice_time_sec', Constants.PRACTICE_TIME_SEC)
@@ -42,7 +42,7 @@ class RET(Page):
 
     def vars_for_template(self):
         self.player.get_or_create_task()
-        return dict()
+        return dict(show_worker_subtype=False)
 
     def get_timeout_seconds(self):
         return self.session.config.get('working_time_sec', Constants.WORKING_TIME_SEC)

@@ -6,16 +6,20 @@
 {% endblock %}
 
 {% block content %}
+
+    {% include 'main/includes/timer_no_autosubmit.html' %}
+
     <div class="card my-3">
         <div class="card-body">
 
             <ul class="list-group list-group-flush">
 
-
-
                 <li class="list-group-item">
-                    Please reflect on how you made your bonus allocation decisions for Period {{ view.round_number}} and answer the following
-                    questions:
+                    Please reflect on how you made your bonus allocation decisions for Period {{ view.round_number}}
+                    and answer the following questions.
+                </li>
+                <li class="list-group-item font-weight-bold">
+                    You will have {{ Constants.max_minutes_manager_explanation }} minutes to answer.
                 </li>
 
                 <li class="list-group-item">

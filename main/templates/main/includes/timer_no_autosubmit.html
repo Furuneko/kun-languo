@@ -1,0 +1,57 @@
+<div class="otree-timer alert alert-warning">
+    <p>Time left to complete this page:
+        <span style="font-weight: bold">
+            <span class="otree-timer__time-left"></span>
+        </span>
+    </p>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="no-time-left" tabindex="-1" role="dialog" aria-labelledby="noTimeLeftLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Time Expired</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Please finish the question and submit your answer.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/static/otree/js/jquery.countdown.min.js"></script>
+
+<script>
+    $(function () {
+        var currentDate = new Date();
+        var remainingTimeoutSeconds = js_vars.time_left;
+        var milliseconds = Math.floor(remainingTimeoutSeconds * 1000);
+        $('.otree-timer__time-left').countdown(currentDate.valueOf() + milliseconds)
+            .on('update.countdown', function (event) {
+                // %-N is "Total count of minutes till the end, non-padded"
+                // %S is seconds left
+                var format = '%-N:%S';
+                $(this).html(event.strftime(format));
+            })
+            .on('finish.countdown', function (event) {
+                var format = '%-N:%S';
+                $(this).html(event.strftime(format));
+                $('#no-time-left').modal('toggle');
+                /*
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'timeout_happened',
+                    value: '1'
+                }).appendTo('form');
+                $('#form').submit();
+                */
+            });
+    });
+</script>

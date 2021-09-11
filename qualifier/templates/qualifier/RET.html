@@ -3,6 +3,9 @@
 
 {% block title %}
     {{ view.title|default_if_none:'' }}
+    {% if show_worker_subtype %}
+        <div class="float-right">Employee {{ player.worker_subtype }}</div>
+    {% endif %}
 {% endblock %}
 
 

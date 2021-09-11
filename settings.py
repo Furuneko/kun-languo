@@ -9,6 +9,7 @@ some_defaults = dict(
     pgg_coef=2,
     pgg_endowment=10,
     err_msg="That answer was incorrect, please try again!",
+    corr_msg="Well done! The correct answer is:",
     practice_time_sec=60,
     working_time_sec=120,
     debug=True,
@@ -89,6 +90,14 @@ LANGUAGE_CODE = 'en'
 REAL_WORLD_CURRENCY_CODE = 'CDN'
 USE_POINTS = True
 POINTS_CUSTOM_NAME='Liras'
+
+ROOMS = [
+    dict(
+        name='virtual_lab',
+        display_name='Vortual Lab',
+        participant_label_file='_rooms/virtual_lab.txt'
+    ),
+]
 
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable

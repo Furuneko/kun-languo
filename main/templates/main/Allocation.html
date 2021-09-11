@@ -3,6 +3,9 @@
 
 {% block title %}
     Allocation Task for Period {{ view.round_number }}
+    {% if  player.is_worker %}
+        <div class="float-right">Employee {{ player.worker_subtype }}</div>
+    {% endif %}
 {% endblock %}
 
 {% block content %}
@@ -30,15 +33,25 @@
                     split equally among the three
                     employees.
                 </li>
-                {% if view.round_number == 1 %}
+            </ul>
+        </div>
+    </div>
 
-                    {% include 'main/includes/simulation_block.html' %}
+    {% if view.round_number == 1 %}
 
+        <div class="my-5">
+            {% include 'main/includes/simulation_block.html' %}
 
-                {% endif %}
+            {% formfield player.confirm_understanding label=confirm_understanding_label %}
+            <p>If you have questions please inform the administrator.</p>
+        </div>
 
+    {% endif %}
 
+    <div class="card my-3">
+        <div class="card-body">
 
+            <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                     Each employee’s allocation decisions will be kept confidential, i.e., nobody other than yourself
                     will know how you have allocated the {{ player.pgg_endowment }}.
@@ -80,20 +93,16 @@
 
                 </li>
 
-
                 <li class="list-group-item">
                     Please click ‘Submit’ when you have finalized your allocation decisions.
                 </li>
-
-
             </ul>
-
         </div>
     </div>
 
     <button class="next-btn  btn btn-primary">Submit</button>
     <script>
-        const $totalloc = $('#totallocated')
+        const $totalloc = $('#totallocated');
         const totForAllocation = {{ player.pgg_endowment|json }}
             $('td.decision input').keyup(function () {
                 let totalPoints = 0;

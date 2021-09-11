@@ -1,82 +1,91 @@
 {% load otree %}
-<li class="list-group-item">
 
-    Simulation: <b>To understand how the allocation task works, in the table below, please insert
-    amounts,
-    between 0 and {{ player.pgg_endowment }}, that EACH employee allocates to their “self” account.</b>
-    The program will then
-    calculate the amount of earnings EACH employee will receive from the allocation task. Please
-    change
-    the numbers a few times to fully understand the task.
+<div class="card my-3">
+    <div class="card-body">
+
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+
+                Simulation: <b>To understand how the allocation task works, in the table below, please insert
+                amounts,
+                between 0 and {{ player.pgg_endowment }}, that EACH employee allocates to their “self” account.</b>
+                The program will then
+                calculate the amount of earnings EACH employee will receive from the allocation task. Please
+                change
+                the numbers a few times to fully understand the task.
 
 
-    <div id="app" v-cloak>
-        <table class="table">
-            <thead>
-            <tr>
-                <th></th>
+                <div id="app" v-cloak>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th></th>
 
-                <th v-for="worker in workers" :key="worker.name">
-                    [[worker.name]]
-                </th>
+                            <th v-for="worker in workers" :key="worker.name">
+                                [[worker.name]]
+                            </th>
 
-                <th>Total</th>
+                            <th>Total</th>
 
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>
-                    a. Fund Allocated to “Self”
-                </td>
-                <th v-for="worker in workers" :key="worker.name">
-                    <input type="number" @keyup='setPublic(worker.name)' class="example-self form-control" min="0"
-                           :max="endowment" v-model='worker.selfalloc'>
-                </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                a. Fund Allocated to “Self”
+                            </td>
+                            <th v-for="worker in workers" :key="worker.name">
+                                <input type="number" @keyup='setPublic(worker.name)' class="example-self form-control"
+                                       min="0"
+                                       :max="endowment" v-model='worker.selfalloc'>
+                            </th>
 
-                <td>[[totForSelf]]</td>
-            </tr>
-            <tr class="publicinfo">
-                <td>
-                    b. Fund Allocated to “Public”
-                </td>
-                <td v-for="worker in workers" :key="worker.name">
-                    [[worker.publicalloc]]
-                </td>
-                <td>
-                    [[totPublic]]
-                </td>
+                            <td>[[totForSelf]]</td>
+                        </tr>
+                        <tr class="publicinfo">
+                            <td>
+                                b. Fund Allocated to “Public”
+                            </td>
+                            <td v-for="worker in workers" :key="worker.name">
+                                [[worker.publicalloc]]
+                            </td>
+                            <td>
+                                [[totPublic]]
+                            </td>
 
-            </tr>
-            <tr>
-                <td>
-                    c. Share from “Public”
-                </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                c. Share from “Public”
+                            </td>
 
-                <td v-for="worker in workers" :key="worker.name">
-                    [[individualShare]]
-                </td>
+                            <td v-for="worker in workers" :key="worker.name">
+                                [[individualShare]]
+                            </td>
 
-                <td>[[totMultiplied]]</td>
-            </tr>
-            <tr>
-                <td>
-                    Total Earnings
-                    (= a+c)
+                            <td>[[totMultiplied]]</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Total Earnings
+                                (= a+c)
 
-                </td>
+                            </td>
 
-                <td v-for="worker in workers" :key="worker.name">
-                    [[parseInt(worker.selfalloc) + individualShare || '']]
-                </td>
+                            <td v-for="worker in workers" :key="worker.name">
+                                [[parseInt(worker.selfalloc) + individualShare || '']]
+                            </td>
 
-                <td>[[totEarnings]]</td>
-            </tr>
-            </tbody>
+                            <td>[[totEarnings]]</td>
+                        </tr>
+                        </tbody>
 
-        </table>
+                    </table>
+                </div>
+            </li>
+        </ul>
     </div>
-</li>
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
 <script>

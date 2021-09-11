@@ -16,20 +16,21 @@
     </div>
 
     <div class="result"></div>
+
     <script>
         const $cqheader = $('.cq-header');
-        let first_url = "{{ player.get_quiz_url }}"
+        let first_url = "{{ player.get_quiz_url }}";
         let allow_to_proceed = false;
         const get_next_q = function (url_to_get) {
             $.get(url_to_get, function (data) {
                 const {form_data, no_more_cq} = data;
-                allow_to_proceed = no_more_cq
+                allow_to_proceed = no_more_cq;
                 if (allow_to_proceed) {$cqheader.hide()}
                 form_data && $(".result").html(data.form_data);
 
             });
-        }
-        get_next_q(first_url)
+        };
+        get_next_q(first_url);
 
         $(function () {
 
@@ -48,11 +49,11 @@
                         const {no_more_cq, form_data, next_q, form_is_valid} = data;
                         if (no_more_cq) {
                             allow_to_proceed = true;
-                            $cqheader.hide()
+                            $cqheader.hide();
                             return
                         }
                         if (form_is_valid) {
-                            first_url = next_q
+                            first_url = next_q;
                             get_next_q(next_q)
                         } else {
                             $(".result").html(form_data);

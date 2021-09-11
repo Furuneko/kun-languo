@@ -6,6 +6,7 @@ import logging
 from django import forms
 import json
 from django.core.exceptions import ValidationError
+from django.utils.html import mark_safe
 
 
 class QForm(forms.ModelForm):
@@ -21,13 +22,27 @@ class QForm(forms.ModelForm):
         choices = [(i, j) for i, j in enumerate(json.loads(self.instance.choices))]
         self.fields['answer'].widget.choices = choices
 
-    def clean_answer(self):
-        data = self.cleaned_data['answer']
-        if data != self.instance.correct:
+    def correct_choice_label(self):
+        instance = self.instance
+        return self.fields['answer'].widget.choices[instance.correct][1]
 
+    def clean_answer(self):
+        instance = self.instance
+        data = self.cleaned_data['answer']
+        if data != instance.correct:
             self.instance.counter += 1
             self.instance.save()
-            raise ValidationError(self.instance.owner.session.config.get('err_msg', Constants.CQ_ERR_DEFAULT_MSG))
+            raise ValidationError(self.instance.owner.session.config.get("err_msg", Constants.CQ_ERR_DEFAULT_MSG))
+        elif not instance.explained:
+            instance.explained = True
+            instance.save()
+            explanation = instance.hint if instance.hint else self.correct_choice_label()
+            raise ValidationError(mark_safe(
+                f'<div style="color: green;">'
+                f'<div>{self.instance.owner.session.config.get("corr_msg", Constants.CQ_CORR_DEFAULT_MSG)}</div>'
+                f'<div>{explanation}</div>'
+                f'</div>')
+            )
         return data
 
 

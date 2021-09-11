@@ -2,15 +2,16 @@
 {% load otree static %}
 
 {% block title %}
-Reflection on Bonus Allocation for Period {{ prev_period }}
+    Reflection on Bonus Allocation for Period {{ prev_period }}
 {% endblock %}
 
 {% block content %}
+    {% include 'main/includes/timer_no_autosubmit.html' %}
+
     <div class="card my-3">
         <div class="card-body">
 
             <ul class="list-group list-group-flush">
-
 
                 <li class="list-group-item">
                     As the Manager of the firm, please answer a couple of questions while your three employees
@@ -20,8 +21,10 @@ Reflection on Bonus Allocation for Period {{ prev_period }}
                 </li>
                 <li class="list-group-item">
                     Please reflect on how you made your bonus allocation decisions for Period {{ prev_period }} and
-                    answer the following
-                    questions:
+                    answer the following questions.
+                </li>
+                <li class="list-group-item font-weight-bold">
+                    You will have {{ Constants.max_minutes_manager_explanation }} minutes to answer.
                 </li>
 
                 <li class="list-group-item">

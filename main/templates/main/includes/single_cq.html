@@ -2,7 +2,7 @@
 <form method="post" id="inner_form">
     {% csrf_token %}
 
-    {% if  object.hint and form.errors %}
+    {% if object.hint and form.errors and not object.explained %}
         <div class="alert alert-info my-3 text-center">{{ object.hint }}</div>
     {% endif %}
 

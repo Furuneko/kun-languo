@@ -3,6 +3,9 @@
 
 {% block title %}
     Begin Period {{ view.round_number }}
+    {% if  player.is_worker %}
+        <div class="float-right">Employee {{ player.worker_subtype }}</div>
+    {% endif %}
 {% endblock %}
 
 {% block instruction_body %}

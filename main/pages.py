@@ -77,15 +77,14 @@ class BeforeRETAnnouncement(FirstPage):
     pass
 
 
-class Allocation(Page):
-    pass
-
-
 class WorkingRET(RET):
     template_name = 'qualifier/RET.html'
 
     def title(self):
         return f'Decode Task – Period {self.round_number}'
+
+    def vars_for_template(self):
+        return dict(show_worker_subtype=True)
 
     def is_displayed(self):
         return self.player.role() == Role.worker or self.round_number == 1
@@ -154,8 +153,13 @@ class BonusInfo(Page):
 
 
 class Allocation(Page):
-    form_fields = ['public_allocation', 'self_allocation']
     form_model = 'player'
+
+    def get_form_fields(self):
+        fields = ['public_allocation', 'self_allocation']
+        if self.round_number == 1:
+            fields.append('confirm_understanding')
+        return fields
 
     def vars_for_template(self):
         """
@@ -170,12 +174,13 @@ class Allocation(Page):
         """
         workers = [dict(name=f'{w.role_desc()} {w.worker_subtype}', selfalloc=None,
                         publicalloc=0, earning=0) for w in self.group.get_workers()]
-        return dict(next_round=self.round_number + 1, workers=workers)
+        return dict(next_round=self.round_number + 1, workers=workers, confirm_understanding_label=Constants.confirm_understanding_label)
 
     def error_message(self, values):
-        tot = sum([i for i in values.values()])
+        tot = sum([v for k, v in values.items() if k in ['public_allocation', 'self_allocation']])
         if tot != self.player.pgg_endowment:
-            return f'You have to allocate the {self.player.pgg_endowment}  between the “self” account and “public” account '
+            return f'You have to allocate the {self.player.pgg_endowment}  between ' \
+                   f'the “self” account and “public” account '
 
     def is_displayed(self):
         return self.player.role() == Role.worker
@@ -197,6 +202,10 @@ class ManagerExplanation(Page):
     def vars_for_template(self):
         return dict(prev_period=self.round_number - 1)
 
+    def js_vars(self):
+        time_left = self.player.get_time_left('manager_explanation', 60 * Constants.max_minutes_manager_explanation)
+        return dict(time_left=time_left)
+
     def is_displayed(self):
         return self.player.role() == Role.manager and self.round_number > 1
 
@@ -204,6 +213,10 @@ class ManagerExplanation(Page):
 class LastManagerExplanation(Page):
     form_fields = ['last_non_equal_splitting', 'last_allocation_explanation']
     form_model = 'player'
+
+    def js_vars(self):
+        time_left = self.player.get_time_left('last_manager_explanation', 60 * Constants.max_minutes_manager_explanation)
+        return dict(time_left=time_left)
 
     def is_displayed(self):
         return self.player.role() == Role.manager and self.round_number == Constants.num_rounds

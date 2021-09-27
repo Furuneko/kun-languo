@@ -80,9 +80,9 @@ class Player(BasePlayer):
     1.	What process did you use to distribute the employee bonus pool among your three employees? Please briefly explain your strategy""")
     m2_1 = LikertField(
         label='2. In your opinion, should the Manager consider the effects of the uncontrollable events while allocating the employee bonus pool?',
-        choices=list(range(-3, 4)),
-        headers={-3: "Not consider at all", 0: "Sometimes ",
-                 3: "Definitely consider"}
+        choices=list(range(1, 8)),
+        headers={1: "Not consider at all", 4: "Sometimes ",
+                 7: "Definitely consider"}
     )
     m2_2 = models.LongStringField(
         label="""

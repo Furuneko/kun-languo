@@ -25,7 +25,7 @@ SESSION_CONFIGS = [
 
     dict(
         name='baseline',
-        display_name="Baseline (transparent+homogeneous",
+        display_name="Baseline (transparent+homogeneous)",
         num_demo_participants=4,
         app_sequence=app_sequence,
         task='Decoding',
@@ -76,7 +76,7 @@ SESSION_CONFIGS = [
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=.2,
+    real_world_currency_per_point=.1,
     participation_fee=10.00,
     doc="",
     use_browser_bots=False

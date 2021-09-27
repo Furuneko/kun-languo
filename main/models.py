@@ -69,8 +69,9 @@ class Constants(BaseConstants):
 class Subsession(BaseSubsession):
     shock_size = models.IntegerField()
     shock_worker_subtype = models.StringField(choices=Constants.subtypes)
+
     def shock_direction(self):
-        return 'positive' if self.shock_size>0 else 'negative'
+        return 'positive' if self.shock_size > 0 else 'negative'
 
     def creating_session(self):
         candidate = Constants.shocks[self.round_number - 1]
@@ -108,13 +109,13 @@ class Subsession(BaseSubsession):
 
     def after_everyone_arrived(self):
         """What we do here:
-        1. We annotate all partiipants using their players from qualifier data num of correct tasks.
+        1. We annotate all participants using their players from qualifier data num of correct tasks.
         2. we sort them based on this annotation.
-        3. we split them into two categroies (top-25 etc).
+        3. we split them into two categories (top-25 etc).
         4. assign manager role to top-25 and workers to bottom-75
         5.  workers (still sorted by ability) are divided into chunks of three.
         6. managers shuffled.
-        7. manager+chunks of 3 woerkes are zipped into groups of 4
+        7. manager+chunks of 3 workers are zipped into groups of 4
         8. workers get subtype (A,B,C) randomly
         9. we assign new group matrix
         """

@@ -48,6 +48,7 @@ class RET(Page):
         return self.session.config.get('working_time_sec', Constants.WORKING_TIME_SEC)
 
     def before_next_page(self):
+        self.player._num_tasks_attempted = self.player.num_tasks_attempted(page_name='RET')
         self.player._num_tasks_correct = self.player.num_tasks_correct(page_name='RET')
         self.player._num_tasks_total = self.player.num_tasks_total(page_name='RET')
         self.player.set_payoff()

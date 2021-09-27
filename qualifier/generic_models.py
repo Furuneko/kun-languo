@@ -20,6 +20,7 @@ class RETPlayer(BasePlayer):
     class Meta:
         abstract = True
 
+    _num_tasks_attempted = models.IntegerField(default=0)
     _num_tasks_correct = models.IntegerField(default=0)
     _num_tasks_total = models.IntegerField(default=0)
 
@@ -46,12 +47,15 @@ class RETPlayer(BasePlayer):
         page_name = page_name or self.get_current_page_name()
         return self.tasks.filter(page_name=page_name)
 
+    def num_tasks_attempted(self, page_name=None):
+        """returns total number of tasks to which a player provided an answer different from a white space"""
+        page_name = page_name or self.get_current_page_name()
+        return self.get_tasks_by_page(page_name=page_name).filter(answer__isnull=False, ).exclude(answer=' ').count()
 
     def num_tasks_correct(self, page_name=None):
         """returns total number of tasks to which a player provided a correct answer"""
         page_name = page_name or self.get_current_page_name()
         return self.get_tasks_by_page(page_name=page_name).filter(correct_answer=F('answer')).count()
-
 
     def num_tasks_total(self, page_name=None):
         """returns total number of tasks to which a player provided an answer"""

@@ -25,7 +25,7 @@ SESSION_CONFIGS = [
 
     dict(
         name='baseline',
-        display_name="Baseline (transparent+homogeneous)",
+        display_name="Transparent + homogeneous (baseline)",
         num_demo_participants=4,
         app_sequence=app_sequence,
         task='Decoding',
@@ -59,7 +59,7 @@ SESSION_CONFIGS = [
     ),
     dict(
         name='secret_hetero',
-        display_name="Transparent + heterogeneous",
+        display_name="Secret + heterogeneous",
         num_demo_participants=4,
         app_sequence=app_sequence,
         task='Decoding',

@@ -8,7 +8,9 @@
 {% block instruction_body %}
 
     <li class="list-group-item">
-        In your firm, all three employees had similar rankings on the decode task in Stage One.
+        In your firm, all three employees had
+        {% if session.config.heterogenous %}varying{% else %}similar{% endif %}
+        rankings on the decode task in Stage One.
     </li>
 
     <li class="list-group-item">

@@ -5,12 +5,22 @@
     - I will not be in the same firm throughout multiple periods of Stage 2 and my identity will be revealed to others.
     - I will not be in the same firm throughout multiple periods of Stage 2 and my identity will not be revealed to others.
   correct: 1
-- label:    Which of the following is true?
+- label: Which of the following is true?
   choices:
     - The three employees within my firm all had similar performance rankings on the decode task in Stage One.
     - The three employees within my firm had varying performance rankings on the decode task in Stage One.
     - Neither of the above.
   correct: 0
+  treatment:
+    - heterogenous: False
+- label: Which of the following is true?
+  choices:
+    - The three employees within my firm all had similar performance rankings on the decode task in Stage One.
+    - The three employees within my firm had varying performance rankings on the decode task in Stage One.
+    - Neither of the above.
+  correct: 1
+  treatment:
+    - heterogenous: True
 - label: 'My role will remain constant throughout multiple periods of Stage 2.
   That is, if I am a Manager in Period 1, I will be a Manager in all subsequent periods.
   Likewise, if I am Employee A in Period 1, I will be Employee A in all subsequent periods.'
@@ -83,4 +93,4 @@
     - 2 Liras = $1 CAD
     - 5 Liras = $1 CAD
     - 10 Liras = $1 CAD
-  correct: 3
+  correct: 1

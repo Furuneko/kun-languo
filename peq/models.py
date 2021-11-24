@@ -87,8 +87,8 @@ class Player(BasePlayer):
     m2_2 = models.LongStringField(
         label="""
         3.	Please briefly elaborate on your response to the last question.
-         Specifically, if your answer is positive, then how do you think the Manager 
-         should adjust for uncontrollable events when allocating bonuses? If your answer is negative, 
+         Specifically, if your answer is great than 4, then how do you think the Manager 
+         should adjust for uncontrollable events when allocating bonuses? If your answer is lower than 4, 
          why do you think the Manager should not adjust for uncontrollable events when allocating bonuses?""")
     m3_1 = LikertField(
         label="""4.	In my opinion, the Manager should allocate the employee bonus pool equally among the three employees""",

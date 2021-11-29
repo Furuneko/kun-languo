@@ -94,7 +94,7 @@ POINTS_CUSTOM_NAME='Liras'
 ROOMS = [
     dict(
         name='virtual_lab',
-        display_name='Vortual Lab',
+        display_name='Virtual Lab',
         participant_label_file='_rooms/virtual_lab.txt'
     ),
 ]

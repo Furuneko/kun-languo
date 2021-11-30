@@ -88,7 +88,7 @@
   treatment:
     - secret: True
 
-- label: How will your payment in Liras be converted to cash, to be e-transferred to you, after today’s study?
+- label: How will your payment in Liras be converted to cash?
   choices:
     - 2 Liras = $1 CAD
     - 5 Liras = $1 CAD

@@ -23,6 +23,9 @@
 
     <p> Tasks attempted so far: <span id="num_tasks_total">{{ player.num_tasks_total }}</span></p>
     <p> Tasks correct so far: <span id="num_tasks_correct"> {{ player.num_tasks_correct }}</span></p>
+
+    {% if session.config.debug %}
+
     <div class="alert alert-danger">
         THIS IS FOR DEBUGGING ONLY:
         <div>CORRECT ANSWER: <span id="correct">{{ player.get_or_create_task.correct_answer }}</span></div>
@@ -33,6 +36,10 @@
             {% next_button %}
         </div>
     </div>
+
+    {% endif %}
+
+
 
 {% endblock %}
 

@@ -158,10 +158,13 @@ class Subsession(BaseSubsession):
             updworkers.extend(i)
         Player.objects.bulk_update(updworkers, ['worker_subtype'])
 
+        print("MANAGERS =", managers)
+        print("Chuncked WORKERS =", chunked_workers)
+
         semi_groups = [[i] + j for i, j in
                        zip(managers, chunked_workers)]
 
-        print(semi_groups)
+        print("GROUPS =", semi_groups)
 
 
         for p in self.player_set.all():

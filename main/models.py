@@ -127,9 +127,21 @@ class Subsession(BaseSubsession):
         q = Player.objects.filter(session=self.session, subsession=self).annotate(
             cor_count=Sum('participant__qualifier_player___num_tasks_correct')).order_by('-cor_count')
 
+        print('##################################################')
+        print("q =", q.count())
+
         first25 = int(q.count() / 4)
+
+        print(first25)
+
         managers = list(q[:first25])
+
+        print(len(managers))
+
         workers = list(q[first25:])
+
+        print(len(workers))
+
         random.shuffle(managers)
         for i in managers:
             i.inner_role = Role.manager
@@ -148,6 +160,10 @@ class Subsession(BaseSubsession):
 
         semi_groups = [[i] + j for i, j in
                        zip(managers, chunked_workers)]
+
+        print(semi_groups)
+
+
         for p in self.player_set.all():
             p._is_frozen = True
         self.set_group_matrix(semi_groups)

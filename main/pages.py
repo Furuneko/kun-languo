@@ -90,7 +90,10 @@ class WorkingRET(RET):
         return self.player.role() == Role.worker or self.round_number == 1
 
     def before_next_page(self):
-        super().before_next_page()
+        self.player._num_tasks_attempted = self.player.num_tasks_attempted(page_name='WorkingRET')
+        self.player._num_tasks_correct = self.player.num_tasks_correct(page_name='WorkingRET')
+        self.player._num_tasks_total = self.player.num_tasks_total(page_name='WorkingRET')
+        self.player.set_payoff()
         self.player.set_shock_and_realized_output()
 
 

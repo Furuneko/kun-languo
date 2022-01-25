@@ -8,6 +8,7 @@ from otree.api import (
     Currency as c,
     currency_range,
 )
+from django.db import models as djmodels
 
 
 author = 'Your name here'
@@ -30,7 +31,7 @@ class Subsession(BaseSubsession):
 class Group(BaseGroup):
     pass
 
-from django.db import models as djmodels
+
 class Player(BasePlayer):
     first_name = models.StringField(verbose_name='Your First Name')
     last_name=models.StringField(verbose_name='Your Last Name')

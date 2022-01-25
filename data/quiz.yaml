@@ -30,12 +30,12 @@
   correct: 0
 
 - label: >-
-    Suppose an employee completed 20 decodes in one period and was subject to an uncontrollable event of +5.
+    Suppose an employee completed 20 decodes in one period and was subject to an uncontrollable event of +3.
     What would be the employee’s realized output for that period?
   choices:
-    - 15 decodes
-    - 20 decodes
-    - 25 decodes
+    - 17 decodes
+    - 30 decodes
+    - 23 decodes
     - None of the above.
   correct: 2
 - label: Which of the following about uncontrollable events is true?
@@ -44,21 +44,21 @@
     - Only the Manager is informed of the size of the effect.
     - Only the affected employees themselves are informed of the size of the effect.
   correct: 2
-- label: The Manager will receive a higher bonus when the firm’s realized output (from all three employees) is 100 decodes than when it is 50 decodes.
+- label: The Manager will receive a higher bonus when the firm’s realized output (from all three employees) is 40 decodes than when it is 30 decodes.
   choices:
     - True because the higher the total realized output, the higher the Manager’s bonus
     - False because the Manager’s bonus is fixed and will not vary regardless of the firm’s output
   correct: 0
-- label: If the three employees’ combined realized output is 100 decodes in one period, the total employee bonus pool will be
+- label: If the three employees’ combined realized output is 40 decodes in one period, the total employee bonus pool will be
   choices:
+    - 40 Liras
+    - 120 Liras
     - 100 Liras
-    - 300 Liras
-    - 1000 Liras
     - Not enough information to determine the bonus pool
   treatment:
     - secret: False
   correct: 1
-  hint: "30% * 100 decodes * 10 Liras per decode = 300 Liras"
+  hint: "30% * 40 decodes * 10 Liras per decode = 120 Liras"
 - label: The higher the three employees’ combined realized output, the bigger the employee bonus pool will be
   choices:
     - True
@@ -88,9 +88,9 @@
   treatment:
     - secret: True
 
-- label: How will your payment in Liras be converted to cash?
+- label: How will your payment in Liras be converted to cash, to be paid in cash or e-transferred to you, after today’s study?
   choices:
-    - 2 Liras = $1 CAD
+    - 4 Liras = $1 CAD
     - 5 Liras = $1 CAD
     - 10 Liras = $1 CAD
-  correct: 1
+  correct: 0

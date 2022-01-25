@@ -61,7 +61,7 @@ class Player(BasePlayer):
         **AgreeParams
     )
     w2_5 = models.LongStringField(label="""
-    Please briefly explain your reasoning behind your response to Q5 and Q6. Specifically, if and how do you think a Manager 
+    Please briefly explain your reasoning behind your response to Q6 and Q7. Specifically, if and how do you think a Manager 
     should adjust employee bonuses considering the effect of uncontrollable events?""")
     w3_1 = LikertField(
         label="""8. Was it important to you to compare your bonuses with the other employees’ bonuses?""", **FairParams)
@@ -87,7 +87,7 @@ class Player(BasePlayer):
     m2_2 = models.LongStringField(
         label="""
         3.	Please briefly elaborate on your response to the last question.
-         Specifically, if your answer is great than 4, then how do you think the Manager 
+         Specifically, if your answer is greater than 4, then how do you think the Manager 
          should adjust for uncontrollable events when allocating bonuses? If your answer is lower than 4, 
          why do you think the Manager should not adjust for uncontrollable events when allocating bonuses?""")
     m3_1 = LikertField(

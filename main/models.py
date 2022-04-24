@@ -129,34 +129,25 @@ class Subsession(BaseSubsession):
 
         is_heterogeneous = self.session.config.get('heterogenous', False)
 
-        self.get_group_matrix()
+        players = self.get_players()
+        q = sorted(players, key=lambda x: x.participant.vars.get('_num_tasks_correct', 0), reverse=True)
+
         subtypes = cycle(Constants.subtypes)
         for p in self.player_set.all():
             p._is_frozen = False
 
-        q = Player.objects.filter(session=self.session, subsession=self).annotate(
-            cor_count=Sum('participant__qualifier_player___num_tasks_correct')).order_by('-cor_count')
-
-        print('##################################################')
-        print("q =", q.count())
-
-        first25 = int(q.count() / 4)
-
-        print(first25)
+        first25 = len(players) // 4
 
         print('#################################################################################')
-        print(list(q))
+        print(q)
         print('#################################################################################')
 
-        managers = list(q[:first25])
+        managers = q[:first25]
+        workers = q[first25:]
 
-        print('len(managers)', len(managers))
+        if not is_heterogeneous:
+            random.shuffle(managers)
 
-        workers = list(q[first25:])
-
-        print('len(workers)', len(workers))
-
-        random.shuffle(managers)
         for i in managers:
             i.inner_role = Role.manager
         for i in workers:
@@ -184,13 +175,10 @@ class Subsession(BaseSubsession):
         print("MANAGERS =", managers)
         print("Chuncked WORKERS =", chunked_workers)
 
-
-
         semi_groups = [[i] + j for i, j in
                        zip(managers, chunked_workers)]
 
         print("GROUPS =", semi_groups)
-
 
         for p in self.player_set.all():
             p._is_frozen = True

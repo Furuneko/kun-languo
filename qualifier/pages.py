@@ -49,7 +49,9 @@ class RET(Page):
 
     def before_next_page(self):
         self.player._num_tasks_attempted = self.player.num_tasks_attempted(page_name='RET')
-        self.player._num_tasks_correct = self.player.num_tasks_correct(page_name='RET')
+        num_tasks_correct = self.player.num_tasks_correct(page_name='RET')
+        self.player._num_tasks_correct = num_tasks_correct
+        self.player.participant.vars['_num_tasks_correct'] = num_tasks_correct
         self.player._num_tasks_total = self.player.num_tasks_total(page_name='RET')
         self.player.set_payoff()
 

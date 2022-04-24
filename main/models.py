@@ -35,6 +35,13 @@ def chunks(lst, n):
         yield lst[i:i + n]
 
 
+def chunks_hetero(lst, n):
+    """Yield successive n-sized chunks from lst maximising distance among items in each chunk."""
+    m = len(lst) // n
+    for i in range(m):
+        yield lst[i::m]
+
+
 class MyPerson(Participant):
     _is_frozen = False
 
@@ -113,12 +120,18 @@ class Subsession(BaseSubsession):
         2. we sort them based on this annotation.
         3. we split them into two categories (top-25 etc).
         4. assign manager role to top-25 and workers to bottom-75
-        5.  workers (still sorted by ability) are divided into chunks of three.
+        5. workers (still sorted by ability) are divided into chunks of three.
         6. managers shuffled.
         7. manager+chunks of 3 workers are zipped into groups of 4
         8. workers get subtype (A,B,C) randomly
         9. we assign new group matrix
         """
+
+        is_heterogeneous = self.session.config.get('heterogenous', False)
+
+        for p in players:
+            print(p.participant.vars['_num_tasks_correct'])
+
         self.get_group_matrix()
         subtypes = cycle(Constants.subtypes)
         for p in self.player_set.all():
@@ -134,13 +147,17 @@ class Subsession(BaseSubsession):
 
         print(first25)
 
+        print('#################################################################################')
+        print(list(q))
+        print('#################################################################################')
+
         managers = list(q[:first25])
 
-        print(len(managers))
+        print('len(managers)', len(managers))
 
         workers = list(q[first25:])
 
-        print(len(workers))
+        print('len(workers)', len(workers))
 
         random.shuffle(managers)
         for i in managers:
@@ -149,7 +166,16 @@ class Subsession(BaseSubsession):
             i.inner_role = Role.worker
 
         Player.objects.bulk_update(managers + workers, ['inner_role'])
-        chunked_workers = list(chunks(workers, 3))
+
+        num_workers = 3
+        # Set groups of workers based on treatment
+        if is_heterogeneous:
+            # Heterogeneous condition
+            chunked_workers = list(chunks_hetero(workers, num_workers))
+        else:
+            # Homogenous condition
+            chunked_workers = list(chunks(workers, num_workers))
+
         updworkers = []
         for i in chunked_workers:
             random.shuffle(i)
@@ -161,6 +187,8 @@ class Subsession(BaseSubsession):
         print("MANAGERS =", managers)
         print("Chuncked WORKERS =", chunked_workers)
 
+
+
         semi_groups = [[i] + j for i, j in
                        zip(managers, chunked_workers)]
 
@@ -169,6 +197,7 @@ class Subsession(BaseSubsession):
 
         for p in self.player_set.all():
             p._is_frozen = True
+
         self.set_group_matrix(semi_groups)
         allothers = Player.objects.filter(session=self.session).exclude(subsession=self)
         for i in allothers:

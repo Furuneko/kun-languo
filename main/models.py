@@ -129,9 +129,6 @@ class Subsession(BaseSubsession):
 
         is_heterogeneous = self.session.config.get('heterogenous', False)
 
-        for p in players:
-            print(p.participant.vars['_num_tasks_correct'])
-
         self.get_group_matrix()
         subtypes = cycle(Constants.subtypes)
         for p in self.player_set.all():

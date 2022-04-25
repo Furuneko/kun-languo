@@ -145,8 +145,7 @@ class Subsession(BaseSubsession):
         managers = q[:first25]
         workers = q[first25:]
 
-        if not is_heterogeneous:
-            random.shuffle(managers)
+        random.shuffle(managers)
 
         for i in managers:
             i.inner_role = Role.manager

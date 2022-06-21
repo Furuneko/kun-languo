@@ -20,8 +20,13 @@
     </li>
     {% if player.is_worker %}
         <li class="list-group-item">
-            To properly distinguish you from the other employees, you have been randomly
-            assigned a letter <b>{{ player.worker_subtype }}</b>.
+            {% if session.config.heterogenous %}
+                Further, based on your performance rank, you are assigned the role of Employee
+                <b>{{ player.worker_subtype }}</b>.
+            {% else %}
+                To properly distinguish you from the other employees, you have been randomly
+                assigned a letter <b>{{ player.worker_subtype }}</b>.
+            {% endif %}
         </li>
     {% endif %}
     <li class="list-group-item">

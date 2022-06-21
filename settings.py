@@ -2,6 +2,7 @@ from os import environ
 
 EXTENSION_APPS = ['main']
 some_defaults = dict(
+    laboratory='Wilfrid Laurier University',
     stage1_fee=1,
     stage2_fee=10,
     worker_share=0.3,

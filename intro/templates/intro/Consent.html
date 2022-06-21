@@ -1,0 +1,16 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Consent
+{% endblock %}
+
+{% block content %}
+
+    {% if session.config.laboratory == 'Wilfrid Laurier University' %}
+        {% include 'intro/includes/wilfrid_laurier_university_consent.html' %}
+    {% endif %}
+
+    {% next_button %}
+
+{% endblock %}

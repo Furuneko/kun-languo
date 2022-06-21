@@ -3,6 +3,11 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 
 
+class NoConsent(Page):
+    def is_displayed(self):
+        return not self.participant.vars.get('consent', True)
+
+
 class Results(Page):
     pass
 
@@ -23,6 +28,7 @@ class Final(Page):
 
 
 page_sequence = [
+    NoConsent,
     Results,
     PaySlip,
     Final

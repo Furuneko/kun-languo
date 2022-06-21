@@ -32,4 +32,13 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    pass
+    consent = models.BooleanField(
+        label='',
+        choices=[
+            (True, "I consent to take part in this study. (selecting this option "
+                   "will open the questionnaire)"),
+            (False, "I do not consent to take part in this study. (selecting this "
+                    "option will return you to your browser)")
+        ],
+        widget=widgets.RadioSelect
+    )

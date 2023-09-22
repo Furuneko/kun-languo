@@ -23,7 +23,58 @@ app_sequence = [
     'exitapp'
 ]
 SESSION_CONFIGS = [
-
+    dict(
+        name='transp_no_info',
+        display_name="Transparent + No Info (baseline)",
+        num_demo_participants=4,
+        app_sequence=app_sequence,
+        task='Decoding',
+        task_params={'dict_length': 10, 'task_len': 5},
+        **some_defaults,
+        secret=False,
+        heterogenous=False,
+        info=False,
+        allocation_task=False
+    ),
+    dict(
+        name='transp_info',
+        display_name="Transparent + Info (baseline)",
+        num_demo_participants=4,
+        app_sequence=app_sequence,
+        task='Decoding',
+        task_params={'dict_length': 10, 'task_len': 5},
+        **some_defaults,
+        secret=False,
+        heterogenous=False,
+        info=True,
+        allocation_task=False
+    ),
+    dict(
+        name='secret_no_info',
+        display_name="Secret + No Info (baseline)",
+        num_demo_participants=4,
+        app_sequence=app_sequence,
+        task='Decoding',
+        task_params={'dict_length': 10, 'task_len': 5},
+        **some_defaults,
+        secret=True,
+        heterogenous=False,
+        info=False,
+        allocation_task=False
+    ),
+    dict(
+        name='secret_info',
+        display_name="Secret + Info (baseline)",
+        num_demo_participants=4,
+        app_sequence=app_sequence,
+        task='Decoding',
+        task_params={'dict_length': 10, 'task_len': 5},
+        **some_defaults,
+        secret=True,
+        heterogenous=False,
+        info=True,
+        allocation_task=False
+    ),
     dict(
         name='baseline',
         display_name="Transparent + homogeneous (baseline)",
@@ -34,7 +85,8 @@ SESSION_CONFIGS = [
         **some_defaults,
         secret=False,
         heterogenous=False,
-
+        info=False,
+        allocation_task=True
     ),
     dict(
         name='secret_homo',
@@ -46,6 +98,8 @@ SESSION_CONFIGS = [
         **some_defaults,
         secret=True,
         heterogenous=False,
+        info=False,
+        allocation_task=True
     ),
     dict(
         name='transp_hetero',
@@ -57,6 +111,8 @@ SESSION_CONFIGS = [
         **some_defaults,
         secret=False,
         heterogenous=True,
+        info=False,
+        allocation_task=True
     ),
     dict(
         name='secret_hetero',
@@ -68,6 +124,8 @@ SESSION_CONFIGS = [
         **some_defaults,
         secret=True,
         heterogenous=True,
+        info=False,
+        allocation_task=True
     ),
 ]
 
@@ -78,7 +136,7 @@ SESSION_CONFIGS = [
 
 SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=.25,
-    participation_fee=10.00,
+    participation_fee=12.00,
     doc="",
     use_browser_bots=False
 )

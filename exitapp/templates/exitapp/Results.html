@@ -11,11 +11,11 @@
 
             <ul class="list-group list-group-flush">
                 <li class="list-group-item   text-center list-group-item-primary ">
-                    The following Period has been randomly selected as the period that you will be compensated for Stage
-                    2:
+                    The following Period has been randomly selected as the period that you will
+                    be compensated for Stage 2's task:
                     <span class="lead"><span
-                            class=" badge badge-danger">{{ participant.vars.payable_round|default_if_none:'' }}</span>
-                        </span>
+                        class=" badge badge-danger">{{ participant.vars.payable_round|default_if_none:'' }}</span>
+                    </span>
 
                 </li>
                 <li class="list-group-item text-center">
@@ -29,7 +29,7 @@
                                 Participation Fee:
                             </td>
                             <td>
-                                $10.00
+                                {{ session.config.participation_fee }}
                             </td>
                         </tr>
                         <tr>
@@ -48,7 +48,7 @@
                                 {{ participant.vars.stage2_work_bonus|default_if_none:'' }}
                             </td>
                         </tr>
-                        {% if participant.vars.is_worker|default_if_none:False %}
+                        {% comment %}{% if participant.vars.is_worker|default_if_none:False %}
 
                             <tr>
                                 <td>
@@ -59,7 +59,7 @@
                                     {{ participant.vars.stage2_allocation_bonus|default_if_none:'' }}
                                 </td>
                             </tr>
-                        {% endif %}
+                        {% endif %}{% endcomment %}
                         <tr>
                             <td>
                                 Total Compensation:

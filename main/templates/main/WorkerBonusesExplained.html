@@ -2,13 +2,13 @@
 {% load otree %}
 
 {% block title %}
-    Employee Output and Bonuses
+    Employee Bonuses
 {% endblock %}
 
 {% block instruction_body %}
 
     <li class="list-group-item">
-        Bonuses are related to the combined <b>realized output</b> of the three employees.
+        Bonuses are related to the combined <i>realized output</i> of the three employees.
     </li>
     {% if not session.config.secret %}
         <li class="list-group-item">

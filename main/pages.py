@@ -144,6 +144,27 @@ class BonusDistribution(Page):
             w.bonus = getattr(self.group, f'bonus_{w.worker_subtype}')
 
 
+class BonusDistributionInfo(Page):
+
+    def vars_for_template(self):
+        employees_info = [
+            dict(
+                role_desc=e.role_desc,
+                worker_subtype=e.worker_subtype,
+                realized_output=e.realized_output,
+                event='Positively' if e.shock > 0 else 'Negatively' if e.shock < 0 else ''
+            )
+            for e in self.group.get_workers()
+        ]
+
+        return dict(
+            employees_info=employees_info
+        )
+
+    def is_displayed(self):
+        return self.player.role() == Role.worker and self.session.config.get('info')
+
+
 class AfterBonusDistributionWP(WaitPage):
     def vars_for_template(self):
         if self.player.is_worker:
@@ -186,7 +207,7 @@ class Allocation(Page):
                    f'the “self” account and “public” account '
 
     def is_displayed(self):
-        return self.player.role() == Role.worker
+        return self.player.role() == Role.worker and self.session.config['allocation_task']
 
 
 class AfterAllocationWP(WaitPage):
@@ -246,6 +267,7 @@ page_sequence = [
     RETResults,
     ShockAnnouncement,
     BonusDistribution,
+    BonusDistributionInfo,
     AfterBonusDistributionWP,
     BonusInfo,
     Allocation,

@@ -22,12 +22,17 @@
 
                 <li class="list-group-item">
                     {% if player.is_worker %}
-                        Remember, the other employees will not know what your performance is on the decode task. The
-                        Manager
-                        will only
-                        know what your realized output is, after accounting for the effect of the uncontrollable event,
-                        if
-                        any.
+                        {% if session.config.info %}
+                            Remember, your realized output, which includes the potential impact of the
+                            uncontrollable event, if any, will be shown to the Manager and with the other
+                            two employees. The other employees will know what your realized output
+                            was on the decode task.
+                        {% else %}
+                            Remember, your realized output, which includes the potential impact of the
+                            uncontrollable event, if any, will be shown to the Manager but not with the other
+                            two employees. The other employees will not know what your realized output
+                            was on the decode task.
+                        {% endif %}
                     {% else %}
                         Remember, as the Manager of the firm, your performance on the decode task will NOT affect your
                         remuneration. Working in Period 1 (but not all other periods) is only for you to understand your

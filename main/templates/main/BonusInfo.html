@@ -21,8 +21,6 @@
                     <table class="table table-hover table-striped">
                         {% with player as w %}
 
-
-
                             <tr>
                                 <td>{{ w.role_desc }} {{ w.worker_subtype }}</td>
 
@@ -34,25 +32,22 @@
                 {% else %}
 
                     <div>
-                        Based on the Manager’s bonus allocation decision, the bonus amounts for
-                        Period {{ view.round_number }} are:
+                        The allocated bonus of each employee for Period {{ view.round_number }} are shown below:
                     </div>
                     <table class="table">
+                        <tr>
+                            <th></th>
+                            <th>Bonus</th>
+                        </tr>
                         {% for w in group.get_workers %}
 
-                            <tr
-                                    class="
-{% if w.id_in_group == player.id_in_group %}
-                    font-weight-bold
-                            {% endif %}"
-                            >
-                                <td>{{ w.role_desc }} {{ w.worker_subtype }}
-                                {% if w.id_in_group == player.id_in_group %}
-                    (You)
-                            {% endif %}
+                            <tr class="{% if w.id_in_group == player.id_in_group %}font-weight-bold{% endif %}">
+                                <td>
+                                    {{ w.role_desc }} {{ w.worker_subtype }}
                                 </td>
-
-                                <td>{{ w.bonus }}</td>
+                                <td>
+                                    {{ w.bonus }}
+                                </td>
                             </tr>
 
                         {% endfor %}
@@ -71,15 +66,15 @@
                 <table class="table">
                     {% for w in group.get_workers %}
                         <tr>
-                            <td>{{ w.role_desc }} {{ w.worker_subtype }}</td>
+                            <td><b>{{ w.role_desc }} {{ w.worker_subtype }}:</b></td>
 
-                            <td>{{ w.bonus }}</td>
+                            <td><b>{{ w.bonus }}</b></td>
                         </tr>
 
                     {% endfor %}
                     <tr>
                         <td>
-                            Total Employee Bonus Allocated:
+                            <b>Total Employee Bonus Allocated:</b>
                         </td>
                         <td>
                             {{ group.total_bonus }}
@@ -87,21 +82,14 @@
                     </tr>
                 </table>
 
-                {% if session.config.secret %}
-                    <div class="alert alert-info my-3 font-weight-bold">
-                        The three employees only know their own bonus, but not the bonus amount of the other employees.
-                    </div>
-                {% else %}
-                    <div>
-                        The three employees also received the above information about the employee bonus allocation.
-                    </div>
-                {% endif %}
-
             {% endif %}
+
             <div>
                 Please click ‘Next’ when you are ready to proceed to the next screen.
             </div>
         </div>
     </div>
+
     <div class="my-3">{% next_button %}</div>
+
 {% endblock %}

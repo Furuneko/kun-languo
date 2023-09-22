@@ -223,7 +223,8 @@ class Group(BaseGroup):
         for i in self.get_workers():
             i.raw_payoff = getattr(self, f'bonus_{i.worker_subtype}')
             i.save()
-        self.set_pgg_payoffs()
+        if self.session.config['allocation_task']:
+            self.set_pgg_payoffs()
         if self.round_number == Constants.num_rounds:
             self.set_final_payoffs()
 

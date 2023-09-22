@@ -31,7 +31,7 @@
 
 - label: >-
     Suppose an employee completed 20 decodes in one period and was subject to an uncontrollable event of +3.
-    What would be the employee’s realized output for that period?
+    What would be the employee's realized output for that period?
   choices:
     - 17 decodes
     - 30 decodes
@@ -44,12 +44,35 @@
     - Only the Manager is informed of the size of the effect.
     - Only the affected employees themselves are informed of the size of the effect.
   correct: 2
-- label: The Manager will receive a higher bonus when the firm’s realized output (from all three employees) is 40 decodes than when it is 30 decodes.
+- label: "True or False: An employee's realized output equals actual performance if the employee is not affected by an uncontrollable shock."
   choices:
-    - True because the higher the total realized output, the higher the Manager’s bonus
-    - False because the Manager’s bonus is fixed and will not vary regardless of the firm’s output
+    - True
+    - False
   correct: 0
-- label: If the three employees’ combined realized output is 40 decodes in one period, the total employee bonus pool will be
+- label: Which of the following about employee performance information is true.
+  choices:
+    - Only the managers will learn about each employee's realized output.
+    - Both the manager and the employees will learn about each employee's realized output.
+    - Only the three employees will learn about one another's realized output.
+    - Employee's realized output information will not be provided to anyone.
+  treatment:
+    - info: False
+  correct: 0
+- label: Which of the following about employee performance information is true.
+  choices:
+    - Only the managers will learn about each employee's realized output.
+    - Both the manager and the employees will learn about each employee's realized output.
+    - Only the three employees will learn about one another's realized output.
+    - Employee's realized output information will not be provided to anyone.
+  treatment:
+    - info: True
+  correct: 1
+- label: The Manager will receive a higher bonus when the firm's realized output (from all three employees) is 40 decodes than when it is 30 decodes.
+  choices:
+    - True because the higher the total realized output, the higher the Manager's bonus
+    - False because the Manager's bonus is fixed and will not vary regardless of the firm's output
+  correct: 0
+- label: If the three employees' combined realized output is 40 decodes in one period, the total employee bonus pool will be
   choices:
     - 40 Liras
     - 120 Liras
@@ -59,7 +82,7 @@
     - secret: False
   correct: 1
   hint: "30% * 40 decodes * 10 Liras per decode = 120 Liras"
-- label: The higher the three employees’ combined realized output, the bigger the employee bonus pool will be
+- label: The higher the three employees' combined realized output, the bigger the employee bonus pool will be
   choices:
     - True
     - False
@@ -76,19 +99,19 @@
 - label: Which of the following about the distribution of employee bonus is true?
   choices:
     - Employees will find out the bonus allocated to EACH of the three employees.
-    - Employees will only know their own bonus amount, but not other employees’ bonus amounts.
+    - Employees will only know their own bonus amount, but not other employees' bonus amounts.
   correct: 0
   treatment:
     - secret: False
 - label: Which of the following about the distribution of employee bonus is true?
   choices:
     - Employees will find out the bonus allocated to EACH of the three employees.
-    - Employees will only know their own bonus amount, but not other employees’ bonus amounts.
+    - Employees will only know their own bonus amount, but not other employees' bonus amounts.
   correct: 1
   treatment:
     - secret: True
 
-- label: How will your payment in Liras be converted to cash, to be paid in cash or e-transferred to you, after today’s study?
+- label: How will your payment in Liras be converted to cash, to be paid in cash or e-transferred to you, after today's study?
   choices:
     - 4 Liras = $1 CAD
     - 5 Liras = $1 CAD

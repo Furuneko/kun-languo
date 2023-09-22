@@ -19,20 +19,32 @@
                 </tr>
             </table>
 
-            <div>
-                Note that the employees do not know about each other’s output nor the total output of the firm. The
-                employees do
-                not know the Manager’s bonus either.
-            </div>
+            {% if session.config.info %}
+
+                <div>
+                    Note that the employees are informed about one another’s realized
+                    output and the total output of the firm.
+                </div>
+
+            {% else %}
+
+                <div>
+                    Note that the employees do not know about each other’s
+                    realized output nor the total output of the firm.
+                </div>
+
+            {% endif %}
+
             <div>
                 {% if session.config.secret %}
 
-                    The employees will NOT find out about each other’s allocated bonus. Also, they do not know the size
-                    of the
-                    employee bonus pool.
+                    The employees will NOT find out about each other’s allocated bonus. They do not know the size
+                    of the employee bonus pool. The employees do not know the Manager’s bonus either.
 
                 {% else %}
+
                     The employees will find out about each other’s allocated bonus.
+
                 {% endif %}
             </div>
             <div>

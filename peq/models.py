@@ -42,40 +42,59 @@ AgreeParams = dict(choices=list(range(1, 8)),
 
 
 class Player(BasePlayer):
-    w1_1 = LikertField(label='1. Did your Manager allocate the employee bonus pool fairly?', **FairParams)
-    w1_2 = models.LongStringField(
-        label='2. Please explain your above opinion about the fairness of the Manager’s bonus allocation?')
+    w1_1 = LikertField(
+        label='1. I am satisfied with the amount of the bonus I received from the manager',
+        **AgreeParams
+    )
+    w1_2 = LikertField(
+        label='2. My manager treated me fairly',
+        **AgreeParams
+    )
+    w1_3 = LikertField(
+        label='3. My manager treated other employees fairly',
+        **AgreeParams
+    )
+    w1_4 = models.LongStringField(
+        label='4. Please explain your above opinion about the fairness of the Manager’s bonus allocation?',
+    )
+
     w2_1 = LikertField(
-        label='3. In my opinion, the Manager should allocate the employee bonus pool equally among the three employees.',
+        label='5. In my opinion, the Manager should allocate the employee bonus pool equally among the three employees.',
         **AgreeParams)
     w2_2 = LikertField(
-        label='4. In my opinion, the Manager should allocate the employee bonus pool mainly based on the employees’ realized output.',
+        label='6. In my opinion, the Manager should allocate the employee bonus pool mainly based on the employees’ realized output.',
         **AgreeParams
     )
-    w2_3 = LikertField(
-        label='5. In my opinion, the Manager should make adjustment for employees who are <i>positively</i> affected by the uncontrollable events.',
-        **AgreeParams
+    w2_3 = models.LongStringField(
+        label='7. If you disagree with both 5 and 6, please explain what you think should be used as basis for allocating bonuses?',
+        blank=True
     )
     w2_4 = LikertField(
-        label='6. In my opinion, the Manager should make an adjustment for employees who are <i>negatively</i> affected by the uncontrollable events',
+        label='8. In my opinion, the Manager should make adjustment for employees who are <i>positively</i> affected by the uncontrollable events.',
         **AgreeParams
     )
-    w2_5 = models.LongStringField(label="""
-    Please briefly explain your reasoning behind your response to Q6 and Q7. Specifically, if and how do you think a Manager 
-    should adjust employee bonuses considering the effect of uncontrollable events?""")
+    w2_5 = LikertField(
+        label='9. In my opinion, the Manager should make an adjustment for employees who are <i>negatively</i> affected by the uncontrollable events',
+        **AgreeParams
+    )
+    w2_6 = models.LongStringField(
+        label="""
+        Please briefly explain your reasoning behind your response to Q8 and Q9. Specifically, if and how do you think a Manager 
+        should adjust employee bonuses considering the effect of uncontrollable events?"""
+    )
+    w2_7 = models.LongStringField(
+        label="""
+        11.	Did you change your effort in response to the managers bonus allocation, 
+        please explain how and why you made the change:"""
+    )
+
     w3_1 = LikertField(
-        label="""8. Was it important to you to compare your bonuses with the other employees’ bonuses?""", **FairParams)
+        label='12.	Did the other employees in your firm put in a fair amount of effort?', **FairParams)
     w3_2 = LikertField(
-        label="""8. If you had the information, would it be important to you to compare your bonuses with the other employees’ bonuses?""",
-        **FairParams)
-    w3_3 = models.LongStringField(label="""
-    9.	If you changed your effort level on the decode task over the 8 periods, please explain how and why you made the change:""")
-    w4_1 = LikertField(
-        label='10.	Did the other employees in your firm put in a fair amount of effort?', **FairParams)
-    w4_2 = LikertField(
-        label='11.	Would you trust working with the other employees in your firm again?', **FairParams)
-    w4_3 = LikertField(
-        label='12.	Would you trust working for your Manager again?', **FairParams)
+        label='13.	Would you trust working with the other employees in your firm again?', **FairParams)
+    w3_3 = LikertField(
+        label='14.	Would you trust working for your Manager again?', **FairParams)
+
     m1_1 = models.LongStringField(label="""
     1.	What process did you use to distribute the employee bonus pool among your three employees? Please briefly explain your strategy""")
     m2_1 = LikertField(
@@ -108,15 +127,13 @@ class Player(BasePlayer):
     m4_1 = LikertField(
         label=""" a. Assign the bonus pool to best reflect the employees’ realized output?""", **FairParams)
     m4_2 = LikertField(
-        label=""" b. Assign the bonus pool to best reflect the employees’ effort?""", **FairParams)
-    m4_3 = LikertField(label="""
-       c. Assign the bonus pool to best reflect the employees’ ability?""", **FairParams)
-    m4_4 = LikertField(
-        label=' d. Assign the bonus pool in a way that I felt I was able to justify to my employees?', **FairParams)
+        label=""" b. Assign the bonus pool to best reflect the employees’ actual performance (i.e., before the effect of the uncontrollable event)?""", **FairParams)
+    m4_3 = LikertField(
+        label=' c. Assign the bonus pool in a way that I felt I was able to justify to my employees?', **FairParams)
+    m4_4 = LikertField(label="""
+       d. Assign the bonus pool in a way that best motivated employees in later periods?""", **FairParams)
     m4_5 = LikertField(label="""
-       e. Assign the bonus pool in a way that best motivated employees in later periods?""", **FairParams)
-    m4_6 = LikertField(label="""
-       f. Assign the bonus pool to avoid creating conflicts among the employees?""", **FairParams)
+       e. Assign the bonus pool to avoid creating conflicts among the employees?""", **FairParams)
     gender = models.StringField(widget=widgets.RadioSelect, label='1.	What gender do you identify most with?',
                                 choices=['a.	Male',
                                          'b.	Female',

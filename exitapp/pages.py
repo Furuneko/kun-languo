@@ -14,7 +14,7 @@ class Results(Page):
 
 class PaySlip(Page):
     form_model = 'player'
-    form_fields = ['first_name', 'last_name', 'email', 'email_confirm']
+    # form_fields = ['first_name', 'last_name', 'email', 'email_confirm']
 
     def error_message(self, values):
         email = values.get('email')

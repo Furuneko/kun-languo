@@ -10,20 +10,25 @@
     <div class="card my-3">
         <div class="card-body">
             <div class="mb-3">
-                The study administer will inform you of whether you will receive cash at
-                the end of the study or e-transfer (for other circumstances).
+                The study administrator will inform you when to pick up your cash compensation.
             </div>
-            <div>
+            {% comment %}<div>
                 E-transfer information:<br>
                 On the pay slip below, please provide your name and email address so that we can e-transfer you the
                 payment. The information is only for us to make the payment, and it will NOT be shared with others nor
                 be connected with the experiment data. We will make the payment within 5 business days.
-            </div>
+            </div>{% endcomment %}
             <div>
                 {% formfields %}
             </div>
         </div>
     </div>
-    {% next_button %}
+
+    <p>
+        Please click ‘Submit’ to Complete the Study
+    </p>
+    <p>
+        <button class="btn btn-primary otree-btn-next">Submit</button>
+    </p>
 
 {% endblock %}

@@ -8,34 +8,44 @@
 {% block instruction_body %}
 
     <li class="list-group-item">
-        Nobody, but the employees themselves, will know their <b>actual performance</b> on the decode task.
+        The <b>realized output</b> is the employee’s actual performance after adjusting for the effect
+        of the uncontrollable event (if any).
     </li>
 
-    <li class="list-group-item">
-        The employees themselves and the Manager will know their <b>realized output</b>, after adjusting for the
-        effect of the
-        uncontrollable event (if any). But the employees will NOT know each other’s realized output.
-    </li>
+    {% if session.config.info %}
+
+        <li class="list-group-item">
+            At the end of each production period of the decoding task, the <b>realized output</b> of each employee
+            will be <b>shared with the Manager and with the other two employees</b>.
+            Thus, both the Manager and the other two employees will know how you performed on the decoding task
+            after adjusting for any possible uncontrollable events.
+        </li>
+
+    {% else %}
+
+        <li class="list-group-item">
+            At the end of each production period of the decoding task, the <b>realized output</b> of each employee
+            will be <b>shared with the Manager but not with the other two employees</b>.
+            Thus, only the Manager will know how you performed on the decoding task after adjusting for
+            any possible uncontrollable events.
+        </li>
+
+    {% endif %}
 
     <li class="list-group-item">
         The Manager and all three employees will learn whether an uncontrollable event has occurred, who is
-        affected,
-        and whether the impact was positive or negative. However, only the employee who was directly
-        impacted will learn
-        the amount of the effect.
+        affected, and whether the impact was positive or negative.
+        However, only the employee who was directly impacted will learn the amount of the effect.
     </li>
 
     <li class="list-group-item">
         For example, if Employee A was negatively affected by an uncontrollable event of -4, the Manager,
-        Employee B and
-        Employee C will learn that a negative event has affected Employee A, but they will not know by how
-        much.
+        Employee B and Employee C will learn that a negative event has affected Employee A,
+        but they will not know by how much.
     </li>
 
     <li class="list-group-item">
         Please click ‘Next’ when you are ready to proceed to the next screen.
     </li>
-
-
 
 {% endblock %}

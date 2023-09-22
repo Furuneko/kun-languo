@@ -1,0 +1,35 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Bonus Allocation Decision
+{% endblock %}
+
+{% block content %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <p>
+                The realized output of each employee for Period 1 are shown below:
+            </p>
+
+            <table class="table">
+                <tr>
+                    <th></th>
+                    <th class="text-center">Realized Output</th>
+                    <th></th>
+                </tr>
+
+                {% for e in employees_info %}
+                    <tr>
+                        <td>{{ e.role_desc }} {{ e.worker_subtype }}</td>
+                        <td class="text-center">{{ e.realized_output }}</td>
+                        <td>{% if e.event %}{{ e.event }} affected by uncontrollable event{% endif %}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+    {% next_button %}
+
+{% endblock %}

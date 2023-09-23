@@ -38,7 +38,7 @@ SESSION_CONFIGS = [
     ),
     dict(
         name='transp_info',
-        display_name="Transparent + Info (baseline)",
+        display_name="Transparent + Info",
         num_demo_participants=4,
         app_sequence=app_sequence,
         task='Decoding',
@@ -51,7 +51,7 @@ SESSION_CONFIGS = [
     ),
     dict(
         name='secret_no_info',
-        display_name="Secret + No Info (baseline)",
+        display_name="Secret + No Info",
         num_demo_participants=4,
         app_sequence=app_sequence,
         task='Decoding',
@@ -64,7 +64,7 @@ SESSION_CONFIGS = [
     ),
     dict(
         name='secret_info',
-        display_name="Secret + Info (baseline)",
+        display_name="Secret + Info",
         num_demo_participants=4,
         app_sequence=app_sequence,
         task='Decoding',

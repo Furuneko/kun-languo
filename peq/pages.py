@@ -51,10 +51,7 @@ class W2(WPage):
 
 
 class W3(WPage):
-    def get_form_fields(self):
-        if self.session.config.get('secret'):
-            return ['w3_2', 'w3_3']
-        return ['w3_1', 'w3_3']
+    pass
 
 
 class W4(WPage):

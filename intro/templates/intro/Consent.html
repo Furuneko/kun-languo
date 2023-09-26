@@ -9,6 +9,8 @@
 
     {% if session.config.wilfrid_laurier_university %}
         {% include 'intro/includes/wilfrid_laurier_university_consent.html' %}
+    {% elif session.config.western_university %}
+        {% include 'intro/includes/western_university_consent.html' %}
     {% endif %}
 
     {% next_button %}

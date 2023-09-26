@@ -2,7 +2,8 @@ from os import environ
 
 EXTENSION_APPS = ['main']
 some_defaults = dict(
-    wilfrid_laurier_university=True,
+    wilfrid_laurier_university=False,
+    western_university=True,
     stage1_fee=1,
     stage2_fee=10,
     worker_share=0.3,

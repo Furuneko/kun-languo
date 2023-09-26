@@ -8,7 +8,8 @@ class Consent(Page):
     form_fields = ['consent']
 
     def is_displayed(self):
-        return self.session.config['wilfrid_laurier_university']
+        config = self.session.config
+        return config['wilfrid_laurier_university'] or config['western_university']
 
     def before_next_page(self):
         self.participant.vars['consent'] = self.player.consent

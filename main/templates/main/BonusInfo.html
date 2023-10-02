@@ -14,9 +14,9 @@
 
             {% if  player.is_worker %}
                 {% if session.config.secret %}
-                    <div> Based on the Manager’s bonus allocation decision, your bonus for
+                    <p> Based on the Manager’s bonus allocation decision, your bonus for
                         Period {{ view.round_number }} is as follows:
-                    </div>
+                    </p>
 
                     <table class="table table-hover table-striped">
                         {% with player as w %}
@@ -31,9 +31,9 @@
                     </table>
                 {% else %}
 
-                    <div>
-                        The allocated bonus of each employee for Period {{ view.round_number }} are shown below:
-                    </div>
+                    <p>
+                        The Manager has allocated the employee bonus pool for Period {{ view.round_number }} as follows:
+                    </p>
                     <table class="table">
                         <tr>
                             <th></th>

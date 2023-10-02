@@ -44,12 +44,12 @@
     - Only the Manager is informed of the size of the effect.
     - Only the affected employees themselves are informed of the size of the effect.
   correct: 2
-- label: "True or False: An employee's realized output equals actual performance if the employee is not affected by an uncontrollable shock."
+- label: "An employee's realized output equals the actual number of decodes completed if the employee is not affected by an uncontrollable event."
   choices:
     - True
     - False
   correct: 0
-- label: Which of the following about employee performance information is true.
+- label: "Which of the following about employee performance information is true?"
   choices:
     - Only the managers will learn about each employee's realized output.
     - Both the manager and the employees will learn about each employee's realized output.
@@ -58,7 +58,7 @@
   treatment:
     - info: False
   correct: 0
-- label: Which of the following about employee performance information is true.
+- label: "Which of the following about employee performance information is true?"
   choices:
     - Only the managers will learn about each employee's realized output.
     - Both the manager and the employees will learn about each employee's realized output.

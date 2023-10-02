@@ -45,8 +45,8 @@ class W2(WPage):
     def vars_for_template(self):
         return dict(
             comment="""
-            Irrespective of how the employee bonus pool was actually allocated in the experiment, please indicate the degree to which you agree with the following statements:  """
-
+            Irrespective of how the employee bonus pool was actually allocated
+            in the experiment, please indicate the degree to which you agree with the following statements:"""
         )
 
 
@@ -110,7 +110,7 @@ page_sequence = [
     W1,
     W2,
     W3,
-    W4,
+    # W4,
     M1,
     M2,
     M3,

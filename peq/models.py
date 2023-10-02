@@ -43,15 +43,15 @@ AgreeParams = dict(choices=list(range(1, 8)),
 
 class Player(BasePlayer):
     w1_1 = LikertField(
-        label='1. I am satisfied with the amount of the bonus I received from the manager',
+        label='1. I am satisfied with the amount of the bonus I received from the Manager',
         **AgreeParams
     )
     w1_2 = LikertField(
-        label='2. My manager treated me fairly',
+        label='2. My Manager treated me fairly',
         **AgreeParams
     )
     w1_3 = LikertField(
-        label='3. My manager treated other employees fairly',
+        label='3. My Manager treated other employees fairly',
         **AgreeParams
     )
     w1_4 = models.LongStringField(
@@ -70,7 +70,7 @@ class Player(BasePlayer):
         blank=True
     )
     w2_4 = LikertField(
-        label='8. In my opinion, the Manager should make adjustment for employees who are <i>positively</i> affected by the uncontrollable events.',
+        label='8. In my opinion, the Manager should make an adjustment for employees who are <i>positively</i> affected by the uncontrollable events.',
         **AgreeParams
     )
     w2_5 = LikertField(
@@ -84,7 +84,7 @@ class Player(BasePlayer):
     )
     w2_7 = models.LongStringField(
         label="""
-        11.	Did you change your effort in response to the managers bonus allocation, 
+        11.	Did you change your effort in response to the Managers' bonus allocation, 
         please explain how and why you made the change:"""
     )
 
@@ -116,10 +116,10 @@ class Player(BasePlayer):
         label="""5.	In my opinion, the Manager should allocate the employee bonus pool mainly based on the employees’ realized output.""",
         **AgreeParams)
     m3_3 = LikertField(label="""
-       6.	In my opinion, the Manager should make adjustment for employees who are <i>positively</i> affected by the uncontrollable events?""",
+       6.	In my opinion, the Manager should make an adjustment for employees who are <i>positively</i> affected by the uncontrollable events?""",
                        **AgreeParams)
     m3_4 = LikertField(
-        label='7.	In my opinion, the Manager should make adjustment for employees who are <i>negatively</i> affected by the uncontrollable events?',
+        label='7.	In my opinion, the Manager should make an adjustment for employees who are <i>negatively</i> affected by the uncontrollable events?',
         **AgreeParams)
     m3_5 = models.LongStringField(label="""
        Please briefly explain your reasoning behind your response to Q6 and Q7. Specifically, if and how do you think a 

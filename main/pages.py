@@ -220,8 +220,13 @@ class AfterAllocationWP(WaitPage):
 
 
 class ManagerExplanation(Page):
-    form_fields = ['non_equal_splitting', 'allocation_explanation']
+    # form_fields = ['non_equal_splitting', 'allocation_explanation']
     form_model = 'player'
+
+    timer_text = "Time left to complete this period:"
+
+    def get_timeout_seconds(self):
+        return self.session.config.get('working_time_sec', Constants.WORKING_TIME_SEC)
 
     def vars_for_template(self):
         return dict(prev_period=self.round_number - 1)
@@ -272,5 +277,5 @@ page_sequence = [
     BonusInfo,
     Allocation,
     AfterAllocationWP,
-    LastManagerExplanation,
+    # LastManagerExplanation,
 ]

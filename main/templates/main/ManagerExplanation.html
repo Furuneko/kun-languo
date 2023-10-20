@@ -1,19 +1,69 @@
 {% extends "global/Page.html" %}
 {% load otree static %}
 
+{% block styles %}
+    <style>
+        .otree-timer {
+            width: fit-content;
+            margin: auto;
+        }
+    </style>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        window.addEventListener('load', (e) => {
+            const timer = document.querySelector('.otree-timer'),
+                timerContainer = document.querySelector('.timer-container');
+
+            timerContainer.append(timer);
+        })
+    </script>
+{% endblock %}
+
 {% block title %}
-    Reflection on Bonus Allocation for Period {{ prev_period }}
+{#    Reflection on Bonus Allocation for Period {{ prev_period }}#}
+    Period {{ prev_period }}
 {% endblock %}
 
 {% block content %}
-    {% include 'main/includes/timer_no_autosubmit.html' %}
+{#    {% include 'main/includes/timer_no_autosubmit.html' %}#}
 
     <div class="card my-3">
         <div class="card-body">
 
             <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    Please  patiently wait for the employees in your firm to finish the next production period.
+                    Use the following timer to determine when you will be asked to make the
+                    next bonus allocation decision.
+                </li>
+
+                <li class="list-group-item timer-container">
+
+                </li>
 
                 <li class="list-group-item">
+                    For your reference in the last period, your bonus
+                    allocations from the previous period are as follows.
+                </li>
+
+                <table class="table w-50">
+                    <tr>
+                        <td></td>
+                        <td><b>Bonus</b></td>
+                    </tr>
+                    {% for w in group.get_workers %}
+                        <tr>
+                            <td>{{ w.role_desc }} {{ w.worker_subtype }}</td>
+
+                            <td>{{ w.bonus }}</td>
+                        </tr>
+
+                    {% endfor %}
+                </table>
+
+                {% comment %}<li class="list-group-item">
                     As the Manager of the firm, please answer a couple of questions while your three employees
                     complete
                     the decode task for Period {{ view.round_number }}. The period lasts 2 minutes (120 seconds).
@@ -45,13 +95,13 @@
 
                 <li class="list-group-item">
                     When you are done, please click ‘Next’ and wait for the employees to complete the Period.
-                </li>
+                </li>{% endcomment %}
             </ul>
 
         </div>
     </div>
 
 
-    <button class="  btn btn-primary">Next</button>
+{#    <button class="  btn btn-primary">Next</button>#}
 
 {% endblock %}

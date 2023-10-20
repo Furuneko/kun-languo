@@ -72,6 +72,8 @@ class Constants(BaseConstants):
 
     type_correspondence = {Role.manager: 'Manager', Role.worker: 'Employee'}
 
+    WORKING_TIME_SEC = 120
+
 
 class Subsession(BaseSubsession):
     shock_size = models.IntegerField()

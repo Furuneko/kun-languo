@@ -229,7 +229,10 @@ class ManagerExplanation(Page):
         return self.session.config.get('working_time_sec', Constants.WORKING_TIME_SEC)
 
     def vars_for_template(self):
-        return dict(prev_period=self.round_number - 1)
+        return dict(
+            prev_period=self.round_number - 1,
+            prev_group=self.group.in_round(self.round_number - 1)
+        )
 
     def js_vars(self):
         time_left = self.player.get_time_left('manager_explanation', 60 * Constants.max_minutes_manager_explanation)

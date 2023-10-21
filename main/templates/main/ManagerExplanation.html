@@ -53,7 +53,7 @@
                         <td></td>
                         <td><b>Bonus</b></td>
                     </tr>
-                    {% for w in group.get_workers %}
+                    {% for w in prev_group.get_workers %}
                         <tr>
                             <td>{{ w.role_desc }} {{ w.worker_subtype }}</td>
 

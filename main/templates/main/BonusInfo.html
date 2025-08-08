@@ -13,7 +13,7 @@
         <div class="card-body">
 
             {% if  player.is_worker %}
-                {% if session.config.secret %}
+                {% if participant.vars.treatments.pay == Constants.TREATMENT_PAY.0 %}
                     <p> Based on the Manager’s bonus allocation decision, your bonus for
                         Period {{ view.round_number }} is as follows:
                     </p>

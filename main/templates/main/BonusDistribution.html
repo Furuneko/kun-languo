@@ -19,39 +19,41 @@
                 </tr>
             </table>
 
-            {% if session.config.info %}
+            {% if participant.vars.treatments.performance == Constants.TREATMENT_PERFORMANCE.0 and participant.vars.treatments.pay == Constants.TREATMENT_PAY.1 %}
+                <div>
+                    Note that the employees do not know about each other’s
+                    realized output nor the total output of the firm.
+                </div>
+                <div>
+                    The employees will find out about each other’s allocated bonus.
+                </div>
 
+            {% elif participant.vars.treatments.performance != Constants.TREATMENT_PERFORMANCE.0 and participant.vars.treatments.pay == Constants.TREATMENT_PAY.0 %}
                 <div>
                     Note that the employees are informed about one another’s realized
                     output and the total output of the firm.
                 </div>
+                <div>
+                    The employees will NOT find out about each other’s allocated bonus. They do not know the size
+                    of the employee bonus pool. The employees do not know the Manager’s bonus either.
+                </div>
 
             {% else %}
-
                 <div>
                     Note that the employees do not know about each other’s
                     realized output nor the total output of the firm.
+                </div>
+                <div>
+                    The employees will NOT find out about each other’s allocated bonus. They do not know the size
+                    of the employee bonus pool. The employees do not know the Manager’s bonus either.
                 </div>
 
             {% endif %}
 
             <div>
-                {% if session.config.secret %}
-
-                    The employees will NOT find out about each other’s allocated bonus. They do not know the size
-                    of the employee bonus pool. The employees do not know the Manager’s bonus either.
-
-                {% else %}
-
-                    The employees will find out about each other’s allocated bonus.
-
-                {% endif %}
-            </div>
-            <div>
                 The total bonus allocated must add up to the total bonus amount of {{ group.total_bonus }}
-                Lira{{ group.total_bonus|pluralize }} (i.e.,
-                the total
-                bonus unallocated must equal 0). When you are done allocating the Bonus amount, please click ‘Submit.’
+                Lira{{ group.total_bonus|pluralize }} (i.e., the total bonus unallocated must equal 0).
+                When you are done allocating the Bonus amount, please click ‘Submit.’
             </div>
         </div>
     </div>
@@ -69,11 +71,11 @@
             </thead>
             <tbody>
             <tr v-for='i in inputs' :key='i.field_name'>
-                <td>[[i.label]]
-                </td>
-                <td>[[i.work_result]]</td>
-                <td>
+                <td>[[i.label]] </td>
 
+                <td>[[i.work_result]]</td>
+
+                <td>
                     <div class="form-group required">
                         <div class="controls ">
                             <input type="number" :name="i.name" required class="form-control"
@@ -86,16 +88,14 @@
                         </div>
                     </div>
                 </td>
-
             </tr>
-
-
 
             <tr>
                 <td>Total Output for Period {{ view.round_number }}:</td>
                 <td>{{ group.total_output }}</td>
                 <td></td>
             </tr>
+
             <tr>
                 <td>Total Bonus Available for Allocation:</td>
                 <td></td>
@@ -107,6 +107,7 @@
                 <td></td>
                 <td><span id="allocated">[[totAllocated]]</span></td>
             </tr>
+
             <tr :class="isFullyAllocated?'table-success':'table-danger'" >
                 <td>Bonus Unallocated</td>
                 <td></td>

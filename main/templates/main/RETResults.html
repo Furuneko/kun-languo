@@ -20,18 +20,27 @@
                 </li>
 
                 {% if player.is_worker %}
-                    {% if not session.config.info %}
+                    {% if participant.vars.treatments.performance == Constants.TREATMENT_PERFORMANCE.0 %}
                         <li class="list-group-item">
                             Remember, the realized output of each employee will be shown to the Manager
                             but will not be shared with the other two employees.
                         </li>
+
+                    {% else %}
+                        <li class="list-group-item">
+                            Remember, the realized output of each employee will be shown to the Manager and will be
+                            shared with the other two employees.
+                        </li>
+
                     {% endif %}
+
                 {% else %}
                     <li class="list-group-item">
                         Remember, as the Manager of the firm, your performance on the decode task will NOT affect your
                         remuneration. Working in Period 1 (but not all other periods) is only for you to understand your
                         employees’ work situation.
                     </li>
+
                 {% endif %}
 
                 <li class="list-group-item">

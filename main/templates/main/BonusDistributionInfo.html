@@ -27,7 +27,12 @@
                     <tr>
                         <td>{{ e.role_desc }} {{ e.worker_subtype }}</td>
                         <td class="text-center">{{ e.realized_output }}</td>
-                        <td>{% if e.event %}{{ e.event }} affected by uncontrollable event{% endif %}</td>
+                        <td>
+                            {% if e.event and participant.vars.treatments.performance == Constants.TREATMENT_PERFORMANCE.2 %}
+                                Affected by uncontrollable event of
+                                {% if subsession.shock_size > 0 %}+{% endif %}{{ subsession.shock_size }}
+                            {% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
             </table>

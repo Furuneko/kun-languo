@@ -108,7 +108,9 @@ class RETResults(Page):
 
 
 class ShockAnnouncement(Page):
-    pass
+    # UPDATE
+    def is_displayed(self):
+        return self.player.is_shocked or self.participant.vars['treatments']['performance'] == Constants.TREATMENT_PERFORMANCE[-1]
 
 
 class AfterWorkingRETWP(WaitPage):
@@ -121,7 +123,7 @@ class BonusDistribution(Page):
     def vars_for_template(self):
         form = self.get_form()
         workers = self.group.get_workers()
-        inputs = [dict(label=f'{w.role_desc()} {w.worker_subtype}  {w.get_shock_msg()}',
+        inputs = [dict(label=f'{w.role_desc()} {w.worker_subtype} {w.get_shock_msg()}',
                        work_result=w.realized_output,
                        name=f'bonus_{w.worker_subtype}') for w in workers
                   ]
@@ -129,7 +131,10 @@ class BonusDistribution(Page):
         return dict(form_data=zip(workers, form), inputs=inputs)
 
     def is_displayed(self):
-        return self.player.role() == Role.manager
+        participant = self.participant
+        return (self.player.role() == Role.manager and
+                (participant.vars['treatments']['performance'] == Constants.TREATMENT_PERFORMANCE[0] or
+                 participant.vars['treatments']['pay'] == Constants.TREATMENT_PAY[0]))
 
     def get_form_fields(self):
         return [f'bonus_{i}' for i in Constants.subtypes]
@@ -162,7 +167,7 @@ class BonusDistributionInfo(Page):
         )
 
     def is_displayed(self):
-        return self.player.role() == Role.worker and self.session.config.get('info')
+        return self.player.role() == Role.worker and self.participant.vars['treatments']['performance'] != Constants.TREATMENT_PERFORMANCE[0]
 
 
 class AfterBonusDistributionWP(WaitPage):

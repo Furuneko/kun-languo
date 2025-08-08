@@ -10,7 +10,20 @@
     <li class="list-group-item">
         Bonuses are related to the combined <i>realized output</i> of the three employees.
     </li>
-    {% if not session.config.secret %}
+
+    {% if participant.vars.treatments.pay == Constants.TREATMENT_PAY.0 %}
+        <li class="list-group-item">
+            The greater the total realized output (after accounting for potential uncontrollable events)
+            from
+            the three employees, the greater the employee bonus pool.
+        </li>
+
+        <li class="list-group-item">
+            The Manager then determines how to allocate the employee bonus pool and cannot keep any of the
+            employee bonus for herself.
+        </li>
+
+    {% else %}
         <li class="list-group-item">
             At the end of each period, an employee bonus pool is calculated using the following formula:
         </li>
@@ -32,18 +45,9 @@
             The Manager then determines how to allocate the employee bonus pool and cannot keep any for
             herself.
         </li>
-    {% else %}
-        <li class="list-group-item">
-            The greater the total realized output (after accounting for potential uncontrollable events)
-            from
-            the three employees, the greater the employee bonus pool.
-        </li>
 
-        <li class="list-group-item">
-            The Manager then determines how to allocate the employee bonus pool and cannot keep any of the
-            employee bonus for herself.
-        </li>
     {% endif %}
+
     <li class="list-group-item">
         Please click ‘Next’ when you are ready to proceed to the next screen.
     </li>

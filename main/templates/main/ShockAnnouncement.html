@@ -21,28 +21,35 @@
                     {{ view.round_number }}.
                 </li>
 
-                {% if player.is_shocked %}
+                <li class="list-group-item">
+                    As a result of the uncontrollable event, <b>Employee {{ subsession.shock_worker_subtype }}</b>’s
+                    realized output will be
+                    {% if subsession.shock_direction == 'positive' %}increased{% else %}decreased{% endif %}
+                    by {{ subsession.shock_size }}.
 
+                    <br>
+
+                    [SHOULD THE AFFECTED PLAYER READ "YOUR REALIZED OUTPUT...?]
+                </li>
+
+                <li class="list-group-item lead font-weight-bold text-center">
+                    [HOW DO YOU WANT TO SHOW HERE THE REALIZED OUTPUT FOR THE AFFECTED PLAYER?]
+                </li>
+
+                {% if participant.vars.treatments.performance != Constants.TREATMENT_PERFORMANCE.2 %}
                     <li class="list-group-item">
-                        You have experienced a {{ subsession.shock_direction }} uncontrollable event of
-                        <b>{{ player.shock }}</b>, such that your
-                        realized
-                        output for Period {{ view.round_number }} is now:
+                        Note that only the Manager and the affected employee know about
+                        the impact of the uncontrollable event. The other employees do NOT know who is affected or
+                        the impact of the uncontrollable event.
                     </li>
 
-                    <li class="list-group-item lead font-weight-bold text-center">
-                        {{ player.realized_output }}
+                {% else %}
+                    <li class="list-group-item">
+                        Note that everyone, including the Manager and all three employees,
+                        know who is affected and the impact of the uncontrollable event.
                     </li>
 
                 {% endif %}
-
-                <li class="list-group-item">
-                    Note that only the affected employee(s) know the size of the uncontrollable event. The Manager
-                    and
-                    the other employees only know who is affected and whether the effect is positive or negative;
-                    they
-                    do NOT know the exact size of the effect.
-                </li>
 
                 <li class="list-group-item">
                     Please click ‘Next’ when you are ready to proceed to the next screen.
@@ -54,5 +61,3 @@
     </div>
     {% next_button %}
 {% endblock %}
-
-

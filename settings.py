@@ -1,3 +1,10 @@
+# TODO:
+#  - Check ShockAnnouncement.html
+#       -> how to display realized outputs to affected Employee?
+#  - Check BonusDistribution.html
+#       -> not displayed if pay == 'Transparency' and performance in ['Partial Transparency', 'Transparency']?
+
+
 from os import environ
 
 EXTENSION_APPS = ['main']
@@ -10,9 +17,9 @@ some_defaults = dict(
     manager_share=0.1,
     pgg_coef=2,
     pgg_endowment=10,
-    err_msg="That answer was incorrect, please try again!",
+    err_msg="That anwer was incorrect, please try again!",
     corr_msg="Well done! The correct answer is:",
-    practice_time_sec=60,
+    practice_time_sec=120,
     working_time_sec=120,
     debug=True,
 )
@@ -25,109 +32,95 @@ app_sequence = [
 ]
 SESSION_CONFIGS = [
     dict(
-        name='transp_no_info',
-        display_name="Transparent + No Info (baseline)",
+        name='pay_secrecy_performance_secrecy',
+        display_name="Pay (Secrecy) + Performance (Secrecy)",
         num_demo_participants=4,
         app_sequence=app_sequence,
         task='Decoding',
         task_params={'dict_length': 10, 'task_len': 5},
         **some_defaults,
-        secret=False,
-        heterogenous=False,
-        info=False,
-        allocation_task=False
-    ),
-    dict(
-        name='transp_info',
-        display_name="Transparent + Info",
-        num_demo_participants=4,
-        app_sequence=app_sequence,
-        task='Decoding',
-        task_params={'dict_length': 10, 'task_len': 5},
-        **some_defaults,
+        pay='Secrecy',
+        performance='Secrecy',
         secret=False,
         heterogenous=False,
         info=True,
         allocation_task=False
     ),
     dict(
-        name='secret_no_info',
-        display_name="Secret + No Info",
+        name='pay_secrecy_performance_partial_transp',
+        display_name="Pay (Secrecy) + Performance (Partial Transparency)",
         num_demo_participants=4,
         app_sequence=app_sequence,
         task='Decoding',
         task_params={'dict_length': 10, 'task_len': 5},
         **some_defaults,
-        secret=True,
-        heterogenous=False,
-        info=False,
-        allocation_task=False
-    ),
-    dict(
-        name='secret_info',
-        display_name="Secret + Info",
-        num_demo_participants=4,
-        app_sequence=app_sequence,
-        task='Decoding',
-        task_params={'dict_length': 10, 'task_len': 5},
-        **some_defaults,
-        secret=True,
+        pay='Secrecy',
+        performance='Partial Transparency',
+        secret=False,
         heterogenous=False,
         info=True,
         allocation_task=False
     ),
     dict(
-        name='baseline',
-        display_name="Transparent + homogeneous (baseline)",
+        name='pay_secrecy_performance_transp',
+        display_name="Pay (Secrecy) + Performance (Transparency)",
         num_demo_participants=4,
         app_sequence=app_sequence,
         task='Decoding',
         task_params={'dict_length': 10, 'task_len': 5},
         **some_defaults,
+        pay='Secrecy',
+        performance='Transparency',
         secret=False,
         heterogenous=False,
-        info=False,
-        allocation_task=True
+        info=True,
+        allocation_task=False
     ),
     dict(
-        name='secret_homo',
-        display_name="Secret + homogeneous",
+        name='pay_transp_performance_secrecy',
+        display_name="Pay (Transparency) + Performance (Secrecy)",
         num_demo_participants=4,
         app_sequence=app_sequence,
         task='Decoding',
         task_params={'dict_length': 10, 'task_len': 5},
         **some_defaults,
-        secret=True,
+        pay='Transparency',
+        performance='Secrecy',
         heterogenous=False,
-        info=False,
-        allocation_task=True
-    ),
-    dict(
-        name='transp_hetero',
-        display_name="Transparent + heterogeneous",
-        num_demo_participants=4,
-        app_sequence=app_sequence,
-        task='Decoding',
-        task_params={'dict_length': 10, 'task_len': 5},
-        **some_defaults,
         secret=False,
-        heterogenous=True,
         info=False,
-        allocation_task=True
+        allocation_task=False
     ),
     dict(
-        name='secret_hetero',
-        display_name="Secret + heterogeneous",
+        name='pay_transp_performance_partial_transp',
+        display_name="Pay (Transparency) + Performance (Partial Transparency)",
         num_demo_participants=4,
         app_sequence=app_sequence,
         task='Decoding',
         task_params={'dict_length': 10, 'task_len': 5},
         **some_defaults,
-        secret=True,
-        heterogenous=True,
+        pay='Transparency',
+        performance='Partial Transparency',
+        heterogenous=False,
+        secret=False,
         info=False,
-        allocation_task=True
+        allocation_task=False
     ),
+    dict(
+        name='pay_transp_performance_transp',
+        display_name="Pay (Transparency) + Performance (Transparency)",
+        num_demo_participants=4,
+        app_sequence=app_sequence,
+        task='Decoding',
+        task_params={'dict_length': 10, 'task_len': 5},
+        **some_defaults,
+        pay='Transparency',
+        performance='Transparency',
+        secret=False,
+        heterogenous=False,
+        info=True,
+        allocation_task=False
+    )
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
@@ -136,8 +129,8 @@ SESSION_CONFIGS = [
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=.25,
-    participation_fee=12.00,
+    real_world_currency_per_point=.20,
+    participation_fee=5.00,
     doc="",
     use_browser_bots=False
 )

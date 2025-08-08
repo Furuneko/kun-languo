@@ -15,7 +15,7 @@ class Consent(Page):
         self.participant.vars['consent'] = self.player.consent
 
     def app_after_this_page(self, upcoming_apps):
-        if not self.player.consent:
+        if not self.player.consent and not self.session.config.get('debug'):
             return upcoming_apps[-1]
 
 

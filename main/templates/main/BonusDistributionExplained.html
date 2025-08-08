@@ -7,20 +7,7 @@
 
 {% block instruction_body %}
 
-    {% if not session.config.secret %}
-
-        <li class="list-group-item">
-            To allocate the bonus, the Manager enters the bonus amount for each employee. The sum of the three bonuses
-            must equal the employee bonus pool total and no employee can receive less than zero.
-        </li>
-
-        <li class="list-group-item">
-            Each employee will learn about their own bonus amount. Each employee <b>will be informed</b>
-            of the bonuses received by the other employees.
-        </li>
-
-    {% else %}
-
+    {% if participant.vars.treatments.pay == Constants.TREATMENT_PAY.0 %}
         <li class="list-group-item">
             To allocate the bonus, the Manager enters the bonus amount for each employee. The sum of the three bonuses
             must equal the employee bonus pool total and no employee can receive less than zero.
@@ -33,6 +20,17 @@
 
         <li class="list-group-item">
             Only the Manager, but NOT the employees, will know the size of the employee bonus pool.
+        </li>
+
+    {% else %}
+        <li class="list-group-item">
+            To allocate the bonus, the Manager enters the bonus amount for each employee. The sum of the three bonuses
+            must equal the employee bonus pool total and no employee can receive less than zero.
+        </li>
+
+        <li class="list-group-item">
+            Each employee will learn about their own bonus amount. Each employee <b>will be informed</b>
+            of the bonuses received by the other employees.
         </li>
 
     {% endif %}

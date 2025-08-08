@@ -74,6 +74,9 @@ class Constants(BaseConstants):
 
     WORKING_TIME_SEC = 120
 
+    TREATMENT_PAY = ['Secrecy', 'Transparency']
+    TREATMENT_PERFORMANCE = ['Secrecy', 'Partial Transparency', 'Transparency']
+
 
 class Subsession(BaseSubsession):
     shock_size = models.IntegerField()
@@ -88,9 +91,26 @@ class Subsession(BaseSubsession):
         self.shock_size = int(shock.size)
         self.shock_worker_subtype = shock.worker_subtype
         if self.round_number == 1:
+
+            # UPDATE: health checks
+            session = self.session
+            if session.config.get('pay') not in Constants.TREATMENT_PAY:
+                raise ValueError('''Configuration variable "pay" can only take one of the following values:
+                Secrecy, Transparency
+                ''')
+            if session.config.get('performance') not in Constants.TREATMENT_PERFORMANCE:
+                raise ValueError('''Configuration variable "pay" can only take one of the following values:
+                Secrecy, Partial Transparency, Transparency
+                ''')
+
             qs = []
 
             for p in self.get_players():
+                participant = p.participant
+                participant.vars['treatments'] = {}
+                participant.vars['treatments']['pay'] = session.config.get('pay', Constants.TREATMENT_PAY[0])
+                participant.vars['treatments']['performance'] = session.config.get('performance', Constants.TREATMENT_PERFORMANCE[0])
+
                 for q in Constants.cqs:
                     treatment = q.get('treatment')
                     # we kinda assume here that the condition is stable within a session. so this can be sped up a bit
@@ -129,7 +149,8 @@ class Subsession(BaseSubsession):
         9. we assign new group matrix
         """
 
-        is_heterogeneous = self.session.config.get('heterogenous', False)
+        # UPDATE
+        # is_heterogeneous = self.session.config.get('heterogenous', False)
 
         players = self.get_players()
         q = sorted(players, key=lambda x: x.participant.vars.get('_num_tasks_correct', 0), reverse=True)
@@ -157,13 +178,18 @@ class Subsession(BaseSubsession):
         Player.objects.bulk_update(managers + workers, ['inner_role'])
 
         num_workers = 3
+
+        # UPDATE: Randomly assign workers to groups
+        random.shuffle(workers)
+        chunked_workers = list(chunks(workers, num_workers))
+
         # Set groups of workers based on treatment
-        if is_heterogeneous:
-            # Heterogeneous condition
-            chunked_workers = list(chunks_hetero(workers, num_workers))
-        else:
-            # Homogenous condition
-            chunked_workers = list(chunks(workers, num_workers))
+        # if is_heterogeneous:
+        #     # Heterogeneous condition
+        #     chunked_workers = list(chunks_hetero(workers, num_workers))
+        # else:
+        #     # Homogenous condition
+        #     chunked_workers = list(chunks(workers, num_workers))
 
         updworkers = []
         for i in chunked_workers:
@@ -287,8 +313,8 @@ class Player(RETPlayer):
     def get_shock_msg(self):
         if not self.is_shocked:
             return ''
-        direction  = 'positively' if self.shock >0 else 'negatively'
-        return f'({direction} affected by uncontrollable event)'
+        shock = f'+{self.shock}' if self.shock > 0 else self.shock
+        return f' (affected by uncontrollable event of {shock})'
 
     @property
     def is_shocked(self):

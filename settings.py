@@ -1,8 +1,7 @@
 # TODO:
 #  - Check ShockAnnouncement.html
-#       -> how to display realized outputs to affected Employee?
-#  - Check BonusDistribution.html
-#       -> not displayed if pay == 'Transparency' and performance in ['Partial Transparency', 'Transparency']?
+#       -> how to display realized outputs to affected Employee? For affected E, sentence is ", you realized..., such that..."
+#                                                                For not affected E in Full Transparency, ", E' realized..., such that..."
 
 
 from os import environ

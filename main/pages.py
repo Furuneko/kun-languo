@@ -4,7 +4,7 @@ from .models import Constants, Role
 from qualifier.pages import RET
 from django.db.models import Sum
 
-
+#
 class FirstPage(Page):
     def is_displayed(self):
         return self.round_number == 1
@@ -132,9 +132,7 @@ class BonusDistribution(Page):
 
     def is_displayed(self):
         participant = self.participant
-        return (self.player.role() == Role.manager and
-                (participant.vars['treatments']['performance'] == Constants.TREATMENT_PERFORMANCE[0] or
-                 participant.vars['treatments']['pay'] == Constants.TREATMENT_PAY[0]))
+        return self.player.role() == Role.manager
 
     def get_form_fields(self):
         return [f'bonus_{i}' for i in Constants.subtypes]

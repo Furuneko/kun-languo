@@ -43,26 +43,26 @@ AgreeParams = dict(choices=list(range(1, 8)),
 
 class Player(BasePlayer):
     w1_1 = LikertField(
-        label='1. I am satisfied with the amount of the bonus I received from the Manager',
+        label='1. I am satisfied with the bonus allocated by my Manager',
         **AgreeParams
     )
     w1_2 = LikertField(
-        label='2. My Manager treated me fairly',
+        label='2. Overall, I trust my Manager',
         **AgreeParams
     )
     w1_3 = LikertField(
-        label='3. My Manager treated other employees fairly',
+        label='3. My Manager allocated the bonus fairly',
         **AgreeParams
     )
     w1_4 = models.LongStringField(
-        label='4. Please explain your above opinion about the fairness of the Manager’s bonus allocation?',
+        label='4. Explain your opinions above about the Manager.',
     )
 
     w2_1 = LikertField(
-        label='5. In my opinion, the Manager should allocate the employee bonus pool equally among the three employees.',
+        label='5. Equally among the three employees.',
         **AgreeParams)
     w2_2 = LikertField(
-        label='6. In my opinion, the Manager should allocate the employee bonus pool mainly based on the employees’ realized output.',
+        label='6. Mainly based on the employees’ realized output.',
         **AgreeParams
     )
     w2_3 = models.LongStringField(
@@ -70,11 +70,11 @@ class Player(BasePlayer):
         blank=True
     )
     w2_4 = LikertField(
-        label='8. In my opinion, the Manager should make an adjustment for employees who are <i>positively</i> affected by the uncontrollable events.',
+        label='8. Adjust for <i>negative</i> uncontrollable event.',
         **AgreeParams
     )
     w2_5 = LikertField(
-        label='9. In my opinion, the Manager should make an adjustment for employees who are <i>negatively</i> affected by the uncontrollable events',
+        label='9. Adjust for <i>positive</i> uncontrollable event.',
         **AgreeParams
     )
     w2_6 = models.LongStringField(
@@ -110,20 +110,19 @@ class Player(BasePlayer):
          should adjust for uncontrollable events when allocating bonuses? If your answer is lower than 4, 
          why do you think the Manager should not adjust for uncontrollable events when allocating bonuses?""")
     m3_1 = LikertField(
-        label="""4.	In my opinion, the Manager should allocate the employee bonus pool equally among the three employees""",
+        label="""4.	I am satisfied with the work done by the other two employees.""",
         **AgreeParams)
     m3_2 = LikertField(
-        label="""5.	In my opinion, the Manager should allocate the employee bonus pool mainly based on the employees’ realized output.""",
+        label="""5.	Overall, I trust the other two employees.""",
         **AgreeParams)
-    m3_3 = LikertField(label="""
-       6.	In my opinion, the Manager should make an adjustment for employees who are <i>positively</i> affected by the uncontrollable events?""",
+    m3_3 = LikertField(label="""6. The other two employees put in a fair amount of effort.""",
                        **AgreeParams)
     m3_4 = LikertField(
         label='7.	In my opinion, the Manager should make an adjustment for employees who are <i>negatively</i> affected by the uncontrollable events?',
         **AgreeParams)
-    m3_5 = models.LongStringField(label="""
-       Please briefly explain your reasoning behind your response to Q6 and Q7. Specifically, if and how do you think a 
-       Manager should make bonus adjustments considering the effect of uncontrollable events?""")
+    # m3_5 = models.LongStringField(label="""
+    #    Please briefly explain your reasoning behind your response to Q6 and Q7. Specifically, if and how do you think a
+    #    Manager should make bonus adjustments considering the effect of uncontrollable events?""")
     m4_1 = LikertField(
         label=""" a. Assign the bonus pool to best reflect the employees’ realized output?""", **FairParams)
     m4_2 = LikertField(

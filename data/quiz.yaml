@@ -41,7 +41,17 @@
     - Only Employee A.
     - The Manager and Employee A.
   treatment:
-    - performance: not 'Transparency'
+    - performance: 'Partial Transparency'
+  correct: 3
+
+- label: If a positive uncontrollable event of +3 occurs and affects Employee A, who will find out about this?
+  choices:
+    - The Manager, Employee A, Employee B and Employee C.
+    - Only the Manager.
+    - Only Employee A.
+    - The Manager and Employee A.
+  treatment:
+    - performance: 'Secrecy'
   correct: 3
 
 - label: "An employee's realized output equals the actual number of decodes completed if the employee is not affected by an uncontrollable event."
@@ -67,7 +77,17 @@
     - Only the three employees will learn about one another's realized output.
     - Employee's realized output information will not be provided to anyone.
   treatment:
-    - performance: not 'Secrecy'
+    - performance: 'Partial Transparency'
+  correct: 1
+
+- label: "Which of the following about employee performance information is true?"
+  choices:
+    - Only the managers will learn about each employee's realized output.
+    - Both the manager and the employees will learn about each employee's realized output.
+    - Only the three employees will learn about one another's realized output.
+    - Employee's realized output information will not be provided to anyone.
+  treatment:
+    - performance: 'Transparency'
   correct: 1
 
 - label: The Manager will receive a higher bonus when the firm's realized output (from all three employees) is 40 decodes than when it is 30 decodes.

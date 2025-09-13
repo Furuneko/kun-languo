@@ -38,7 +38,10 @@ class WPage(GenPage):
 
 
 class W1(WPage):
-    pass
+    def vars_for_template(self):
+        c = super().vars_for_template()
+        c['q_lead'] = 'Indicate your agreement with the following statements about your Manager in Stage 2.'
+        return c
 
 
 class W2(WPage):
@@ -46,7 +49,8 @@ class W2(WPage):
         return dict(
             comment="""
             Irrespective of how the employee bonus pool was actually allocated
-            in the experiment, please indicate the degree to which you agree with the following statements:"""
+            in the experiment, please indicate the degree to which you agree with the following statements.""",
+            q_lead='In your opinion, how SHOULD the Manager allocate the employee bonus pool?'
         )
 
 
@@ -72,7 +76,10 @@ class M2(MPage):
 
 
 class M3(MPage):
-    pass
+    def vars_for_template(self):
+        c = super().vars_for_template()
+        c['q_lead'] = 'Indicate your agreement with the following statements about your coworkers in Stage 2.'
+        return c
 
 
 class M4(MPage):

@@ -40,8 +40,8 @@ SESSION_CONFIGS = [
         **some_defaults,
         pay='Secrecy',
         performance='Secrecy',
-        secret=False,
-        heterogenous=False,
+        # secret=False,
+        # heterogenous=False,
         info=True,
         allocation_task=False
     ),
@@ -55,8 +55,8 @@ SESSION_CONFIGS = [
         **some_defaults,
         pay='Secrecy',
         performance='Partial Transparency',
-        secret=False,
-        heterogenous=False,
+        # secret=False,
+        # heterogenous=False,
         info=True,
         allocation_task=False
     ),
@@ -70,8 +70,8 @@ SESSION_CONFIGS = [
         **some_defaults,
         pay='Secrecy',
         performance='Transparency',
-        secret=False,
-        heterogenous=False,
+        # secret=False,
+        # heterogenous=False,
         info=True,
         allocation_task=False
     ),
@@ -85,8 +85,8 @@ SESSION_CONFIGS = [
         **some_defaults,
         pay='Transparency',
         performance='Secrecy',
-        heterogenous=False,
-        secret=False,
+        # heterogenous=False,
+        # secret=False,
         info=False,
         allocation_task=False
     ),
@@ -100,8 +100,8 @@ SESSION_CONFIGS = [
         **some_defaults,
         pay='Transparency',
         performance='Partial Transparency',
-        heterogenous=False,
-        secret=False,
+        # heterogenous=False,
+        # secret=False,
         info=False,
         allocation_task=False
     ),
@@ -115,8 +115,8 @@ SESSION_CONFIGS = [
         **some_defaults,
         pay='Transparency',
         performance='Transparency',
-        secret=False,
-        heterogenous=False,
+        # secret=False,
+        # heterogenous=False,
         info=True,
         allocation_task=False
     )
@@ -128,7 +128,7 @@ SESSION_CONFIGS = [
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=.20,
+    real_world_currency_per_point=.25,
     participation_fee=5.00,
     doc="",
     use_browser_bots=False
@@ -139,7 +139,7 @@ SESSION_CONFIG_DEFAULTS = dict(
 LANGUAGE_CODE = 'en'
 
 # e.g. EUR, GBP, CNY, JPY
-REAL_WORLD_CURRENCY_CODE = 'CDN'
+REAL_WORLD_CURRENCY_CODE = 'CAD'
 USE_POINTS = True
 POINTS_CUSTOM_NAME='Liras'
 

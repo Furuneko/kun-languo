@@ -110,7 +110,7 @@ class RETResults(Page):
 class ShockAnnouncement(Page):
     # UPDATE
     def is_displayed(self):
-        return self.player.is_shocked or self.participant.vars['treatments']['performance'] == Constants.TREATMENT_PERFORMANCE[-1]
+        return (self.player.is_shocked or not self.player.is_worker) and self.participant.vars['treatments']['performance'] == Constants.TREATMENT_PERFORMANCE[-1]
 
 
 class AfterWorkingRETWP(WaitPage):

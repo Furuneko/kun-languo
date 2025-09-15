@@ -22,18 +22,17 @@
                 </li>
 
                 <li class="list-group-item">
-                    As a result of the uncontrollable event, <b>Employee {{ subsession.shock_worker_subtype }}</b>’s
+                    As a result of the uncontrollable event,
+
+                    {% if not is_shocked %}
+                        <b>Employee {{ subsession.shock_worker_subtype }}</b>’s
+                    {% else %}
+                        your
+                    {% endif %}
+
                     realized output will be
                     {% if subsession.shock_direction == 'positive' %}increased{% else %}decreased{% endif %}
-                    by {{ subsession.shock_size }}.
-
-                    <br>
-
-                    [SHOULD THE AFFECTED PLAYER READ "YOUR REALIZED OUTPUT...?]
-                </li>
-
-                <li class="list-group-item lead font-weight-bold text-center">
-                    [HOW DO YOU WANT TO SHOW HERE THE REALIZED OUTPUT FOR THE AFFECTED PLAYER?]
+                    by {{ subsession.shock_size }} from {{ correct_ret_tasks|pluralize }}.
                 </li>
 
                 {% if participant.vars.treatments.performance != Constants.TREATMENT_PERFORMANCE.2 %}
@@ -45,10 +44,9 @@
 
                 {% else %}
                     <li class="list-group-item">
-                        Note that everyone, including the Manager and all three employees,
-                        know who is affected and the impact of the uncontrollable event.
+                        Note that the Manager and all the employees know about
+                        the impact of the uncontrollable event.
                     </li>
-
                 {% endif %}
 
                 <li class="list-group-item">

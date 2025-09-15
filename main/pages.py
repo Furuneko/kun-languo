@@ -108,9 +108,15 @@ class RETResults(Page):
 
 
 class ShockAnnouncement(Page):
+    def vars_for_template(self):
+        return dict(
+            correct_ret_tasks=self.player.num_tasks_correct(page_name='WorkingRET'),
+            is_shocked=self.player.is_shocked
+        )
+
     # UPDATE
     def is_displayed(self):
-        return (self.player.is_shocked or not self.player.is_worker) and self.participant.vars['treatments']['performance'] == Constants.TREATMENT_PERFORMANCE[-1]
+        return self.player.is_shocked or not self.player.is_worker or self.participant.vars['treatments']['performance'] == Constants.TREATMENT_PERFORMANCE[-1]
 
 
 class AfterWorkingRETWP(WaitPage):

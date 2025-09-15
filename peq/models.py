@@ -117,9 +117,9 @@ class Player(BasePlayer):
         **AgreeParams)
     m3_3 = LikertField(label="""6. The other two employees put in a fair amount of effort.""",
                        **AgreeParams)
-    m3_4 = LikertField(
-        label='7.	In my opinion, the Manager should make an adjustment for employees who are <i>negatively</i> affected by the uncontrollable events?',
-        **AgreeParams)
+    # m3_4 = LikertField(
+    #     label='7.	In my opinion, the Manager should make an adjustment for employees who are <i>negatively</i> affected by the uncontrollable events?',
+    #     **AgreeParams)
     # m3_5 = models.LongStringField(label="""
     #    Please briefly explain your reasoning behind your response to Q6 and Q7. Specifically, if and how do you think a
     #    Manager should make bonus adjustments considering the effect of uncontrollable events?""")

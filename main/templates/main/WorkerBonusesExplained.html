@@ -11,7 +11,7 @@
         Bonuses are related to the combined <i>realized output</i> of the three employees.
     </li>
 
-    {% if participant.vars.treatments.pay == Constants.TREATMENT_PAY.0 %}
+    {% if participant.vars.treatments.pay == Constants.TREATMENT_PAY.0 and player.is_worker %}
         <li class="list-group-item">
             The greater the total realized output (after accounting for potential uncontrollable events)
             from the three employees, the greater the employee bonus pool.

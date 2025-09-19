@@ -32,7 +32,7 @@
 
                     realized output will be
                     {% if subsession.shock_direction == 'positive' %}increased{% else %}decreased{% endif %}
-                    by {{ subsession.shock_size }} from {{ correct_ret_tasks|pluralize }}.
+                    by {{ subsession.shock_size }} from {{ correct_ret_tasks }}.
                 </li>
 
                 {% if participant.vars.treatments.performance != Constants.TREATMENT_PERFORMANCE.2 %}

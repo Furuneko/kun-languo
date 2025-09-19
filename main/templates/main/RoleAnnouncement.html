@@ -19,13 +19,16 @@
     </li>
     {% if player.is_worker %}
         <li class="list-group-item">
-            {% if session.config.heterogenous %}
+            To properly distinguish you from the other employees, you have been randomly
+            assigned a letter <b>{{ player.worker_subtype }}</b>.
+
+            {% comment %}{% if session.config.heterogenous %}
                 Further, based on your performance rank, you are assigned the role of Employee
                 <b>{{ player.worker_subtype }}</b>.
             {% else %}
                 To properly distinguish you from the other employees, you have been randomly
                 assigned a letter <b>{{ player.worker_subtype }}</b>.
-            {% endif %}
+            {% endif %}{% endcomment %}
         </li>
     {% endif %}
     <li class="list-group-item">

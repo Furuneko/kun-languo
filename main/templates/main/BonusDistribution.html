@@ -19,25 +19,18 @@
                 </tr>
             </table>
 
+            <div>
+                Note that the employees do not know about each other’s realized output nor the total output of the firm.
+            </div>
+            <div>
             {% if participant.vars.treatments.pay == Constants.TREATMENT_PAY.1 %}
-                <div>
-                    Note that the employees do not know about each other’s realized output nor the total output of the firm.
-                </div>
-                <div>
                     The employees will find out about each other’s allocated bonus. They will also know the size of the employee bonus pool.
-                    The employees do not know the Manager’s bonus.
-                </div>
-
             {% else %}
-                <div>
-                    Note that the employees do not know about each other’s realized output nor the total output of the firm.
-                </div>
-                <div>
                     The employees will NOT find out each other’s allocated bonus. They do not know the size of the employee bonus pool.
-                    The employees do not know the Manager’s bonus either.
-                </div>
-
             {% endif %}
+
+                The employees do not know the Manager’s bonus.
+            </div>
 
             <div>
                 The total bonus allocated must add up to the total bonus amount of {{ group.total_bonus }}

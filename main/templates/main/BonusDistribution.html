@@ -17,26 +17,43 @@
                     <td> The total employee bonus to be allocated among the three employees is:</td>
                     <th> {{ group.total_bonus }} </th>
                 </tr>
+                <tr>
+                    <td colspan="2">
+                        {% if participant.vars.treatments.performance == Constants.TREATMENT_PERFORMANCE.0 %}
+                            <div>
+                                Note that the employees do not know about each other’s realized output nor the total output of the firm.
+                            </div>
+                        {% elif participant.vars.treatments.performance == Constants.TREATMENT_PERFORMANCE.1 %}
+                            <div>
+                                Note that the employees will know about each other’s realized output.
+                            </div>
+                        {% else %}
+                            <div>
+                                Note that the employees will know about each other’s realized output. They will also know about the impact of the uncontrollable event, if any.
+                            </div>
+                        {% endif %}
+                        <div>
+                        {% if participant.vars.treatments.pay == Constants.TREATMENT_PAY.1 %}
+                                The employees will find out about each other’s allocated bonus. They will also know the size of the employee bonus pool.
+                        {% else %}
+                                The employees will NOT find out each other’s allocated bonus. They do not know the size of the employee bonus pool.
+                        {% endif %}
+
+                            The employees do not know the Manager’s bonus.
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="2">
+                        <div>
+                            The total bonus allocated must add up to the total bonus amount of {{ group.total_bonus }}
+                            Lira{{ group.total_bonus|pluralize }} (i.e., the total bonus unallocated must equal 0).
+                            When you are done allocating the Bonus amount, please click ‘Submit.’
+                        </div>
+                    </td>
+                </tr>
             </table>
 
-            <div>
-                Note that the employees do not know about each other’s realized output nor the total output of the firm.
-            </div>
-            <div>
-            {% if participant.vars.treatments.pay == Constants.TREATMENT_PAY.1 %}
-                    The employees will find out about each other’s allocated bonus. They will also know the size of the employee bonus pool.
-            {% else %}
-                    The employees will NOT find out each other’s allocated bonus. They do not know the size of the employee bonus pool.
-            {% endif %}
-
-                The employees do not know the Manager’s bonus.
-            </div>
-
-            <div>
-                The total bonus allocated must add up to the total bonus amount of {{ group.total_bonus }}
-                Lira{{ group.total_bonus|pluralize }} (i.e., the total bonus unallocated must equal 0).
-                When you are done allocating the Bonus amount, please click ‘Submit.’
-            </div>
         </div>
     </div>
 

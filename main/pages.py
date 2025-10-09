@@ -109,8 +109,10 @@ class RETResults(Page):
 
 class ShockAnnouncement(Page):
     def vars_for_template(self):
+        p_shocked = [p for p in self.group.get_players() if p.is_shocked]
+        correct_ret_tasks = p_shocked[0].num_tasks_correct(page_name='Shock') if p_shocked else 0
         return dict(
-            correct_ret_tasks=self.player.num_tasks_correct(page_name='WorkingRET'),
+            correct_ret_tasks=correct_ret_tasks,
             is_shocked=self.player.is_shocked
         )
 

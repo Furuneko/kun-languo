@@ -55,7 +55,10 @@ class W2(WPage):
 
 
 class W3(WPage):
-    pass
+    def vars_for_template(self):
+        c = super().vars_for_template()
+        c['q_lead'] = 'Indicate your agreement with the following statements about your coworkers in Stage 2.'
+        return c
 
 
 class W4(WPage):
@@ -78,18 +81,15 @@ class M2(MPage):
 class M3(MPage):
     def vars_for_template(self):
         c = super().vars_for_template()
-        c['q_lead'] = 'Indicate your agreement with the following statements about your coworkers in Stage 2.'
+        c['q_lead'] = ''
+        c['comment'] = """When you were allocating the employee bonus pool, to what extent did you 
+        try to do the following?"""
+
         return c
 
 
 class M4(MPage):
-    def vars_for_template(self):
-        c = super().vars_for_template()
-        c['q_lead'] = ''
-        c['comment'] = """When you were allocating the employee bonus pool, to what extend did you 
-        try to do the following?"""
-
-        return c
+    pass
 
 
 class Demo1(GenPage):

@@ -54,7 +54,7 @@
     - performance: 'Secrecy'
   correct: 3
 
-- label: "An employee's realized output equals the actual number of decodes completed if the employee is not affected by an uncontrollable event."
+- label: If an employee is <i>not</i> affected by any uncontrollable event, this employee's <i>realized output</i> will equal the actual number of decodes completed.
   choices:
     - True
     - False
@@ -136,7 +136,7 @@
   treatment:
     - pay: 'Secrecy'
 
-- label: How will your payment in Liras be converted to cash, to be paid in cash or e-transferred to you, after today's study?
+- label: How will your payment in Liras be converted to cash, to be paid in cash to you, after today's study?
   choices:
     - 4 Liras = $1 CAD
     - 5 Liras = $1 CAD

@@ -102,6 +102,20 @@
     - 120 Liras
     - 100 Liras
     - Not enough information to determine the bonus pool
+  treatment:
+    - pay: 'Transparency'
+  correct: 1
+  hint: "30% * 40 decodes * 10 Liras per decode = 120 Liras"
+
+- label: If the three employees' combined realized output is 40 decodes in one period, the total employee bonus pool will be
+  choices:
+    - 40 Liras
+    - 120 Liras
+    - 100 Liras
+    - Not enough information to determine the bonus pool
+  treatment:
+    - pay: 'Secrecy'
+  role: 'manager'
   correct: 1
   hint: "30% * 40 decodes * 10 Liras per decode = 120 Liras"
 

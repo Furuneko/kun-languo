@@ -10,7 +10,7 @@ from otree.api import (
 )
 import enum
 from otree.models import Participant
-from django.db.models import Count, Sum
+from django.db.models import Count, Sum, Q
 from django.db import models as djmodels
 from itertools import cycle
 import random
@@ -125,6 +125,7 @@ class Subsession(BaseSubsession):
                                      choices=json.dumps(q.get('choices')),
                                      correct=q.get('correct'),
                                      hint=q.get('hint'),
+                                     role=q.get('role'),
                                      owner=p
                                      )
                                   )
@@ -338,7 +339,8 @@ class Player(RETPlayer):
         return self.inner_role
 
     def get_quiz_url(self):
-        available_q = self.cqs.filter(answer__isnull=True).first()
+        # Skip question if role is neither None nor Employee
+        available_q = self.cqs.filter(answer__isnull=True).filter(Q(role__isnull=True) | Q(role=self.inner_role)).first()
 
         if not available_q:
             return reverse('no_more_cqs', kwargs=dict(participant_code=self.participant.code))
@@ -375,6 +377,7 @@ class CQ(djmodels.Model):
     correct = models.IntegerField()
     explained = models.BooleanField(initial=False)
     hint = models.StringField()
+    role = models.StringField()
 
     def get_absolute_url(self):
         return reverse('single_quiz_question', args=[str(self.id)])

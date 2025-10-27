@@ -20,7 +20,7 @@ some_defaults = dict(
     corr_msg="Well done! The correct answer is:",
     practice_time_sec=120,
     working_time_sec=120,
-    debug=True,
+    debug=False,
 )
 app_sequence = [
     'intro',
